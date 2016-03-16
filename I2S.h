@@ -265,6 +265,11 @@ public:
 
 private:
 
+void _set_clock_112896(void);
+void _set_clock_122800(void);
+void _i2s_init(void);
+void _i2s_set_rate(int smprate);
+
     void mclk_enable(bool mclk_en);
 
     void write_registers();

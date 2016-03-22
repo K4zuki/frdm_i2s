@@ -26,7 +26,7 @@
 * @section DESCRIPTION
 *    A I2S library for the LPC1768's built-in I2S peripheral
 *
-*/ 
+*/
 
 #include "mbed.h"
 #include "math.h"
@@ -58,7 +58,7 @@ class I2S
 public:
 
     /** Create a I2S instance
-     * 
+     *
      * @param rxtx     Set the I2S instance to be transmit or recieve (I2S_TRANSMIT/I2S_RECEIVE)
      * @param sd    The serial data pin
      * @param ws    The word select pin
@@ -67,33 +67,33 @@ public:
     I2S(bool rxtx, PinName sd, PinName ws, PinName clk);
 
     /** Create a I2S instance: Only with the serial data line set. Won't really do much.
-     * 
+     *
      * @param rxtx     Set the I2S instance to be transmit or recieve (I2S_TRANSMIT/I2S_RECEIVE)
      * @param sd    The serial data pin
      */
     I2S(bool rxtx, PinName sd);
 
-    
-    /** Create a I2S instance: Only with serial data line and word select. 
-     * 
+
+    /** Create a I2S instance: Only with serial data line and word select.
+     *
      * @param rxtx     Set the I2S instance to be transmit or recieve (I2S_TRANSMIT/I2S_RECEIVE)
      * @param sd    The serial data pin
      * @param ws    The word select pin
      */
     I2S(bool rxtx, PinName sd, PinName ws);
-    
-    
-    
+
+
+
     /** Create a I2S instance: Only with serial data line. Four wire mode means this is functional
-     * 
+     *
      * @param rxtx     Set the I2S instance to be transmit or recieve (I2S_TRANSMIT/I2S_RECEIVE)
      * @param sd    The serial data pin
      * @param fourwiremode True means the peripheral is in 4-wire mode. It borrows WS and CLK from the other half
      */
     I2S(bool rxtx, PinName sd, bool fourwiremode);
-    
+
     /** Create a I2S instance: Only with serial data line and word select line. Four wire mode means this is functional
-     * 
+     *
      * @param rxtx     Set the I2S instance to be transmit or recieve (I2S_TRANSMIT/I2S_RECEIVE)
      * @param sd    The serial data pin
      * @param ws    The word select pin
@@ -106,39 +106,39 @@ public:
     ~I2S();
 
     /** Write to the FIFO
-     * 
+     *
      * @param buf[] The buffer of values to write: are bit stuffed in fours
      * @param len    The number of chars to write
      */
     void write(char buf[], int len);
 
     /** Write to the FIFO
-     * 
+     *
      * @param buf[] The buffer of values to write: are bit stuffed automatically
      * @param len    The number of chars to write
      */
     void write(int buf[], int len);
 
     /** Read the FIFOs contents
-     * 
+     *
      * @return The buffers value.
      */
     int read();
 
     /** Read from the FIFO
-     * 
+     *
      * @param buf[] The buffer of values to read: raw bit shifted
      * @param len    The number of chars to read
      */
     void read(char buf[], int len);
 
     /** Read from the FIFO
-     * 
+     *
      * @param buf[] The buffer of values to read: sorted to just values
      * @param len    The number of chars to read
      */
     void read(int buf[], int len);
-    
+
     /** Get the maximum number of points of data the FIFO could store
      *
      * @return The number of points
@@ -167,7 +167,7 @@ public:
      * @param freq The frequency desired for the mclk
      */
     void mclk_freq(int freq);
-    
+
     /** Define the sample rate
      *
      * @param freq The desired sample rate frequency
@@ -300,7 +300,7 @@ void _i2s_set_rate(int smprate);
     int reg_write_err;
     bool deallocating;
     int old_freq;
-    
+
     bool fourwire;
 
     int old_pre_num;
@@ -313,7 +313,7 @@ void _i2s_set_rate(int smprate);
 
     static bool txisr;
     static bool rxisr;
-    
+
     void write(int bufr[], int bufl[], int len);
     void read(int bufr[], int bufl[], int len);
 };

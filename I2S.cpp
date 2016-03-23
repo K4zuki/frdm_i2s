@@ -369,7 +369,7 @@ void I2S::wordsize(int words)
 
 void I2S::mclk_freq(int freq)
 {
-    MasterClk_frequency = 12288000;
+    mclk_frequency = 12288000;
     write_registers();
 }
 

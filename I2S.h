@@ -60,46 +60,46 @@ public:
     /** Create a I2S instance
      *
      * @param rxtx     Set the I2S instance to be transmit or recieve (I2S_TRANSMIT/I2S_RECEIVE)
-     * @param sd    The serial data pin
-     * @param ws    The word select pin
-     * @param clk    The clock pin
+     * @param SerialData    The serial data pin
+     * @param WordSelect    The word select pin
+     * @param BitClk    The clock pin
      */
-    I2S(bool rxtx, PinName sd, PinName ws, PinName clk);
+    I2S(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk);
 
     /** Create a I2S instance: Only with the serial data line set. Won't really do much.
      *
      * @param rxtx     Set the I2S instance to be transmit or recieve (I2S_TRANSMIT/I2S_RECEIVE)
-     * @param sd    The serial data pin
+     * @param SerialData    The serial data pin
      */
-    I2S(bool rxtx, PinName sd);
+    I2S(bool rxtx, PinName SerialData);
 
 
     /** Create a I2S instance: Only with serial data line and word select.
      *
      * @param rxtx     Set the I2S instance to be transmit or recieve (I2S_TRANSMIT/I2S_RECEIVE)
-     * @param sd    The serial data pin
-     * @param ws    The word select pin
+     * @param SerialData    The serial data pin
+     * @param WordSelect    The word select pin
      */
-    I2S(bool rxtx, PinName sd, PinName ws);
+    I2S(bool rxtx, PinName SerialData, PinName WordSelect);
 
 
 
     /** Create a I2S instance: Only with serial data line. Four wire mode means this is functional
      *
      * @param rxtx     Set the I2S instance to be transmit or recieve (I2S_TRANSMIT/I2S_RECEIVE)
-     * @param sd    The serial data pin
-     * @param fourwiremode True means the peripheral is in 4-wire mode. It borrows WS and CLK from the other half
+     * @param SerialData    The serial data pin
+     * @param fourwiremode True means the peripheral is in 4-wire mode. It borroWordSelect WS and CLK from the other half
      */
-    I2S(bool rxtx, PinName sd, bool fourwiremode);
+    I2S(bool rxtx, PinName SerialData, bool fourwiremode);
 
     /** Create a I2S instance: Only with serial data line and word select line. Four wire mode means this is functional
      *
      * @param rxtx     Set the I2S instance to be transmit or recieve (I2S_TRANSMIT/I2S_RECEIVE)
-     * @param sd    The serial data pin
-     * @param ws    The word select pin
-     * @param fourwiremode True means the peripheral is in 4-wire mode. It borrows WS and CLK from the other half
+     * @param SerialData    The serial data pin
+     * @param WordSelect    The word select pin
+     * @param fourwiremode True means the peripheral is in 4-wire mode. It borroWordSelect WS and CLK from the other half
      */
-    I2S(bool rxtx, PinName sd, PinName ws, bool fourwiremode);
+    I2S(bool rxtx, PinName SerialData, PinName WordSelect, bool fourwiremode);
 
     /** Destroy the I2S instance
      */
@@ -162,9 +162,9 @@ public:
      */
     void wordsize(int words);
 
-    /** Define the mclk frequency
+    /** Define the MasterClk frequency
      *
-     * @param freq The frequency desired for the mclk
+     * @param freq The frequency desired for the MasterClk
      */
     void mclk_freq(int freq);
 
@@ -282,8 +282,8 @@ void _i2s_set_rate(int smprate);
 
     void defaulter();
 
-    PinName _sd, _ws, _clk, _mclk;
-    bool ws_d, clk_d, mclk_d;
+    PinName _SerialData, _WordSelect, _BitClk, _MasterClk;
+    bool WordSelect_d, BitClk_d, MasterClk_d;
     bool _rxtx;
     bool pwr;
     bool master;

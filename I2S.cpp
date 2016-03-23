@@ -19,19 +19,19 @@ FunctionPointer I2S::I2SRXISR;
 bool I2S::txisr;
 bool I2S::rxisr;
 
-I2S::I2S(bool rxtx, PinName sd, PinName ws, PinName clk)
+I2S::I2S(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk)
 {
     NVIC_DisableIRQ (I2S0_Tx_IRQn);
     NVIC_DisableIRQ (I2S0_Rx_IRQn);
 
-    _sd = sd;
-    _ws = ws;
-    _clk = clk;
+    _SerialData = SerialData;
+    _WordSelect = WordSelect;
+    _BitClk = BitClk;
     _rxtx = rxtx;
 
-    ws_d = true;
-    clk_d = true;
-    mclk_d = false;
+    WordSelect_d = true;
+    BitClk_d = true;
+    MasterClk_d = false;
 
     fourwire = false;
 
@@ -46,17 +46,17 @@ I2S::I2S(bool rxtx, PinName sd, PinName ws, PinName clk)
     defaulter();
 }
 
-I2S::I2S(bool rxtx, PinName sd)
+I2S::I2S(bool rxtx, PinName SerialData)
 {
     NVIC_DisableIRQ (I2S0_Tx_IRQn);
     NVIC_DisableIRQ (I2S0_Rx_IRQn);
 
-    _sd = sd;
+    _SerialData = SerialData;
     _rxtx = rxtx;
 
-    ws_d = false;
-    clk_d = false;
-    mclk_d = false;
+    WordSelect_d = false;
+    BitClk_d = false;
+    MasterClk_d = false;
 
     fourwire = false;
 
@@ -71,17 +71,17 @@ I2S::I2S(bool rxtx, PinName sd)
     defaulter();
 }
 
-I2S::I2S(bool rxtx, PinName sd, bool fourwiremode)
+I2S::I2S(bool rxtx, PinName SerialData, bool fourwiremode)
 {
     NVIC_DisableIRQ (I2S0_Tx_IRQn);
     NVIC_DisableIRQ (I2S0_Rx_IRQn);
 
-    _sd = sd;
+    _SerialData = SerialData;
     _rxtx = rxtx;
 
-    ws_d = false;
-    clk_d = false;
-    mclk_d = false;
+    WordSelect_d = false;
+    BitClk_d = false;
+    MasterClk_d = false;
 
     reg_write_err = 0;
 
@@ -96,18 +96,18 @@ I2S::I2S(bool rxtx, PinName sd, bool fourwiremode)
     defaulter();
 }
 
-I2S::I2S(bool rxtx, PinName sd, PinName ws, bool fourwiremode)
+I2S::I2S(bool rxtx, PinName SerialData, PinName WordSelect, bool fourwiremode)
 {
     NVIC_DisableIRQ (I2S0_Tx_IRQn);
     NVIC_DisableIRQ (I2S0_Rx_IRQn);
 
-    _sd = sd;
-    _ws = ws;
+    _SerialData = SerialData;
+    _WordSelect = WordSelect;
     _rxtx = rxtx;
 
-    ws_d = true;
-    clk_d = false;
-    mclk_d = false;
+    WordSelect_d = true;
+    BitClk_d = false;
+    MasterClk_d = false;
 
     reg_write_err = 0;
 
@@ -122,18 +122,18 @@ I2S::I2S(bool rxtx, PinName sd, PinName ws, bool fourwiremode)
     defaulter();
 }
 
-I2S::I2S(bool rxtx, PinName sd, PinName ws)
+I2S::I2S(bool rxtx, PinName SerialData, PinName WordSelect)
 {
     NVIC_DisableIRQ (I2S0_Tx_IRQn);
     NVIC_DisableIRQ (I2S0_Rx_IRQn);
 
-    _sd = sd;
-    _ws = ws;
+    _SerialData = SerialData;
+    _WordSelect = WordSelect;
     _rxtx = rxtx;
 
-    ws_d = true;
-    clk_d = false;
-    mclk_d = false;
+    WordSelect_d = true;
+    BitClk_d = false;
+    MasterClk_d = false;
 
     reg_write_err = 0;
 
@@ -369,14 +369,14 @@ void I2S::wordsize(int words)
 
 void I2S::mclk_freq(int freq)
 {
-    mclk_frequency = 12288000;
+    MasterClk_frequency = 12288000;
     write_registers();
 }
 
 void I2S::frequency(int desired_freq)
 {
     freq = 32000;
-    _i2s_set_rate(int smprate)
+    _i2s_set_rate(freq);
     //write_registers();
 }
 
@@ -452,25 +452,25 @@ void I2S::pin_setup()
 
     if (_rxtx == I2S_TRANSMIT) {
         printf("\n\rSetting up pins....\n\r");
-        if (_sd != PTC1)
+        if (_SerialData != PTC1)
             pin_setup_err++;
-        if (_ws != PTB19 && ws_d == true)
+        if (_WordSelect != PTB19 && WordSelect_d == true)
             pin_setup_err++;
-        if (_clk != PTB18 && clk_d == true)
+        if (_BitClk != PTB18 && BitClk_d == true)
             pin_setup_err++;
         printf("Hmm....%i\n\r", pin_setup_err);
     } else {
-        if (_sd != PTC5)
+        if (_SerialData != PTC5)
             pin_setup_err++;
-        if (_ws != PTC7 && ws_d == true)
+        if (_WordSelect != PTC7 && WordSelect_d == true)
             pin_setup_err++;
-        if (_clk != PTC6 && clk_d == true)
+        if (_BitClk != PTC6 && BitClk_d == true)
             pin_setup_err++;
     }
     /*
-     * @param sd    The serial data pin
-     * @param ws    The word select pin
-     * @param clk    The clock pin
+     * @param SerialData    The serial data pin
+     * @param WordSelect    The word select pin
+     * @param BitClk    The clock pin
     PORTC_PCR8  &= PORT_PCR_MUX_MASK;
     PORTC_PCR8  |= PORT_PCR_MUX(0x04); // PTC8 I2S0_MCLK
 
@@ -502,11 +502,11 @@ void I2S::pin_setup()
             }
             PORTC_PCR1 &= PORT_PCR_MUX_MASK;
             PORTC_PCR1 |= PORT_PCR_MUX(0x04); // PTC1 I2S0_TXD0
-            if (ws_d == true) {
+            if (WordSelect_d == true) {
                 PORTB_PCR18 &= PORT_PCR_MUX_MASK;
                 PORTB_PCR18 |= PORT_PCR_MUX(0x04); // PTB18 I2S0_TX_BCLK
             }
-            if (clk_d == true) {
+            if (BitClk_d == true) {
                 PORTB_PCR19 &= PORT_PCR_MUX_MASK;
                 PORTB_PCR19 |= PORT_PCR_MUX(0x04); // PTB19 I2S0_TX_FS
             }
@@ -522,12 +522,12 @@ void I2S::pin_setup()
             PORTC_PCR5  &= PORT_PCR_MUX_MASK;
             PORTC_PCR5  |= PORT_PCR_MUX(0x04); // PTC5 I2S0_RXD0
 
-            if (ws_d == true) {
+            if (WordSelect_d == true) {
                 PORTB_PCR18 &= PORT_PCR_MUX_MASK;
                 PORTB_PCR18 |= PORT_PCR_MUX(0x04); // PTB18 I2S0_TX_BCLK
             }
 
-            if (clk_d == true) {
+            if (BitClk_d == true) {
                 PORTC_PCR6 &= PORT_PCR_MUX_MASK;
                 PORTC_PCR6 |= PORT_PCR_MUX(0x04); // PTC6 I2S0_RX_BCLK
             }
@@ -680,7 +680,7 @@ void I2S::write_registers()
 
         LPC_I2S->I2STXMODE = fourwire << 2;
 
-        if (mclk_d == true) {
+        if (MasterClk_d == true) {
             LPC_I2S->I2STXMODE |= (1 << 3);
         }
     } else {
@@ -690,7 +690,7 @@ void I2S::write_registers()
 
         LPC_I2S->I2SRXMODE = fourwire << 2;
 
-        if (mclk_d == true) {
+        if (MasterClk_d == true) {
             LPC_I2S->I2SRXMODE |= (1 << 3);
         }
     }

@@ -2,7 +2,7 @@
 
 #define I2S_DF_WORDWIDTH                16
 #define I2S_DF_SAMPLERATE               32000
-#define I2S_DF_MASTERSLAVE              I2S_SLAVE
+#define I2S_DF_MASTERSLAVE              I2S_MASTER
 #define I2S_DF_STEREOMONO               I2S_STEREO
 #define I2S_DF_MUTED                    I2S_UNMUTED
 #define I2S_DF_INTERRUPT_FIFO_LEVEL     4
@@ -11,7 +11,7 @@
 #define I2S_MAX_NUMERATOR               256
 #define I2S_MAX_BITRATE_DIV             64
 
-#define I2S_PCLK_RATE                   24000000
+#define I2S_PCLK_RATE                   12288000
 
 FunctionPointer I2S::I2STXISR;
 FunctionPointer I2S::I2SRXISR;
@@ -44,109 +44,110 @@ I2S::I2S(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk)
     }
 
     defaulter();
+    _i2s_init();
 }
 
-I2S::I2S(bool rxtx, PinName SerialData)
-{
-    NVIC_DisableIRQ (I2S0_Tx_IRQn);
-    NVIC_DisableIRQ (I2S0_Rx_IRQn);
-
-    _SerialData = SerialData;
-    _rxtx = rxtx;
-
-    WordSelect_d = false;
-    BitClk_d = false;
-    MasterClk_d = false;
-
-    fourwire = false;
-
-    reg_write_err = 0;
-
-    pin_setup();
-
-    if (pin_setup_err != 0) {
-        perror("I2S Pins incorrectly defined.");
-    }
-
-    defaulter();
-}
-
-I2S::I2S(bool rxtx, PinName SerialData, bool fourwiremode)
-{
-    NVIC_DisableIRQ (I2S0_Tx_IRQn);
-    NVIC_DisableIRQ (I2S0_Rx_IRQn);
-
-    _SerialData = SerialData;
-    _rxtx = rxtx;
-
-    WordSelect_d = false;
-    BitClk_d = false;
-    MasterClk_d = false;
-
-    reg_write_err = 0;
-
-    fourwire = fourwiremode;
-
-    pin_setup();
-
-    if (pin_setup_err != 0) {
-        perror("I2S Pins incorrectly defined.");
-    }
-
-    defaulter();
-}
-
-I2S::I2S(bool rxtx, PinName SerialData, PinName WordSelect, bool fourwiremode)
-{
-    NVIC_DisableIRQ (I2S0_Tx_IRQn);
-    NVIC_DisableIRQ (I2S0_Rx_IRQn);
-
-    _SerialData = SerialData;
-    _WordSelect = WordSelect;
-    _rxtx = rxtx;
-
-    WordSelect_d = true;
-    BitClk_d = false;
-    MasterClk_d = false;
-
-    reg_write_err = 0;
-
-    fourwire = fourwiremode;
-
-    pin_setup();
-
-    if (pin_setup_err != 0) {
-        perror("I2S Pins incorrectly defined.");
-    }
-
-    defaulter();
-}
-
-I2S::I2S(bool rxtx, PinName SerialData, PinName WordSelect)
-{
-    NVIC_DisableIRQ (I2S0_Tx_IRQn);
-    NVIC_DisableIRQ (I2S0_Rx_IRQn);
-
-    _SerialData = SerialData;
-    _WordSelect = WordSelect;
-    _rxtx = rxtx;
-
-    WordSelect_d = true;
-    BitClk_d = false;
-    MasterClk_d = false;
-
-    reg_write_err = 0;
-
-    fourwire = false;
-
-    pin_setup();
-
-    if (pin_setup_err != 0) {
-        perror("I2S Pins incorrectly defined.");
-    }
-
-    defaulter();
-}
+//I2S::I2S(bool rxtx, PinName SerialData)
+//{
+//    NVIC_DisableIRQ (I2S0_Tx_IRQn);
+//    NVIC_DisableIRQ (I2S0_Rx_IRQn);
+//
+//    _SerialData = SerialData;
+//    _rxtx = rxtx;
+//
+//    WordSelect_d = false;
+//    BitClk_d = false;
+//    MasterClk_d = false;
+//
+//    fourwire = false;
+//
+//    reg_write_err = 0;
+//
+//    pin_setup();
+//
+//    if (pin_setup_err != 0) {
+//        perror("I2S Pins incorrectly defined.");
+//    }
+//
+//    defaulter();
+//}
+//
+//I2S::I2S(bool rxtx, PinName SerialData, bool fourwiremode)
+//{
+//    NVIC_DisableIRQ (I2S0_Tx_IRQn);
+//    NVIC_DisableIRQ (I2S0_Rx_IRQn);
+//
+//    _SerialData = SerialData;
+//    _rxtx = rxtx;
+//
+//    WordSelect_d = false;
+//    BitClk_d = false;
+//    MasterClk_d = false;
+//
+//    reg_write_err = 0;
+//
+//    fourwire = fourwiremode;
+//
+//    pin_setup();
+//
+//    if (pin_setup_err != 0) {
+//        perror("I2S Pins incorrectly defined.");
+//    }
+//
+//    defaulter();
+//}
+//
+//I2S::I2S(bool rxtx, PinName SerialData, PinName WordSelect, bool fourwiremode)
+//{
+//    NVIC_DisableIRQ (I2S0_Tx_IRQn);
+//    NVIC_DisableIRQ (I2S0_Rx_IRQn);
+//
+//    _SerialData = SerialData;
+//    _WordSelect = WordSelect;
+//    _rxtx = rxtx;
+//
+//    WordSelect_d = true;
+//    BitClk_d = false;
+//    MasterClk_d = false;
+//
+//    reg_write_err = 0;
+//
+//    fourwire = fourwiremode;
+//
+//    pin_setup();
+//
+//    if (pin_setup_err != 0) {
+//        perror("I2S Pins incorrectly defined.");
+//    }
+//
+//    defaulter();
+//}
+//
+//I2S::I2S(bool rxtx, PinName SerialData, PinName WordSelect)
+//{
+//    NVIC_DisableIRQ (I2S0_Tx_IRQn);
+//    NVIC_DisableIRQ (I2S0_Rx_IRQn);
+//
+//    _SerialData = SerialData;
+//    _WordSelect = WordSelect;
+//    _rxtx = rxtx;
+//
+//    WordSelect_d = true;
+//    BitClk_d = false;
+//    MasterClk_d = false;
+//
+//    reg_write_err = 0;
+//
+//    fourwire = false;
+//
+//    pin_setup();
+//
+//    if (pin_setup_err != 0) {
+//        perror("I2S Pins incorrectly defined.");
+//    }
+//
+//    defaulter();
+//}
 
 I2S::~I2S()
 {
@@ -364,7 +365,7 @@ void I2S::masterslave(bool mastermode)
 void I2S::wordsize(int words)
 {
     wordwidth = 16;
-    write_registers();
+//    write_registers();
 }
 
 void I2S::mclk_freq(int freq)
@@ -410,32 +411,32 @@ void I2S::stereomono(bool stereomode)
 void I2S::mute()
 {
     muted = true;
-    write_registers();
+//    write_registers();
 }
 
 void I2S::mute(bool mute_en)
 {
     muted = mute_en;
-    write_registers();
+//    write_registers();
 }
 
 void I2S::stop()
 {
     stopped = true;
-    write_registers();
+//    write_registers();
 }
 
 void I2S::set_interrupt_fifo_level(int level)
 {
     interrupt_fifo_level = 4;
-    write_registers();
+//    write_registers();
 }
 
 void I2S::start()
 {
     stopped = false;
     muted = false;
-    write_registers();
+//    write_registers();
 }
 
 bool I2S::setup_ok()
@@ -634,64 +635,64 @@ void I2S::write_registers()
     int pre_num = 0;
     int pre_den = 0;
     int bitrate_div = 0;
-    if (master == true) { // In the hope of not doing all this heavy lifting every configuration
-        //printf("Doing some clock magic..\n\r");
-        int bitrate = freq * 64;
-        float target_div = I2S_PCLK_RATE / float(bitrate * 2);// Work out what divider is needed in the end, including the halving of rates the smoother does
-        if (mclk_frequency == 0) {
-            float rnd = fmod(target_div,1);// To make the X/Y fraction closest to 1, we set the last divider to the nearest integer to the rate divider
-            bitrate_div = int(target_div - rnd);
-            while (bitrate_div > I2S_MAX_BITRATE_DIV) { // But this might be out of range, so we right shift it into focus
-                bitrate_div >>= 1;
-            }
-            if (bitrate_div == 0) { // Could be zero, which would disable the the clock...
-                bitrate_div = 1;
-            }
-            pre_mult = float(bitrate_div) / target_div;    // Work out what we have left to correct
-            pre_num = 0;
-            pre_den = 0;
-            fraction_estimator(pre_mult, &pre_num, &pre_den);// Get the function to work out the closest fraction, there might be some point in adding some possible multipliers of these values to add to the smoothing, the reference manual (UM10360 page 480) suggests this
-
-        } else {
-            pre_mult = float(mclk_frequency * 2) / (I2S_PCLK_RATE);
-            pre_num = 0;
-            pre_den = 0;
-            fraction_estimator(pre_mult, &pre_num, &pre_den);// Get the function to work out the closest fraction, there might be some point in adding some possible multipliers of these values to add to the smoothing, the reference manual (UM10360 page 480) suggests this
-            bitrate_div = int(
-                              I2S_PCLK_RATE * float(pre_num) / float(pre_den)
-                              / float(bitrate));
-        }
-
-        old_freq = freq;
-        old_pre_num = pre_num;
-        old_pre_den = pre_den;
-        old_bitrate_div = bitrate_div;
-    } else {
-        pre_num = old_pre_num;
-        pre_den = old_pre_den;
-        bitrate_div = old_bitrate_div;
-    }
+//    if (master == true) { // In the hope of not doing all this heavy lifting every configuration
+//        //printf("Doing some clock magic..\n\r");
+//        int bitrate = freq * 64;
+//        float target_div = I2S_PCLK_RATE / float(bitrate * 2);// Work out what divider is needed in the end, including the halving of rates the smoother does
+//        if (mclk_frequency == 0) {
+//            float rnd = fmod(target_div,1);// To make the X/Y fraction closest to 1, we set the last divider to the nearest integer to the rate divider
+//            bitrate_div = int(target_div - rnd);
+//            while (bitrate_div > I2S_MAX_BITRATE_DIV) { // But this might be out of range, so we right shift it into focus
+//                bitrate_div >>= 1;
+//            }
+//            if (bitrate_div == 0) { // Could be zero, which would disable the the clock...
+//                bitrate_div = 1;
+//            }
+//            pre_mult = float(bitrate_div) / target_div;    // Work out what we have left to correct
+//            pre_num = 0;
+//            pre_den = 0;
+//            fraction_estimator(pre_mult, &pre_num, &pre_den);// Get the function to work out the closest fraction, there might be some point in adding some possible multipliers of these values to add to the smoothing, the reference manual (UM10360 page 480) suggests this
+//
+//        } else {
+//            pre_mult = float(mclk_frequency * 2) / (I2S_PCLK_RATE);
+//            pre_num = 0;
+//            pre_den = 0;
+//            fraction_estimator(pre_mult, &pre_num, &pre_den);// Get the function to work out the closest fraction, there might be some point in adding some possible multipliers of these values to add to the smoothing, the reference manual (UM10360 page 480) suggests this
+//            bitrate_div = int(
+//                              I2S_PCLK_RATE * float(pre_num) / float(pre_den)
+//                              / float(bitrate));
+//        }
+//
+//        old_freq = freq;
+//        old_pre_num = pre_num;
+//        old_pre_den = pre_den;
+//        old_bitrate_div = bitrate_div;
+//    } else {
+//        pre_num = old_pre_num;
+//        pre_den = old_pre_den;
+//        bitrate_div = old_bitrate_div;
+//    }
 
     //Clock Multiplier, MCLK setup
     if (_rxtx == I2S_TRANSMIT) {
         int regvals = ((pre_num << 8) & 0xFF00) | (pre_den & 0xFF);
-        LPC_I2S->I2STXRATE = regvals;                // Setting the X/Y fraction
-        LPC_I2S->I2STXBITRATE = (bitrate_div - 1) & 0x3F;// Setting up the bitrate divider, the periferal adds one to this
+//        LPC_I2S->I2STXRATE = regvals;                // Setting the X/Y fraction
+//        LPC_I2S->I2STXBITRATE = (bitrate_div - 1) & 0x3F;// Setting up the bitrate divider, the periferal adds one to this
 
-        LPC_I2S->I2STXMODE = fourwire << 2;
+//        LPC_I2S->I2STXMODE = fourwire << 2;
 
         if (MasterClk_d == true) {
-            LPC_I2S->I2STXMODE |= (1 << 3);
+//            LPC_I2S->I2STXMODE |= (1 << 3);
         }
     } else {
         int regvals = ((pre_num << 8) & 0xFF00) | (pre_den & 0xFF);
-        LPC_I2S->I2SRXRATE = regvals;                // Setting the X/Y fraction
-        LPC_I2S->I2SRXBITRATE = (bitrate_div - 1) & 0x3F;// Setting up the bitrate divider, the periferal adds one to this
+//        LPC_I2S->I2SRXRATE = regvals;                // Setting the X/Y fraction
+//        LPC_I2S->I2SRXBITRATE = (bitrate_div - 1) & 0x3F;// Setting up the bitrate divider, the periferal adds one to this
 
-        LPC_I2S->I2SRXMODE = fourwire << 2;
+//        LPC_I2S->I2SRXMODE = fourwire << 2;
 
         if (MasterClk_d == true) {
-            LPC_I2S->I2SRXMODE |= (1 << 3);
+//            LPC_I2S->I2SRXMODE |= (1 << 3);
         }
     }
 
@@ -718,28 +719,32 @@ void I2S::write_registers()
     I2SDA_reg |= ((muted << 15) & 0x8000);
 
     if (_rxtx == I2S_TRANSMIT) {
-        LPC_I2S->I2SDAO = I2SDA_reg;
+        ;
+//        LPC_I2S->I2SDAO = I2SDA_reg;
     } else {
-        LPC_I2S->I2SDAI = I2SDA_reg;
+        ;
+//        LPC_I2S->I2SDAI = I2SDA_reg;
     }
 
     if (_rxtx == I2S_TRANSMIT) {
         if (txisr) {
-            LPC_I2S->I2SIRQ = (LPC_I2S->I2SIRQ & 0xFF0FFFFF)
-                              | ((interrupt_fifo_level & 0xF) << 16);
-            LPC_I2S->I2SIRQ |= 0x2;
+//            LPC_I2S->I2SIRQ = (LPC_I2S->I2SIRQ & 0xFF0FFFFF)
+//                              | ((interrupt_fifo_level & 0xF) << 16);
+//            LPC_I2S->I2SIRQ |= 0x2;
         } else {
-            LPC_I2S->I2SIRQ &= 0xFFFFFFFD;
+            ;
+//            LPC_I2S->I2SIRQ &= 0xFFFFFFFD;
         }
     } else {
         if (rxisr) {
-            LPC_I2S->I2SIRQ = (LPC_I2S->I2SIRQ & 0xFFFFF0FF)
-                              | ((interrupt_fifo_level & 0xF) << 8);
-            LPC_I2S->I2SIRQ |= 0x1;
+//            LPC_I2S->I2SIRQ = (LPC_I2S->I2SIRQ & 0xFFFFF0FF)
+//                              | ((interrupt_fifo_level & 0xF) << 8);
+//            LPC_I2S->I2SIRQ |= 0x1;
         }
 
         else {
-            LPC_I2S->I2SIRQ &= 0xFFFFFFFE;
+            ;
+//            LPC_I2S->I2SIRQ &= 0xFFFFFFFE;
         }
     }
 }
@@ -753,40 +758,40 @@ void I2S::_i2sisr(void)
 // A function to find the nearest fraction to that put to it, with numerator and denomnator less than 256
 // This is used when trying to get the clocks correct
 
-void I2S::fraction_estimator(float in, int * num, int * den)
-{
-    int test_num = 0;
-    int test_den = 0;
-    float least_error = 1;
-    int least_err_den = 0;
-    float genval;
-    float generr;
-
-    for (test_den = 1; test_den < I2S_MAX_DENOMINATOR; test_den++) {
-        test_num = int(float(test_den) * in);
-        if (test_num < I2S_MAX_NUMERATOR && test_num > 0) {
-            genval = float(test_num) / float(test_den);
-            generr = mod(genval - in);
-            if (generr < least_error) {
-                least_error = generr;
-                least_err_den = test_den;
-            }
-            if (generr == 0) {
-                break;
-            }
-        }
-    }
-
-    test_num = int(float(least_err_den) * in);
-    *num = test_num;
-    *den = least_err_den;
-
-}
-
-float I2S::mod(float in)
-{
-    if (in < 0)
-        in *= -1;
-
-    return in;
-}
+//void I2S::fraction_estimator(float in, int * num, int * den)
+//{
+//    int test_num = 0;
+//    int test_den = 0;
+//    float least_error = 1;
+//    int least_err_den = 0;
+//    float genval;
+//    float generr;
+//
+//    for (test_den = 1; test_den < I2S_MAX_DENOMINATOR; test_den++) {
+//        test_num = int(float(test_den) * in);
+//        if (test_num < I2S_MAX_NUMERATOR && test_num > 0) {
+//            genval = float(test_num) / float(test_den);
+//            generr = mod(genval - in);
+//            if (generr < least_error) {
+//                least_error = generr;
+//                least_err_den = test_den;
+//            }
+//            if (generr == 0) {
+//                break;
+//            }
+//        }
+//    }
+//
+//    test_num = int(float(least_err_den) * in);
+//    *num = test_num;
+//    *den = least_err_den;
+//
+//}
+//
+//float I2S::mod(float in)
+//{
+//    if (in < 0)
+//        in *= -1;
+//
+//    return in;
+//}

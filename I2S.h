@@ -30,6 +30,7 @@
 
 #include "mbed.h"
 #include "math.h"
+#include "MK64F12.h"
 
 #ifndef I2S_H
 #define I2S_H

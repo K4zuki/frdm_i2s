@@ -161,7 +161,7 @@ I2S::~I2S()
 
 void I2S::defaulter()
 {
-    I2S0_TCSR |= 1u<<31;
+    I2S0->TCSR |= 1u<<31;
 
     stop();
     master = false;
@@ -191,7 +191,7 @@ void I2S::write(char buf[], int len)
             for (int j = 0; j < 4; j++) {
                 temp |= int(buf[i + j]) << (j * 8);
             }
-            I2S0_TDR0 = temp;
+            I2S0->TDR0 = temp;
         }
     }
 
@@ -244,7 +244,7 @@ void I2S::write(int buf[], int len)
             //if(((temp >> 16) & 0xFFFF) == 0xFFFF) printf("Hmmm %x %x %x\n\r",temp, increment,i); //|| temp &0xFFFF == 0xFFFF
             //if((buf[i]-buf[i+1])>5000 || (buf[i]-buf[i+1])<-5000) printf("J:%i,%i\n\r",buf[i],buf[i+1]);
             //printf("%x\n",temp);
-            I2S0_TDR0 = temp;
+            I2S0->TDR0 = temp;
         }
     }
 }
@@ -256,7 +256,7 @@ void I2S::write(int bufr[], int bufl[], int len)
 
 int I2S::read()
 {
-    return I2S0_RDR0;
+    return I2S0->RDR0;
 }
 
 void I2S::read(char buf[], int len)
@@ -271,7 +271,7 @@ void I2S::read(char buf[], int len)
     int increment = 4;            //32/wordwidth;
     int fifo_levl = fifo_level();
     while (counter < fifo_levl && len_valid) {
-        temp[counter] = I2S0_RDR0;
+        temp[counter] = I2S0->RDR0;
         for (int j = 0; j < increment; j++) {
             if ((counter * 4) + j > len) {
                 len_valid = false;
@@ -296,7 +296,7 @@ void I2S::read(int buf[], int len)
     int increment = 32 / wordwidth;
     int fifo_levl = fifo_level();
     while (counter < fifo_levl && len_valid) {
-        temp[counter] = I2S0_RDR0;
+        temp[counter] = I2S0->RDR0;
         for (int j = 0; j < increment; j++) {
             if ((counter * increment) + j > len) {
                 len_valid = false;
@@ -385,11 +385,11 @@ int I2S::fifo_level()
 {
     int level = 0;
     if (_rxtx == I2S_TRANSMIT) {
-        level = I2S0_TFR0;
+        level = I2S0->TFR0;
         level >>= 16;
         level &= 0xF;
     } else {
-        level = I2S0_TFR0;
+        level = I2S0->TFR0;
         level >>= 0;
         level &= 0xF;
     }
@@ -472,26 +472,26 @@ void I2S::pin_setup()
      * @param SerialData    The serial data pin
      * @param WordSelect    The word select pin
      * @param BitClk    The clock pin
-    PORTC_PCR8  &= PORT_PCR_MUX_MASK;
-    PORTC_PCR8  |= PORT_PCR_MUX(0x04); // PTC8 I2S0_MCLK
+    PORTC->PCR[8]  &= PORT_PCR_MUX_MASK;
+    PORTC->PCR[8]  |= PORT_PCR_MUX(0x04); // PTC8 I2S0_MCLK
 
-    PORTC_PCR5  &= PORT_PCR_MUX_MASK;
-    PORTC_PCR5  |= PORT_PCR_MUX(0x04); // PTC5 I2S0_RXD0
+    PORTC->PCR[5]  &= PORT_PCR_MUX_MASK;
+    PORTC->PCR[5]  |= PORT_PCR_MUX(0x04); // PTC5 I2S0_RXD0
 
-    PORTC_PCR7 &= PORT_PCR_MUX_MASK;
-    PORTC_PCR7 |= PORT_PCR_MUX(0x04); // PTC7 I2S0_RX_FS
+    PORTC->PCR[7] &= PORT_PCR_MUX_MASK;
+    PORTC->PCR[7] |= PORT_PCR_MUX(0x04); // PTC7 I2S0_RX_FS
 
-    PORTC_PCR6 &= PORT_PCR_MUX_MASK;
-    PORTC_PCR6 |= PORT_PCR_MUX(0x04); // PTC6 I2S0_RX_BCLK
+    PORTC->PCR[6] &= PORT_PCR_MUX_MASK;
+    PORTC->PCR[6] |= PORT_PCR_MUX(0x04); // PTC6 I2S0_RX_BCLK
 
-    PORTC_PCR1 &= PORT_PCR_MUX_MASK;
-    PORTC_PCR1 |= PORT_PCR_MUX(0x04); // PTC1 I2S0_TXD0
+    PORTC->PCR[1] &= PORT_PCR_MUX_MASK;
+    PORTC->PCR[1] |= PORT_PCR_MUX(0x04); // PTC1 I2S0_TXD0
 
-    PORTB_PCR19 &= PORT_PCR_MUX_MASK;
-    PORTB_PCR19 |= PORT_PCR_MUX(0x04); // PTB19 I2S0_TX_FS
+    PORTB->PCR[19] &= PORT_PCR_MUX_MASK;
+    PORTB->PCR[19] |= PORT_PCR_MUX(0x04); // PTB19 I2S0_TX_FS
 
-    PORTB_PCR18 &= PORT_PCR_MUX_MASK;
-    PORTB_PCR18 |= PORT_PCR_MUX(0x04); // PTB18 I2S0_TX_BCLK
+    PORTB->PCR[18] &= PORT_PCR_MUX_MASK;
+    PORTB->PCR[18] |= PORT_PCR_MUX(0x04); // PTB18 I2S0_TX_BCLK
      */
 
 
@@ -501,15 +501,15 @@ void I2S::pin_setup()
             if (deallocating) {
                 val1 = 0;
             }
-            PORTC_PCR1 &= PORT_PCR_MUX_MASK;
-            PORTC_PCR1 |= PORT_PCR_MUX(0x04); // PTC1 I2S0_TXD0
+            PORTC->PCR[1] &= PORT_PCR_MUX_MASK;
+            PORTC->PCR[1] |= PORT_PCR_MUX(0x04); // PTC1 I2S0_TXD0
             if (WordSelect_d == true) {
-                PORTB_PCR18 &= PORT_PCR_MUX_MASK;
-                PORTB_PCR18 |= PORT_PCR_MUX(0x04); // PTB18 I2S0_TX_BCLK
+                PORTB->PCR[18] &= PORT_PCR_MUX_MASK;
+                PORTB->PCR[18] |= PORT_PCR_MUX(0x04); // PTB18 I2S0_TX_BCLK
             }
             if (BitClk_d == true) {
-                PORTB_PCR19 &= PORT_PCR_MUX_MASK;
-                PORTB_PCR19 |= PORT_PCR_MUX(0x04); // PTB19 I2S0_TX_FS
+                PORTB->PCR[19] &= PORT_PCR_MUX_MASK;
+                PORTB->PCR[19] |= PORT_PCR_MUX(0x04); // PTB19 I2S0_TX_FS
             }
 
         } else {
@@ -520,17 +520,17 @@ void I2S::pin_setup()
                 val2 = 0;
             }
 
-            PORTC_PCR5  &= PORT_PCR_MUX_MASK;
-            PORTC_PCR5  |= PORT_PCR_MUX(0x04); // PTC5 I2S0_RXD0
+            PORTC->PCR[5]  &= PORT_PCR_MUX_MASK;
+            PORTC->PCR[5]  |= PORT_PCR_MUX(0x04); // PTC5 I2S0_RXD0
 
             if (WordSelect_d == true) {
-                PORTB_PCR18 &= PORT_PCR_MUX_MASK;
-                PORTB_PCR18 |= PORT_PCR_MUX(0x04); // PTB18 I2S0_TX_BCLK
+                PORTB->PCR[18] &= PORT_PCR_MUX_MASK;
+                PORTB->PCR[18] |= PORT_PCR_MUX(0x04); // PTB18 I2S0_TX_BCLK
             }
 
             if (BitClk_d == true) {
-                PORTC_PCR6 &= PORT_PCR_MUX_MASK;
-                PORTC_PCR6 |= PORT_PCR_MUX(0x04); // PTC6 I2S0_RX_BCLK
+                PORTC->PCR[6] &= PORT_PCR_MUX_MASK;
+                PORTC->PCR[6] |= PORT_PCR_MUX(0x04); // PTC6 I2S0_RX_BCLK
             }
         }
     }
@@ -544,47 +544,47 @@ void I2S::pin_setup()
 
 void I2S::_set_clock_112896(void)
 {
-    SIM_SCGC6 &= ~(SIM_SCGC6_I2S_MASK);
+    SIM->SCGC6 &= ~(SIM_SCGC6_I2S_MASK);
 
     // output = input[(I2SFRAC+1) / (I2SDIV+1) ] = (48* (4/17))
     // SIM_CLKDIV2 |= SIM_CLKDIV2_I2SDIV(16) | SIM_CLKDIV2_I2SFRAC(3);
-    I2S0_MDR = I2S_MDR_FRACT(3) | I2S_MDR_DIVIDE(16);
-    SIM_SCGC6 |= SIM_SCGC6_I2S_MASK;
+    I2S0->MDR = I2S_MDR_FRACT(3) | I2S_MDR_DIVIDE(16);
+    SIM->SCGC6 |= SIM_SCGC6_I2S_MASK;
 }
 void I2S::_set_clock_122800(void)
 {
     // output = input [(I2SFRAC+1) / (I2SDIV+1) ] = (48M* (32/125))
     // SIM_CLKDIV2 |= SIM_CLKDIV2_I2SDIV(124) | SIM_CLKDIV2_I2SFRAC(31);
-    I2S0_MDR = I2S_MDR_FRACT(31) | I2S_MDR_DIVIDE(124);
+    I2S0->MDR = I2S_MDR_FRACT(31) | I2S_MDR_DIVIDE(124);
 }
 void I2S::_i2s_init(void)
 {
 #define I2S_CONFIG_WORDS_IN_A_FRAME 2
 #define I2S_CONFIG_BITS_IN_A_WORD   16
 
-    I2S0_TCR1 = 4;// 6;    // water mark
-    I2S0_TCR2 |= (0<<30) | // master mode(Async mode)
+    I2S0->TCR1 = 4;// 6;    // water mark
+    I2S0->TCR2 |= (0<<30) | // master mode(Async mode)
                  (1<<26) | // MSEL = MCLK
                  (1<<25) | // CLK = drive on falling edge
                  (1<<24) ; // CLK = OUTPUT
 
-    I2S0_TCR3 = (1<<16); // enable channel 0
+    I2S0->TCR3 = (1<<16); // enable channel 0
 
-    I2S0_TCR4 = ((I2S_CONFIG_WORDS_IN_A_FRAME-1)<<16)  | // words in a frame
+    I2S0->TCR4 = ((I2S_CONFIG_WORDS_IN_A_FRAME-1)<<16)  | // words in a frame
                 ((I2S_CONFIG_BITS_IN_A_WORD  -1)<<8)   | // bits in a word
                 (1<<4)                                | // MSB
                 (1<<3)                                | // one bit early
                 (1<<1)                                | // frame active low
                 (1<<0)                                ; // frame = output
 
-    I2S0_TCR5 = ((I2S_CONFIG_BITS_IN_A_WORD-1) <<24) | // word N width
+    I2S0->TCR5 = ((I2S_CONFIG_BITS_IN_A_WORD-1) <<24) | // word N width
                 ((I2S_CONFIG_BITS_IN_A_WORD-1) <<16) | // word 0 width
                 (0x17<<8);                            // right adjust, where the first bit starts
 
-    I2S0_TMR = 0;
+    I2S0->TMR = 0;
 
     // enable TX
-    I2S0_TCSR = (0<<31) | // enable tx
+    I2S0->TCSR = (0<<31) | // enable tx
                 (1<<28) | // enable bit clock
                 (0<<0);   // enable DMA request
 }
@@ -592,10 +592,10 @@ void I2S::_i2s_init(void)
 void I2S::_i2s_set_rate(int smprate)
 {
     unsigned char div;
-    SIM_SCGC6 |= SIM_SCGC6_I2S_MASK;
+    SIM->SCGC6 |= SIM_SCGC6_I2S_MASK;
 
     // Select MCLK input source
-    I2S0_MCR = (1<<30)| // MCLK = output
+    I2S0->MCR = (1<<30)| // MCLK = output
                (0<<24); // MCLK SRC = core clock = 48M
 
     if((smprate == 11025)||(smprate == 22050)||(smprate == 44100)) {
@@ -615,7 +615,7 @@ void I2S::_i2s_set_rate(int smprate)
             break; // 12.288M/(32K*48) = 8, 8 = (DIV+1)*2, DIV = 3
     }
 
-    I2S0_TCR2 = div;
+    I2S0->TCR2 = div;
 }
 
 

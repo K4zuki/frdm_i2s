@@ -21,6 +21,9 @@ bool I2S::rxisr;
 
 I2S::I2S(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk)
 {
+    SIM->SCGC6 &= ~(SIM_SCGC6_I2S_MASK);
+    SIM->SCGC6 |= SIM_SCGC6_I2S_MASK;
+
     NVIC_DisableIRQ (I2S0_Tx_IRQn);
     NVIC_DisableIRQ (I2S0_Rx_IRQn);
 
@@ -191,7 +194,7 @@ void I2S::write(char buf[], int len)
             for (int j = 0; j < 4; j++) {
                 temp |= int(buf[i + j]) << (j * 8);
             }
-            I2S0->TDR0 = temp;
+            I2S0->TDR[0] = temp;
         }
     }
 
@@ -244,7 +247,7 @@ void I2S::write(int buf[], int len)
             //if(((temp >> 16) & 0xFFFF) == 0xFFFF) printf("Hmmm %x %x %x\n\r",temp, increment,i); //|| temp &0xFFFF == 0xFFFF
             //if((buf[i]-buf[i+1])>5000 || (buf[i]-buf[i+1])<-5000) printf("J:%i,%i\n\r",buf[i],buf[i+1]);
             //printf("%x\n",temp);
-            I2S0->TDR0 = temp;
+            I2S0->TDR[0] = temp;
         }
     }
 }
@@ -256,7 +259,7 @@ void I2S::write(int bufr[], int bufl[], int len)
 
 int I2S::read()
 {
-    return I2S0->RDR0;
+    return I2S0->RDR[0];
 }
 
 void I2S::read(char buf[], int len)
@@ -271,7 +274,7 @@ void I2S::read(char buf[], int len)
     int increment = 4;            //32/wordwidth;
     int fifo_levl = fifo_level();
     while (counter < fifo_levl && len_valid) {
-        temp[counter] = I2S0->RDR0;
+        temp[counter] = I2S0->RDR[0];
         for (int j = 0; j < increment; j++) {
             if ((counter * 4) + j > len) {
                 len_valid = false;
@@ -296,7 +299,7 @@ void I2S::read(int buf[], int len)
     int increment = 32 / wordwidth;
     int fifo_levl = fifo_level();
     while (counter < fifo_levl && len_valid) {
-        temp[counter] = I2S0->RDR0;
+        temp[counter] = I2S0->RDR[0];
         for (int j = 0; j < increment; j++) {
             if ((counter * increment) + j > len) {
                 len_valid = false;
@@ -385,11 +388,11 @@ int I2S::fifo_level()
 {
     int level = 0;
     if (_rxtx == I2S_TRANSMIT) {
-        level = I2S0->TFR0;
+        level = I2S0->TFR[0];
         level >>= 16;
         level &= 0xF;
     } else {
-        level = I2S0->TFR0;
+        level = I2S0->TFR[0];
         level >>= 0;
         level &= 0xF;
     }
@@ -494,7 +497,7 @@ void I2S::pin_setup()
     PORTB->PCR[18] |= PORT_PCR_MUX(0x04); // PTB18 I2S0_TX_BCLK
      */
 
-
+    SIM_SCGC5 |= SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTC_MASK;
     if (pin_setup_err == 0) {
         if (_rxtx == I2S_TRANSMIT) {
             int val1 = 1;
@@ -544,12 +547,12 @@ void I2S::pin_setup()
 
 void I2S::_set_clock_112896(void)
 {
-    SIM->SCGC6 &= ~(SIM_SCGC6_I2S_MASK);
+//    SIM->SCGC6 &= ~(SIM_SCGC6_I2S_MASK);
 
     // output = input[(I2SFRAC+1) / (I2SDIV+1) ] = (48* (4/17))
     // SIM_CLKDIV2 |= SIM_CLKDIV2_I2SDIV(16) | SIM_CLKDIV2_I2SFRAC(3);
     I2S0->MDR = I2S_MDR_FRACT(3) | I2S_MDR_DIVIDE(16);
-    SIM->SCGC6 |= SIM_SCGC6_I2S_MASK;
+//    SIM->SCGC6 |= SIM_SCGC6_I2S_MASK;
 }
 void I2S::_set_clock_122800(void)
 {
@@ -592,7 +595,7 @@ void I2S::_i2s_init(void)
 void I2S::_i2s_set_rate(int smprate)
 {
     unsigned char div;
-    SIM->SCGC6 |= SIM_SCGC6_I2S_MASK;
+//    SIM->SCGC6 |= SIM_SCGC6_I2S_MASK;
 
     // Select MCLK input source
     I2S0->MCR = (1<<30)| // MCLK = output

@@ -374,7 +374,7 @@ void I2S::wordsize(int words)
 void I2S::mclk_freq(int freq)
 {
     mclk_frequency = 12288000;
-    write_registers();
+//    write_registers();
 }
 
 void I2S::frequency(int desired_freq)
@@ -499,13 +499,19 @@ void I2S::pin_setup()
 
     SIM_SCGC5 |= SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTC_MASK;
     if (pin_setup_err == 0) {
+
+        PORTC->PCR[8]  &= PORT_PCR_MUX_MASK;
+        PORTC->PCR[8]  |= PORT_PCR_MUX(0x04); // PTC8 I2S0_MCLK
+
         if (_rxtx == I2S_TRANSMIT) {
             int val1 = 1;
             if (deallocating) {
                 val1 = 0;
             }
+
             PORTC->PCR[1] &= PORT_PCR_MUX_MASK;
             PORTC->PCR[1] |= PORT_PCR_MUX(0x04); // PTC1 I2S0_TXD0
+
             if (WordSelect_d == true) {
                 PORTB->PCR[18] &= PORT_PCR_MUX_MASK;
                 PORTB->PCR[18] |= PORT_PCR_MUX(0x04); // PTB18 I2S0_TX_BCLK
@@ -558,7 +564,7 @@ void I2S::_set_clock_122800(void)
 {
     // output = input [(I2SFRAC+1) / (I2SDIV+1) ] = (48M* (32/125))
     // SIM_CLKDIV2 |= SIM_CLKDIV2_I2SDIV(124) | SIM_CLKDIV2_I2SFRAC(31);
-    I2S0->MDR = I2S_MDR_FRACT(31) | I2S_MDR_DIVIDE(124);
+    I2S0->MDR = I2S_MDR_FRACT(63) | I2S_MDR_DIVIDE(624);
 }
 void I2S::_i2s_init(void)
 {

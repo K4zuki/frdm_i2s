@@ -72,7 +72,7 @@ public:
      * @param rxtx     Set the I2S instance to be transmit or recieve (I2S_TRANSMIT/I2S_RECEIVE)
      * @param SerialData    The serial data pin
      */
-    I2S(bool rxtx, PinName SerialData);
+    // I2S(bool rxtx, PinName SerialData);
 
 
     /** Create a I2S instance: Only with serial data line and word select.
@@ -81,7 +81,7 @@ public:
      * @param SerialData    The serial data pin
      * @param WordSelect    The word select pin
      */
-    I2S(bool rxtx, PinName SerialData, PinName WordSelect);
+    // I2S(bool rxtx, PinName SerialData, PinName WordSelect);
 
 
 
@@ -91,7 +91,7 @@ public:
      * @param SerialData    The serial data pin
      * @param fourwiremode True means the peripheral is in 4-wire mode. It borroWordSelect WS and CLK from the other half
      */
-    I2S(bool rxtx, PinName SerialData, bool fourwiremode);
+    // I2S(bool rxtx, PinName SerialData, bool fourwiremode);
 
     /** Create a I2S instance: Only with serial data line and word select line. Four wire mode means this is functional
      *
@@ -100,7 +100,7 @@ public:
      * @param WordSelect    The word select pin
      * @param fourwiremode True means the peripheral is in 4-wire mode. It borroWordSelect WS and CLK from the other half
      */
-    I2S(bool rxtx, PinName SerialData, PinName WordSelect, bool fourwiremode);
+    // I2S(bool rxtx, PinName SerialData, PinName WordSelect, bool fourwiremode);
 
     /** Destroy the I2S instance
      */

@@ -28,77 +28,81 @@
 *
 */
 
-#include "mbed.h"
-#include "math.h"
 #include "MK64F12.h"
+#include "math.h"
+#include "mbed.h"
 
 #ifndef I2S_H
 #define I2S_H
 
-#define I2S_TRANSMIT     0
-#define I2S_RECEIVE     1
+#define I2S_TRANSMIT 0
+#define I2S_RECEIVE 1
 
-#define I2S_MASTER     0
-#define I2S_SLAVE     1
+#define I2S_MASTER 0
+#define I2S_SLAVE 1
 
-#define I2S_STEREO     0
-#define I2S_MONO     1
+#define I2S_STEREO 0
+#define I2S_MONO 1
 
-#define I2S_MUTED     1
+#define I2S_MUTED 1
 #define I2S_UNMUTED 0
 
-#define I2S_4WIRE     1
-#define I2S_3WIRE     0
+#define I2S_4WIRE 1
+#define I2S_3WIRE 0
 
 /** A class to play give access to the I2S library
  */
 
-class I2S
-{
-
-public:
-
+class I2S {
+   public:
     /** Create a I2S instance
      *
-     * @param rxtx     Set the I2S instance to be transmit or recieve (I2S_TRANSMIT/I2S_RECEIVE)
+     * @param rxtx     Set the I2S instance to be transmit or recieve
+     * (I2S_TRANSMIT/I2S_RECEIVE)
      * @param SerialData    The serial data pin
      * @param WordSelect    The word select pin
      * @param BitClk    The clock pin
      */
     I2S(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk);
 
-    /** Create a I2S instance: Only with the serial data line set. Won't really do much.
+    /** Create a I2S instance: Only with the serial data line set. Won't really do
+     * much.
      *
-     * @param rxtx     Set the I2S instance to be transmit or recieve (I2S_TRANSMIT/I2S_RECEIVE)
+     * @param rxtx     Set the I2S instance to be transmit or recieve
+     * (I2S_TRANSMIT/I2S_RECEIVE)
      * @param SerialData    The serial data pin
      */
     // I2S(bool rxtx, PinName SerialData);
 
-
     /** Create a I2S instance: Only with serial data line and word select.
      *
-     * @param rxtx     Set the I2S instance to be transmit or recieve (I2S_TRANSMIT/I2S_RECEIVE)
+     * @param rxtx     Set the I2S instance to be transmit or recieve
+     * (I2S_TRANSMIT/I2S_RECEIVE)
      * @param SerialData    The serial data pin
      * @param WordSelect    The word select pin
      */
     // I2S(bool rxtx, PinName SerialData, PinName WordSelect);
 
-
-
-    /** Create a I2S instance: Only with serial data line. Four wire mode means this is functional
+    /** Create a I2S instance: Only with serial data line. Four wire mode means
+     * this is functional
      *
-     * @param rxtx     Set the I2S instance to be transmit or recieve (I2S_TRANSMIT/I2S_RECEIVE)
+     * @param rxtx     Set the I2S instance to be transmit or recieve
+     * (I2S_TRANSMIT/I2S_RECEIVE)
      * @param SerialData    The serial data pin
-     * @param fourwiremode True means the peripheral is in 4-wire mode. It borroWordSelect WS and CLK from the other half
+     * @param fourwiremode True means the peripheral is in 4-wire mode. It
+     * borroWordSelect WS and CLK from the other half
      */
     // I2S(bool rxtx, PinName SerialData, bool fourwiremode);
 
-    /** Create a I2S instance: Only with serial data line and word select line. Four wire mode means this is functional
+    /** Create a I2S instance: Only with serial data line and word select line.
+     * Four wire mode means this is functional
      *
-     * @param rxtx     Set the I2S instance to be transmit or recieve (I2S_TRANSMIT/I2S_RECEIVE)
+     * @param rxtx     Set the I2S instance to be transmit or recieve
+     * (I2S_TRANSMIT/I2S_RECEIVE)
      * @param SerialData    The serial data pin
      * @param WordSelect    The word select pin
-     * @param fourwiremode True means the peripheral is in 4-wire mode. It borroWordSelect WS and CLK from the other half
+     * @param fourwiremode True means the peripheral is in 4-wire mode. It
+     * borroWordSelect WS and CLK from the other half
      */
     // I2S(bool rxtx, PinName SerialData, PinName WordSelect, bool fourwiremode);
 
@@ -153,7 +157,8 @@ public:
 
     /** Switch the peripheral between master and slave
      *
-     * @param mastermode The peripherals master/slave status (I2S_MASTER/I2S_SLAVE)
+     * @param mastermode The peripherals master/slave status
+     * (I2S_MASTER/I2S_SLAVE)
      */
     void masterslave(bool mastermode);
 
@@ -193,9 +198,11 @@ public:
      */
     int fifo_points();
 
-    /** Set whether the peripheral is in stereo or mono mode: in mono the perifpheral sends out the same data twice
+    /** Set whether the peripheral is in stereo or mono mode: in mono the
+     * perifpheral sends out the same data twice
      *
-     * @param stereomode Whether the peripheral is in stereo or mono: I2S_STEREO/I2S_MONO
+     * @param stereomode Whether the peripheral is in stereo or mono:
+     * I2S_STEREO/I2S_MONO
      */
     void stereomono(bool stereomode);
 
@@ -230,15 +237,11 @@ public:
      *
      * @param fptr A pointer to the function to be called
      */
-    void attach(void (*fptr)(void))
-    {
-        if (_rxtx == I2S_TRANSMIT)
-        {
+    void attach(void (*fptr)(void)) {
+        if (_rxtx == I2S_TRANSMIT) {
             I2STXISR.attach(fptr);
             txisr = true;
-        }
-        else
-        {
+        } else {
             I2SRXISR.attach(fptr);
             rxisr = true;
         }
@@ -249,27 +252,22 @@ public:
      * @param tptr A pointer to the instance of the class
      * @param mptr A pointer to the member function
      */
-    template<typename T>
-    void attach(T *tptr, void (T::*mptr)(void))
-    {
-        if (_rxtx == I2S_TRANSMIT)
-        {
+    template <typename T>
+    void attach(T *tptr, void (T::*mptr)(void)) {
+        if (_rxtx == I2S_TRANSMIT) {
             I2STXISR.attach(tptr, mptr);
             txisr = true;
-        }
-        else
-        {
+        } else {
             I2SRXISR.attach(tptr, mptr);
             rxisr = true;
         }
     }
 
-private:
-
-void _set_clock_112896(void);
-void _set_clock_122800(void);
-void _i2s_init(void);
-void _i2s_set_rate(int smprate);
+   private:
+    void _set_clock_112896(void);
+    void _set_clock_122800(void);
+    void _i2s_init(void);
+    void _i2s_set_rate(int smprate);
 
     void mclk_enable(bool mclk_en);
 
@@ -277,7 +275,7 @@ void _i2s_set_rate(int smprate);
 
     void pin_setup();
 
-    void fraction_estimator(float in, int * num, int * den);
+    void fraction_estimator(float in, int *num, int *den);
 
     float mod(float in);
 

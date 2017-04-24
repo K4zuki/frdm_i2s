@@ -16,34 +16,34 @@ I2STXISR	k64f.cpp	/^FunctionPointer I2S::I2STXISR;$/;"	m	class:I2S	file:
 I2STXISR	k66f.cpp	/^FunctionPointer I2S::I2STXISR;$/;"	m	class:I2S	file:
 I2S_3WIRE	I2S.h	56;"	d
 I2S_4WIRE	I2S.h	55;"	d
-I2S_CONFIG_BITS_IN_A_WORD	k64f.cpp	521;"	d	file:
-I2S_CONFIG_BITS_IN_A_WORD	k66f.cpp	521;"	d	file:
-I2S_CONFIG_WORDS_IN_A_FRAME	k64f.cpp	520;"	d	file:
-I2S_CONFIG_WORDS_IN_A_FRAME	k66f.cpp	520;"	d	file:
-I2S_DF_INTERRUPT_FIFO_LEVEL	k64f.cpp	12;"	d	file:
-I2S_DF_INTERRUPT_FIFO_LEVEL	k66f.cpp	12;"	d	file:
-I2S_DF_MASTERSLAVE	k64f.cpp	9;"	d	file:
-I2S_DF_MASTERSLAVE	k66f.cpp	9;"	d	file:
-I2S_DF_MUTED	k64f.cpp	11;"	d	file:
-I2S_DF_MUTED	k66f.cpp	11;"	d	file:
-I2S_DF_SAMPLERATE	k64f.cpp	8;"	d	file:
-I2S_DF_SAMPLERATE	k66f.cpp	8;"	d	file:
-I2S_DF_STEREOMONO	k64f.cpp	10;"	d	file:
-I2S_DF_STEREOMONO	k66f.cpp	10;"	d	file:
-I2S_DF_WORDWIDTH	k64f.cpp	7;"	d	file:
-I2S_DF_WORDWIDTH	k66f.cpp	7;"	d	file:
+I2S_CONFIG_BITS_IN_A_WORD	k64f.cpp	535;"	d	file:
+I2S_CONFIG_BITS_IN_A_WORD	k66f.cpp	535;"	d	file:
+I2S_CONFIG_WORDS_IN_A_FRAME	k64f.cpp	534;"	d	file:
+I2S_CONFIG_WORDS_IN_A_FRAME	k66f.cpp	534;"	d	file:
+I2S_DF_INTERRUPT_FIFO_LEVEL	k64f.cpp	26;"	d	file:
+I2S_DF_INTERRUPT_FIFO_LEVEL	k66f.cpp	26;"	d	file:
+I2S_DF_MASTERSLAVE	k64f.cpp	23;"	d	file:
+I2S_DF_MASTERSLAVE	k66f.cpp	23;"	d	file:
+I2S_DF_MUTED	k64f.cpp	25;"	d	file:
+I2S_DF_MUTED	k66f.cpp	25;"	d	file:
+I2S_DF_SAMPLERATE	k64f.cpp	22;"	d	file:
+I2S_DF_SAMPLERATE	k66f.cpp	22;"	d	file:
+I2S_DF_STEREOMONO	k64f.cpp	24;"	d	file:
+I2S_DF_STEREOMONO	k66f.cpp	24;"	d	file:
+I2S_DF_WORDWIDTH	k64f.cpp	21;"	d	file:
+I2S_DF_WORDWIDTH	k66f.cpp	21;"	d	file:
 I2S_H	I2S.h	41;"	d
 I2S_MASTER	I2S.h	46;"	d
-I2S_MAX_BITRATE_DIV	k64f.cpp	16;"	d	file:
-I2S_MAX_BITRATE_DIV	k66f.cpp	16;"	d	file:
-I2S_MAX_DENOMINATOR	k64f.cpp	14;"	d	file:
-I2S_MAX_DENOMINATOR	k66f.cpp	14;"	d	file:
-I2S_MAX_NUMERATOR	k64f.cpp	15;"	d	file:
-I2S_MAX_NUMERATOR	k66f.cpp	15;"	d	file:
+I2S_MAX_BITRATE_DIV	k64f.cpp	30;"	d	file:
+I2S_MAX_BITRATE_DIV	k66f.cpp	30;"	d	file:
+I2S_MAX_DENOMINATOR	k64f.cpp	28;"	d	file:
+I2S_MAX_DENOMINATOR	k66f.cpp	28;"	d	file:
+I2S_MAX_NUMERATOR	k64f.cpp	29;"	d	file:
+I2S_MAX_NUMERATOR	k66f.cpp	29;"	d	file:
 I2S_MONO	I2S.h	50;"	d
 I2S_MUTED	I2S.h	52;"	d
-I2S_PCLK_RATE	k64f.cpp	18;"	d	file:
-I2S_PCLK_RATE	k66f.cpp	18;"	d	file:
+I2S_PCLK_RATE	k64f.cpp	32;"	d	file:
+I2S_PCLK_RATE	k66f.cpp	32;"	d	file:
 I2S_RECEIVE	I2S.h	44;"	d
 I2S_SLAVE	I2S.h	47;"	d
 I2S_STEREO	I2S.h	49;"	d

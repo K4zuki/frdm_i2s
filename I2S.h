@@ -28,9 +28,14 @@
 *
 */
 
-#include "MK64F12.h"
 #include "math.h"
 #include "mbed.h"
+
+#if defined(TARGET_MCU_K64F)
+#include "MK64F12.h"
+#else if defined(TARGET_K66F)
+#include "MK66F18.h"
+#endif
 
 #ifndef I2S_H
 #define I2S_H

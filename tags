@@ -1,0 +1,147 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+BitClk_d	I2S.h	/^    bool WordSelect_d, BitClk_d, MasterClk_d;$/;"	m	class:I2S
+I2S	I2S.h	/^class I2S {$/;"	c
+I2S	k64f.cpp	/^I2S::I2S(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk) {$/;"	f	class:I2S
+I2S	k66f.cpp	/^I2S::I2S(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk) {$/;"	f	class:I2S
+I2SRXISR	I2S.h	/^    static FunctionPointer I2SRXISR;$/;"	m	class:I2S
+I2SRXISR	k64f.cpp	/^FunctionPointer I2S::I2SRXISR;$/;"	m	class:I2S	file:
+I2SRXISR	k66f.cpp	/^FunctionPointer I2S::I2SRXISR;$/;"	m	class:I2S	file:
+I2STXISR	I2S.h	/^    static FunctionPointer I2STXISR;$/;"	m	class:I2S
+I2STXISR	k64f.cpp	/^FunctionPointer I2S::I2STXISR;$/;"	m	class:I2S	file:
+I2STXISR	k66f.cpp	/^FunctionPointer I2S::I2STXISR;$/;"	m	class:I2S	file:
+I2S_3WIRE	I2S.h	56;"	d
+I2S_4WIRE	I2S.h	55;"	d
+I2S_CONFIG_BITS_IN_A_WORD	k64f.cpp	521;"	d	file:
+I2S_CONFIG_BITS_IN_A_WORD	k66f.cpp	521;"	d	file:
+I2S_CONFIG_WORDS_IN_A_FRAME	k64f.cpp	520;"	d	file:
+I2S_CONFIG_WORDS_IN_A_FRAME	k66f.cpp	520;"	d	file:
+I2S_DF_INTERRUPT_FIFO_LEVEL	k64f.cpp	12;"	d	file:
+I2S_DF_INTERRUPT_FIFO_LEVEL	k66f.cpp	12;"	d	file:
+I2S_DF_MASTERSLAVE	k64f.cpp	9;"	d	file:
+I2S_DF_MASTERSLAVE	k66f.cpp	9;"	d	file:
+I2S_DF_MUTED	k64f.cpp	11;"	d	file:
+I2S_DF_MUTED	k66f.cpp	11;"	d	file:
+I2S_DF_SAMPLERATE	k64f.cpp	8;"	d	file:
+I2S_DF_SAMPLERATE	k66f.cpp	8;"	d	file:
+I2S_DF_STEREOMONO	k64f.cpp	10;"	d	file:
+I2S_DF_STEREOMONO	k66f.cpp	10;"	d	file:
+I2S_DF_WORDWIDTH	k64f.cpp	7;"	d	file:
+I2S_DF_WORDWIDTH	k66f.cpp	7;"	d	file:
+I2S_H	I2S.h	41;"	d
+I2S_MASTER	I2S.h	46;"	d
+I2S_MAX_BITRATE_DIV	k64f.cpp	16;"	d	file:
+I2S_MAX_BITRATE_DIV	k66f.cpp	16;"	d	file:
+I2S_MAX_DENOMINATOR	k64f.cpp	14;"	d	file:
+I2S_MAX_DENOMINATOR	k66f.cpp	14;"	d	file:
+I2S_MAX_NUMERATOR	k64f.cpp	15;"	d	file:
+I2S_MAX_NUMERATOR	k66f.cpp	15;"	d	file:
+I2S_MONO	I2S.h	50;"	d
+I2S_MUTED	I2S.h	52;"	d
+I2S_PCLK_RATE	k64f.cpp	18;"	d	file:
+I2S_PCLK_RATE	k66f.cpp	18;"	d	file:
+I2S_RECEIVE	I2S.h	44;"	d
+I2S_SLAVE	I2S.h	47;"	d
+I2S_STEREO	I2S.h	49;"	d
+I2S_TRANSMIT	I2S.h	43;"	d
+I2S_UNMUTED	I2S.h	53;"	d
+MasterClk_d	I2S.h	/^    bool WordSelect_d, BitClk_d, MasterClk_d;$/;"	m	class:I2S
+WordSelect_d	I2S.h	/^    bool WordSelect_d, BitClk_d, MasterClk_d;$/;"	m	class:I2S
+_BitClk	I2S.h	/^    PinName _SerialData, _WordSelect, _BitClk, _MasterClk;$/;"	m	class:I2S
+_MasterClk	I2S.h	/^    PinName _SerialData, _WordSelect, _BitClk, _MasterClk;$/;"	m	class:I2S
+_SerialData	I2S.h	/^    PinName _SerialData, _WordSelect, _BitClk, _MasterClk;$/;"	m	class:I2S
+_WordSelect	I2S.h	/^    PinName _SerialData, _WordSelect, _BitClk, _MasterClk;$/;"	m	class:I2S
+_i2s_init	k64f.cpp	/^void I2S::_i2s_init(void) {$/;"	f	class:I2S
+_i2s_init	k66f.cpp	/^void I2S::_i2s_init(void) {$/;"	f	class:I2S
+_i2s_set_rate	k64f.cpp	/^void I2S::_i2s_set_rate(int smprate) {$/;"	f	class:I2S
+_i2s_set_rate	k66f.cpp	/^void I2S::_i2s_set_rate(int smprate) {$/;"	f	class:I2S
+_i2sisr	k64f.cpp	/^void I2S::_i2sisr(void) {$/;"	f	class:I2S
+_i2sisr	k66f.cpp	/^void I2S::_i2sisr(void) {$/;"	f	class:I2S
+_rxtx	I2S.h	/^    bool _rxtx;$/;"	m	class:I2S
+_set_clock_112896	k64f.cpp	/^void I2S::_set_clock_112896(void) {$/;"	f	class:I2S
+_set_clock_112896	k66f.cpp	/^void I2S::_set_clock_112896(void) {$/;"	f	class:I2S
+_set_clock_122800	k64f.cpp	/^void I2S::_set_clock_122800(void) {$/;"	f	class:I2S
+_set_clock_122800	k66f.cpp	/^void I2S::_set_clock_122800(void) {$/;"	f	class:I2S
+attach	I2S.h	/^    void attach(T *tptr, void (T::*mptr)(void)) {$/;"	f	class:I2S
+attach	I2S.h	/^    void attach(void (*fptr)(void)) {$/;"	f	class:I2S
+deallocating	I2S.h	/^    bool deallocating;$/;"	m	class:I2S
+defaulter	k64f.cpp	/^void I2S::defaulter() {$/;"	f	class:I2S
+defaulter	k66f.cpp	/^void I2S::defaulter() {$/;"	f	class:I2S
+fifo_level	k64f.cpp	/^int I2S::fifo_level() {$/;"	f	class:I2S
+fifo_level	k66f.cpp	/^int I2S::fifo_level() {$/;"	f	class:I2S
+fifo_points	k64f.cpp	/^int I2S::fifo_points() {$/;"	f	class:I2S
+fifo_points	k66f.cpp	/^int I2S::fifo_points() {$/;"	f	class:I2S
+fourwire	I2S.h	/^    bool fourwire;$/;"	m	class:I2S
+freq	I2S.h	/^    int freq;$/;"	m	class:I2S
+frequency	k64f.cpp	/^void I2S::frequency(int desired_freq) {$/;"	f	class:I2S
+frequency	k66f.cpp	/^void I2S::frequency(int desired_freq) {$/;"	f	class:I2S
+interrupt_fifo_level	I2S.h	/^    int interrupt_fifo_level;$/;"	m	class:I2S
+master	I2S.h	/^    bool master;$/;"	m	class:I2S
+masterslave	k64f.cpp	/^void I2S::masterslave(bool mastermode) {$/;"	f	class:I2S
+masterslave	k66f.cpp	/^void I2S::masterslave(bool mastermode) {$/;"	f	class:I2S
+max_fifo_points	k64f.cpp	/^int I2S::max_fifo_points() {$/;"	f	class:I2S
+max_fifo_points	k66f.cpp	/^int I2S::max_fifo_points() {$/;"	f	class:I2S
+mclk_en	I2S.h	/^    bool mclk_en;$/;"	m	class:I2S
+mclk_freq	k64f.cpp	/^void I2S::mclk_freq(int freq) {$/;"	f	class:I2S
+mclk_freq	k66f.cpp	/^void I2S::mclk_freq(int freq) {$/;"	f	class:I2S
+mclk_frequency	I2S.h	/^    int mclk_frequency;$/;"	m	class:I2S
+mute	k64f.cpp	/^void I2S::mute() {$/;"	f	class:I2S
+mute	k64f.cpp	/^void I2S::mute(bool mute_en) {$/;"	f	class:I2S
+mute	k66f.cpp	/^void I2S::mute() {$/;"	f	class:I2S
+mute	k66f.cpp	/^void I2S::mute(bool mute_en) {$/;"	f	class:I2S
+muted	I2S.h	/^    bool muted;$/;"	m	class:I2S
+old_bitrate_div	I2S.h	/^    int old_bitrate_div;$/;"	m	class:I2S
+old_freq	I2S.h	/^    int old_freq;$/;"	m	class:I2S
+old_pre_den	I2S.h	/^    int old_pre_den;$/;"	m	class:I2S
+old_pre_num	I2S.h	/^    int old_pre_num;$/;"	m	class:I2S
+pin_setup	k64f.cpp	/^void I2S::pin_setup() {$/;"	f	class:I2S
+pin_setup	k66f.cpp	/^void I2S::pin_setup() {$/;"	f	class:I2S
+pin_setup_err	I2S.h	/^    int pin_setup_err;$/;"	m	class:I2S
+power	k64f.cpp	/^void I2S::power(bool pwr) {$/;"	f	class:I2S
+power	k66f.cpp	/^void I2S::power(bool pwr) {$/;"	f	class:I2S
+pwr	I2S.h	/^    bool pwr;$/;"	m	class:I2S
+read	k64f.cpp	/^int I2S::read() { return I2S0->RDR[0]; }$/;"	f	class:I2S
+read	k64f.cpp	/^void I2S::read(char buf[], int len) {$/;"	f	class:I2S
+read	k64f.cpp	/^void I2S::read(int buf[], int len) {$/;"	f	class:I2S
+read	k64f.cpp	/^void I2S::read(int bufr[], int bufl[], int len) {$/;"	f	class:I2S
+read	k66f.cpp	/^int I2S::read() { return I2S0->RDR[0]; }$/;"	f	class:I2S
+read	k66f.cpp	/^void I2S::read(char buf[], int len) {$/;"	f	class:I2S
+read	k66f.cpp	/^void I2S::read(int buf[], int len) {$/;"	f	class:I2S
+read	k66f.cpp	/^void I2S::read(int bufr[], int bufl[], int len) {$/;"	f	class:I2S
+reg_write_err	I2S.h	/^    int reg_write_err;$/;"	m	class:I2S
+rxisr	I2S.h	/^    static bool rxisr;$/;"	m	class:I2S
+rxisr	k64f.cpp	/^bool I2S::rxisr;$/;"	m	class:I2S	file:
+rxisr	k66f.cpp	/^bool I2S::rxisr;$/;"	m	class:I2S	file:
+set_interrupt_fifo_level	k64f.cpp	/^void I2S::set_interrupt_fifo_level(int level) {$/;"	f	class:I2S
+set_interrupt_fifo_level	k66f.cpp	/^void I2S::set_interrupt_fifo_level(int level) {$/;"	f	class:I2S
+setup_ok	k64f.cpp	/^bool I2S::setup_ok() {$/;"	f	class:I2S
+setup_ok	k66f.cpp	/^bool I2S::setup_ok() {$/;"	f	class:I2S
+start	k64f.cpp	/^void I2S::start() {$/;"	f	class:I2S
+start	k66f.cpp	/^void I2S::start() {$/;"	f	class:I2S
+stereo	I2S.h	/^    bool stereo;$/;"	m	class:I2S
+stereomono	k64f.cpp	/^void I2S::stereomono(bool stereomode) {$/;"	f	class:I2S
+stereomono	k66f.cpp	/^void I2S::stereomono(bool stereomode) {$/;"	f	class:I2S
+stop	k64f.cpp	/^void I2S::stop() {$/;"	f	class:I2S
+stop	k66f.cpp	/^void I2S::stop() {$/;"	f	class:I2S
+stopped	I2S.h	/^    bool stopped;$/;"	m	class:I2S
+txisr	I2S.h	/^    static bool txisr;$/;"	m	class:I2S
+txisr	k64f.cpp	/^bool I2S::txisr;$/;"	m	class:I2S	file:
+txisr	k66f.cpp	/^bool I2S::txisr;$/;"	m	class:I2S	file:
+wordsize	k64f.cpp	/^void I2S::wordsize(int words) {$/;"	f	class:I2S
+wordsize	k66f.cpp	/^void I2S::wordsize(int words) {$/;"	f	class:I2S
+wordwidth	I2S.h	/^    int wordwidth;$/;"	m	class:I2S
+wordwidth_code	I2S.h	/^    char wordwidth_code;$/;"	m	class:I2S
+write	k64f.cpp	/^void I2S::write(char buf[], int len) {$/;"	f	class:I2S
+write	k64f.cpp	/^void I2S::write(int buf[], int len) {$/;"	f	class:I2S
+write	k64f.cpp	/^void I2S::write(int bufr[], int bufl[], int len) {$/;"	f	class:I2S
+write	k66f.cpp	/^void I2S::write(char buf[], int len) {$/;"	f	class:I2S
+write	k66f.cpp	/^void I2S::write(int buf[], int len) {$/;"	f	class:I2S
+write	k66f.cpp	/^void I2S::write(int bufr[], int bufl[], int len) {$/;"	f	class:I2S
+write_registers	k64f.cpp	/^void I2S::write_registers() {$/;"	f	class:I2S
+write_registers	k66f.cpp	/^void I2S::write_registers() {$/;"	f	class:I2S
+~I2S	k64f.cpp	/^I2S::~I2S() {$/;"	f	class:I2S
+~I2S	k66f.cpp	/^I2S::~I2S() {$/;"	f	class:I2S

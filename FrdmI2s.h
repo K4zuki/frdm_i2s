@@ -58,7 +58,7 @@
 /** A class to play give access to the I2S library
  */
 
-class I2S {
+class FrdmI2s {
    public:
     /** Create a I2S instance
      *
@@ -68,7 +68,7 @@ class I2S {
      * @param WordSelect    The word select pin
      * @param BitClk    The clock pin
      */
-    I2S(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk);
+    FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk);
 
     /** Create a I2S instance: Only with the serial data line set. Won't really do
      * much.
@@ -113,7 +113,7 @@ class I2S {
 
     /** Destroy the I2S instance
      */
-    ~I2S();
+    ~FrdmI2s();
 
     /** Write to the FIFO
      *

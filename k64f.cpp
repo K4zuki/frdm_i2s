@@ -16,7 +16,7 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 */
 #if defined(TARGET_MCU_K64F)
 
-#include "I2S.h"
+#include "FrdmI2s.h"
 
 #define I2S_DF_WORDWIDTH 16
 #define I2S_DF_SAMPLERATE 32000
@@ -31,13 +31,13 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 
 #define I2S_PCLK_RATE 12288000
 
-FunctionPointer I2S::I2STXISR;
-FunctionPointer I2S::I2SRXISR;
+FunctionPointer FrdmI2s::I2STXISR;
+FunctionPointer FrdmI2s::I2SRXISR;
 
-bool I2S::txisr;
-bool I2S::rxisr;
+bool FrdmI2s::txisr;
+bool FrdmI2s::rxisr;
 
-I2S::I2S(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk) {
+FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk) {
     SIM->SCGC6 &= ~(SIM_SCGC6_I2S_MASK);
     SIM->SCGC6 |= SIM_SCGC6_I2S_MASK;
 
@@ -67,7 +67,7 @@ I2S::I2S(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk) {
     _i2s_init();
 }
 
-// I2S::I2S(bool rxtx, PinName SerialData)
+// FrdmI2s::I2S(bool rxtx, PinName SerialData)
 //{
 //    NVIC_DisableIRQ (I2S0_Tx_IRQn);
 //    NVIC_DisableIRQ (I2S0_Rx_IRQn);
@@ -92,7 +92,7 @@ I2S::I2S(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk) {
 //    defaulter();
 //}
 //
-// I2S::I2S(bool rxtx, PinName SerialData, bool fourwiremode)
+// FrdmI2s::I2S(bool rxtx, PinName SerialData, bool fourwiremode)
 //{
 //    NVIC_DisableIRQ (I2S0_Tx_IRQn);
 //    NVIC_DisableIRQ (I2S0_Rx_IRQn);
@@ -117,7 +117,7 @@ I2S::I2S(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk) {
 //    defaulter();
 //}
 //
-// I2S::I2S(bool rxtx, PinName SerialData, PinName WordSelect, bool
+// FrdmI2s::I2S(bool rxtx, PinName SerialData, PinName WordSelect, bool
 // fourwiremode)
 //{
 //    NVIC_DisableIRQ (I2S0_Tx_IRQn);
@@ -144,7 +144,7 @@ I2S::I2S(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk) {
 //    defaulter();
 //}
 //
-// I2S::I2S(bool rxtx, PinName SerialData, PinName WordSelect)
+// FrdmI2s::I2S(bool rxtx, PinName SerialData, PinName WordSelect)
 //{
 //    NVIC_DisableIRQ (I2S0_Tx_IRQn);
 //    NVIC_DisableIRQ (I2S0_Rx_IRQn);
@@ -170,7 +170,7 @@ I2S::I2S(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk) {
 //    defaulter();
 //}
 
-I2S::~I2S() {
+FrdmI2s::~I2S() {
     NVIC_DisableIRQ(I2S0_Tx_IRQn);
     NVIC_DisableIRQ(I2S0_Rx_IRQn);
 
@@ -179,7 +179,7 @@ I2S::~I2S() {
     write_registers();
 }
 
-void I2S::defaulter() {
+void FrdmI2s::defaulter() {
     I2S0->TCSR |= 1u << 31;
 
     stop();
@@ -197,7 +197,7 @@ void I2S::defaulter() {
     NVIC_EnableIRQ(I2S0_Tx_IRQn);
 }
 
-void I2S::write(char buf[], int len) {
+void FrdmI2s::write(char buf[], int len) {
     if (_rxtx == I2S_TRANSMIT) {
         if (len > max_fifo_points()) len = max_fifo_points();
         if (len <= 0) return;
@@ -212,7 +212,7 @@ void I2S::write(char buf[], int len) {
     }
 }
 
-void I2S::write(int buf[], int len) {
+void FrdmI2s::write(int buf[], int len) {
     if (_rxtx == I2S_TRANSMIT && wordwidth > 0) {
         if (len > max_fifo_points()) {
             len = max_fifo_points();
@@ -260,13 +260,13 @@ void I2S::write(int buf[], int len) {
     }
 }
 
-void I2S::write(int bufr[], int bufl[], int len) {
+void FrdmI2s::write(int bufr[], int bufl[], int len) {
     //#TODO: Write this!
 }
 
-int I2S::read() { return I2S0->RDR[0]; }
+int FrdmI2s::read() { return I2S0->RDR[0]; }
 
-void I2S::read(char buf[], int len) {
+void FrdmI2s::read(char buf[], int len) {
     bool len_valid = true;
     if (len <= 0) return;
     if (len >= fifo_points()) len = fifo_points();
@@ -287,7 +287,7 @@ void I2S::read(char buf[], int len) {
     }
 }
 
-void I2S::read(int buf[], int len) {
+void FrdmI2s::read(int buf[], int len) {
     bool len_valid = true;
     if (len <= 0) return;
     if (len >= fifo_points()) len = fifo_points();
@@ -308,11 +308,11 @@ void I2S::read(int buf[], int len) {
     }
 }
 
-void I2S::read(int bufr[], int bufl[], int len) {
+void FrdmI2s::read(int bufr[], int bufl[], int len) {
     //#TODO: Write this
 }
 
-int I2S::max_fifo_points() {
+int FrdmI2s::max_fifo_points() {
     switch (wordwidth) {
         case 8:
             return (4 * 8);
@@ -325,7 +325,7 @@ int I2S::max_fifo_points() {
     }
 }
 
-int I2S::fifo_points() {
+int FrdmI2s::fifo_points() {
     switch (wordwidth) {
         case 8:
             return (4 * fifo_level());
@@ -338,7 +338,7 @@ int I2S::fifo_points() {
     }
 }
 
-void I2S::power(bool pwr) {
+void FrdmI2s::power(bool pwr) {
     if (pwr) {
         stopped = false;
     } else {
@@ -347,7 +347,7 @@ void I2S::power(bool pwr) {
     write_registers();
 }
 
-void I2S::masterslave(bool mastermode) {
+void FrdmI2s::masterslave(bool mastermode) {
     if (mastermode == I2S_MASTER) {
         master = true;
     } else {
@@ -356,23 +356,23 @@ void I2S::masterslave(bool mastermode) {
     write_registers();
 }
 
-void I2S::wordsize(int words) {
+void FrdmI2s::wordsize(int words) {
     wordwidth = 16;
     //    write_registers();
 }
 
-void I2S::mclk_freq(int freq) {
+void FrdmI2s::mclk_freq(int freq) {
     mclk_frequency = 12288000;
     //    write_registers();
 }
 
-void I2S::frequency(int desired_freq) {
+void FrdmI2s::frequency(int desired_freq) {
     freq = 32000;
     _i2s_set_rate(freq);
     // write_registers();
 }
 
-int I2S::fifo_level() {
+int FrdmI2s::fifo_level() {
     int level = 0;
     if (_rxtx == I2S_TRANSMIT) {
         level = I2S0->TFR[0];
@@ -386,7 +386,7 @@ int I2S::fifo_level() {
     return level;
 }
 
-void I2S::stereomono(bool stereomode) {
+void FrdmI2s::stereomono(bool stereomode) {
     stereo = true;
     /*
         if (stereomode == I2S_STEREO) {
@@ -397,40 +397,40 @@ void I2S::stereomono(bool stereomode) {
     */
 }
 
-void I2S::mute() {
+void FrdmI2s::mute() {
     muted = true;
     //    write_registers();
 }
 
-void I2S::mute(bool mute_en) {
+void FrdmI2s::mute(bool mute_en) {
     muted = mute_en;
     //    write_registers();
 }
 
-void I2S::stop() {
+void FrdmI2s::stop() {
     stopped = true;
     //    write_registers();
 }
 
-void I2S::set_interrupt_fifo_level(int level) {
+void FrdmI2s::set_interrupt_fifo_level(int level) {
     interrupt_fifo_level = 4;
     //    write_registers();
 }
 
-void I2S::start() {
+void FrdmI2s::start() {
     stopped = false;
     muted = false;
     //    write_registers();
 }
 
-bool I2S::setup_ok() {
+bool FrdmI2s::setup_ok() {
     if ((reg_write_err + pin_setup_err) > 0)
         return false;
     else
         return true;
 }
 
-void I2S::pin_setup() {
+void FrdmI2s::pin_setup() {
     pin_setup_err = 0;
 
     if (_rxtx == I2S_TRANSMIT) {
@@ -517,7 +517,7 @@ void I2S::pin_setup() {
     }
 }
 
-void I2S::_set_clock_112896(void) {
+void FrdmI2s::_set_clock_112896(void) {
     //    SIM->SCGC6 &= ~(SIM_SCGC6_I2S_MASK);
 
     // output = input[(I2SFRAC+1) / (I2SDIV+1) ] = (48* (4/17))
@@ -525,12 +525,12 @@ void I2S::_set_clock_112896(void) {
     I2S0->MDR = I2S_MDR_FRACT(3) | I2S_MDR_DIVIDE(16);
     //    SIM->SCGC6 |= SIM_SCGC6_I2S_MASK;
 }
-void I2S::_set_clock_122800(void) {
+void FrdmI2s::_set_clock_122800(void) {
     // output = input [(I2SFRAC+1) / (I2SDIV+1) ] = (48M* (32/125))
     // SIM_CLKDIV2 |= SIM_CLKDIV2_I2SDIV(124) | SIM_CLKDIV2_I2SFRAC(31);
     I2S0->MDR = I2S_MDR_FRACT(63) | I2S_MDR_DIVIDE(624);
 }
-void I2S::_i2s_init(void) {
+void FrdmI2s::_i2s_init(void) {
 #define I2S_CONFIG_WORDS_IN_A_FRAME 2
 #define I2S_CONFIG_BITS_IN_A_WORD 16
 
@@ -561,7 +561,7 @@ void I2S::_i2s_init(void) {
                  (0 << 0);    // enable DMA request
 }
 
-void I2S::_i2s_set_rate(int smprate) {
+void FrdmI2s::_i2s_set_rate(int smprate) {
     unsigned char div;
     //    SIM->SCGC6 |= SIM_SCGC6_I2S_MASK;
 
@@ -589,7 +589,7 @@ void I2S::_i2s_set_rate(int smprate) {
     I2S0->TCR2 = div;
 }
 
-void I2S::write_registers() {
+void FrdmI2s::write_registers() {
     reg_write_err = 0;
     // Clock Multiplier Calculations
     float pre_mult = 0;
@@ -731,7 +731,7 @@ void I2S::write_registers() {
     }
 }
 
-void I2S::_i2sisr(void) {
+void FrdmI2s::_i2sisr(void) {
     I2STXISR.call();
     I2SRXISR.call();
 }
@@ -740,7 +740,7 @@ void I2S::_i2sisr(void) {
 // denomnator less than 256
 // This is used when trying to get the clocks correct
 
-// void I2S::fraction_estimator(float in, int * num, int * den)
+// void FrdmI2s::fraction_estimator(float in, int * num, int * den)
 //{
 //    int test_num = 0;
 //    int test_den = 0;
@@ -770,7 +770,7 @@ void I2S::_i2sisr(void) {
 //
 //}
 //
-// float I2S::mod(float in)
+// float FrdmI2s::mod(float in)
 //{
 //    if (in < 0)
 //        in *= -1;

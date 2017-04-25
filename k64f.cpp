@@ -15,7 +15,7 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #if defined(TARGET_MCU_K64F)
-
+// see https://developer.mbed.org/media/uploads/GregC/k64f_rm_rev2.pdf for details
 #include "FrdmI2s.h"
 
 #define I2S_DF_WORDWIDTH 16
@@ -39,7 +39,7 @@ bool FrdmI2s::rxisr;
 
 FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk) {
     SIM->SCGC6 &= ~(SIM_SCGC6_I2S_MASK);
-    SIM->SCGC6 |= SIM_SCGC6_I2S_MASK;
+    SIM->SCGC6 |= SIM_SCGC6_I2S(1);
 
     NVIC_DisableIRQ(I2S0_Tx_IRQn);
     NVIC_DisableIRQ(I2S0_Rx_IRQn);
@@ -94,20 +94,6 @@ FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitC
 //
 // FrdmI2s::I2S(bool rxtx, PinName SerialData, bool fourwiremode)
 //{
-//    NVIC_DisableIRQ (I2S0_Tx_IRQn);
-//    NVIC_DisableIRQ (I2S0_Rx_IRQn);
-//
-//    _SerialData = SerialData;
-//    _rxtx = rxtx;
-//
-//    WordSelect_d = false;
-//    BitClk_d = false;
-//    MasterClk_d = false;
-//
-//    reg_write_err = 0;
-//
-//    fourwire = fourwiremode;
-//
 //    pin_setup();
 //
 //    if (pin_setup_err != 0) {
@@ -170,7 +156,7 @@ FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitC
 //    defaulter();
 //}
 
-FrdmI2s::~I2S() {
+FrdmI2s::~FrdmI2s() {
     NVIC_DisableIRQ(I2S0_Tx_IRQn);
     NVIC_DisableIRQ(I2S0_Rx_IRQn);
 
@@ -377,11 +363,11 @@ int FrdmI2s::fifo_level() {
     if (_rxtx == I2S_TRANSMIT) {
         level = I2S0->TFR[0];
         level >>= 16;
-        level &= 0xF;
+        level &= 0x0F;
     } else {
         level = I2S0->TFR[0];
         level >>= 0;
-        level &= 0xF;
+        level &= 0x0F;
     }
     return level;
 }
@@ -534,31 +520,30 @@ void FrdmI2s::_i2s_init(void) {
 #define I2S_CONFIG_WORDS_IN_A_FRAME 2
 #define I2S_CONFIG_BITS_IN_A_WORD 16
 
-    I2S0->TCR1 = 4;            // 6;    // water mark
-    I2S0->TCR2 |= (0 << 30) |  // master mode(Async mode)
-                  (1 << 26) |  // MSEL = MCLK
-                  (1 << 25) |  // CLK = drive on falling edge
-                  (1 << 24);   // CLK = OUTPUT
+    I2S0->TCR1 = I2S_TCR1_TFW(4);    // 6;    // water mark
+    I2S0->TCR2 = I2S_TCR2_SYNC(0) |  // master mode(Async mode)
+                 I2S_TCR2_MSEL(1) |  // MSEL = MCLK
+                 I2S_TCR2_BCP(1) |   // CLK = drive on falling edge
+                 I2S_TCR2_BCD(1);    // CLK = OUTPUT
 
-    I2S0->TCR3 = (1 << 16);  // enable channel 0
+    I2S0->TCR3 = I2S_TCR3_TCE(1);  // enable channel 0
 
-    I2S0->TCR4 = ((I2S_CONFIG_WORDS_IN_A_FRAME - 1) << 16) |  // words in a frame
-                 ((I2S_CONFIG_BITS_IN_A_WORD - 1) << 8) |     // bits in a word
-                 (1 << 4) |                                   // MSB
-                 (1 << 3) |                                   // one bit early
-                 (1 << 1) |                                   // frame active low
-                 (1 << 0);                                    // frame = output
+    I2S0->TCR4 = I2S_TCR4_FRSZ(I2S_CONFIG_WORDS_IN_A_FRAME - 1) |  // words in a frame
+                 I2S_TCR4_SYWD(I2S_CONFIG_BITS_IN_A_WORD - 1) |    // bits in a word
+                 I2S_TCR4_MF(1) |                                  // MSB first
+                 I2S_TCR4_FSE(1) |                                 // one bit early
+                 I2S_TCR4_FSP(1) |                                 // frame active low
+                 I2S_TCR4_FSD(0);                                  // frame = output
 
-    I2S0->TCR5 = ((I2S_CONFIG_BITS_IN_A_WORD - 1) << 24) |  // word N width
-                 ((I2S_CONFIG_BITS_IN_A_WORD - 1) << 16) |  // word 0 width
-                 (0x17 << 8);                               // right adjust, where the first bit starts
+    I2S0->TCR5 = I2S_TCR5_WNW((I2S_CONFIG_BITS_IN_A_WORD - 1)) |  // word N width
+                 I2S_TCR5_W0W((I2S_CONFIG_BITS_IN_A_WORD - 1)) |  // word 0 width
+                 I2S_TCR5_FBT(23);                                // right adjust, where the first bit starts
 
-    I2S0->TMR = 0;
+    I2S0->TMR = I2S_TMR_TWM(0);
 
     // enable TX
-    I2S0->TCSR = (0 << 31) |  // enable tx
-                 (1 << 28) |  // enable bit clock
-                 (0 << 0);    // enable DMA request
+    I2S0->TCSR = I2S_TCSR_TE(0) |  // enable tx
+                 I2S_TCSR_BCE(1);  // enable bit clock
 }
 
 void FrdmI2s::_i2s_set_rate(int smprate) {
@@ -566,8 +551,8 @@ void FrdmI2s::_i2s_set_rate(int smprate) {
     //    SIM->SCGC6 |= SIM_SCGC6_I2S_MASK;
 
     // Select MCLK input source
-    I2S0->MCR = (1 << 30) |  // MCLK = output
-                (0 << 24);   // MCLK SRC = core clock = 48M
+    I2S0->MCR = I2S_MCR_MOE(1) |  // MCLK = output
+                I2S_MCR_MICS(0);  // MCLK SRC = core clock = 48M
 
     if ((smprate == 11025) || (smprate == 22050) || (smprate == 44100)) {
         _set_clock_112896();
@@ -586,7 +571,7 @@ void FrdmI2s::_i2s_set_rate(int smprate) {
             break;  // 12.288M/(32K*48) = 8, 8 = (DIV+1)*2, DIV = 3
     }
 
-    I2S0->TCR2 = div;
+    I2S0->TCR2 |= I2S_TCR2_DIV(3);
 }
 
 void FrdmI2s::write_registers() {

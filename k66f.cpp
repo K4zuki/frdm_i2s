@@ -434,26 +434,6 @@ void FrdmI2s::pin_setup() {
      * @param SerialData    The serial data pin
      * @param WordSelect    The word select pin
      * @param BitClk    The clock pin
-    PORTC->PCR[8]  &= PORT_PCR_MUX_MASK;
-    PORTC->PCR[8]  |= PORT_PCR_MUX(0x04); // PTC8 I2S0_MCLK
-
-    PORTC->PCR[5]  &= PORT_PCR_MUX_MASK;
-    PORTC->PCR[5]  |= PORT_PCR_MUX(0x04); // PTC5 I2S0_RXD0
-
-    PORTC->PCR[7] &= PORT_PCR_MUX_MASK;
-    PORTC->PCR[7] |= PORT_PCR_MUX(0x04); // PTC7 I2S0_RX_FS
-
-    PORTC->PCR[6] &= PORT_PCR_MUX_MASK;
-    PORTC->PCR[6] |= PORT_PCR_MUX(0x04); // PTC6 I2S0_RX_BCLK
-
-    PORTC->PCR[1] &= PORT_PCR_MUX_MASK;
-    PORTC->PCR[1] |= PORT_PCR_MUX(0x04); // PTC1 I2S0_TXD0
-
-    PORTB->PCR[19] &= PORT_PCR_MUX_MASK;
-    PORTB->PCR[19] |= PORT_PCR_MUX(0x04); // PTB19 I2S0_TX_FS
-
-    PORTB->PCR[18] &= PORT_PCR_MUX_MASK;
-    PORTB->PCR[18] |= PORT_PCR_MUX(0x04); // PTB18 I2S0_TX_BCLK
      */
 
     SIM_SCGC5 |= SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTC_MASK;

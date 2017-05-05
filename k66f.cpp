@@ -91,7 +91,7 @@ FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitC
 //
 //    defaulter();
 //}
-//
+
 // FrdmI2s::I2S(bool rxtx, PinName SerialData, bool fourwiremode)
 //{
 //    pin_setup();
@@ -102,7 +102,7 @@ FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitC
 //
 //    defaulter();
 //}
-//
+
 // FrdmI2s::I2S(bool rxtx, PinName SerialData, PinName WordSelect, bool
 // fourwiremode)
 //{
@@ -129,7 +129,7 @@ FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitC
 //
 //    defaulter();
 //}
-//
+
 // FrdmI2s::I2S(bool rxtx, PinName SerialData, PinName WordSelect)
 //{
 //    NVIC_DisableIRQ (I2S0_Tx_IRQn);
@@ -236,11 +236,12 @@ void FrdmI2s::write(int buf[], int len) {
                 temp |= recast[j] << (j * 8);
             }
 
-            // if(((temp >> 16) & 0xFFFF) == 0xFFFF) printf("Hmmm %x %x %x\n\r",temp,
-            // increment,i); //|| temp &0xFFFF == 0xFFFF
-            // if((buf[i]-buf[i+1])>5000 || (buf[i]-buf[i+1])<-5000)
-            // printf("J:%i,%i\n\r",buf[i],buf[i+1]);
-            // printf("%x\n",temp);
+            // if (((temp >> 16) & 0xFFFF) == 0xFFFF)
+            //     printf("Hmmm %x %x %x\n\r", temp, increment, i);  //|| temp &0xFFFF == 0xFFFF
+            // if ((buf[i] - buf[i + 1]) > 5000 || (buf[i] - buf[i + 1]) < -5000) {
+            //     printf("J:%i,%i\n\r", buf[i], buf[i + 1]);
+            // }
+            // printf("%x\n", temp);
             I2S0->TDR[0] = temp;
         }
     }
@@ -471,8 +472,8 @@ void FrdmI2s::pin_setup() {
             PORTE->PCR[7] |= PORT_PCR_MUX(0x04);  // PTE7 I2S0_RXD0
 
             if (WordSelect_d == true) {
-                PORTE->PCE[8] &= PORT_PCR_MUX_MASK;
-                PORTE->PCE[8] |= PORT_PCR_MUX(0x04);  // PTE12 I2S0_RX_FS
+                PORTE->PCR[8] &= PORT_PCR_MUX_MASK;
+                PORTE->PCR[8] |= PORT_PCR_MUX(0x04);  // PTE12 I2S0_RX_FS
             }
 
             if (BitClk_d == true) {

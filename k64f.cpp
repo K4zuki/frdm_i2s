@@ -172,12 +172,12 @@ void FrdmI2s::defaulter() {
     master = false;
     deallocating = false;
 
-    frequency(I2S_DF_SAMPLERATE);
-    wordsize(I2S_DF_WORDWIDTH);
-    masterslave(I2S_DF_MASTERSLAVE);
-    stereomono(I2S_DF_STEREOMONO);
-    set_interrupt_fifo_level(I2S_DF_INTERRUPT_FIFO_LEVEL);
-    mute(I2S_DF_MUTED);
+    frequency(defaults.SAMPLERATE);
+    wordsize(defaults.WORDWIDTH);
+    masterslave(defaults.MASTERSLAVE);
+    stereomono(defaults.STEREOMONO);
+    set_interrupt_fifo_level(defaults.INTERRUPT_FIFO_LEVEL);
+    mute(defaults.MUTED);
 
     NVIC_SetVector(I2S0_Tx_IRQn, (uint32_t)&_i2sisr);
     NVIC_EnableIRQ(I2S0_Tx_IRQn);

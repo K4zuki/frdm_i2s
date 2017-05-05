@@ -57,18 +57,18 @@
 
 class FrdmI2s_defaults {
    public:
-    static uint32_t WORDWIDTH = 16;
-    static uint32_t SAMPLERATE = 32000;
-    static uint32_t MASTERSLAVE = I2S_MASTER;
-    static uint32_t STEREOMONO = I2S_STEREO;
-    static uint32_t MUTED = I2S_UNMUTED;
-    static uint32_t INTERRUPT_FIFO_LEVEL = 4;
+    static const uint32_t WORDWIDTH = 16;
+    static const uint32_t SAMPLERATE = 32000;
+    static const uint32_t MASTERSLAVE = I2S_MASTER;
+    static const uint32_t STEREOMONO = I2S_STEREO;
+    static const uint32_t MUTED = I2S_UNMUTED;
+    static const uint32_t INTERRUPT_FIFO_LEVEL = 4;
 
-    static uint32_t MAX_DENOMINATOR = 256;
-    static uint32_t MAX_NUMERATOR = 256;
-    static uint32_t MAX_BITRATE_DIV = 64;
+    static const uint32_t MAX_DENOMINATOR = 256;
+    static const uint32_t MAX_NUMERATOR = 256;
+    static const uint32_t MAX_BITRATE_DIV = 64;
 
-    static uint32_t PCLK_RATE = 12288000;
+    static const uint32_t PCLK_RATE = 12288000;
 };
 
 /** A class to play give access to the I2S library

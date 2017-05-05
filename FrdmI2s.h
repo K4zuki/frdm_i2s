@@ -55,12 +55,32 @@
 #define I2S_4WIRE 1
 #define I2S_3WIRE 0
 
+class FrdmI2s_defaults {
+   public:
+    static uint32_t WORDWIDTH = 16;
+    static uint32_t SAMPLERATE = 32000;
+    static uint32_t MASTERSLAVE = I2S_MASTER;
+    static uint32_t STEREOMONO = I2S_STEREO;
+    static uint32_t MUTED = I2S_UNMUTED;
+    static uint32_t INTERRUPT_FIFO_LEVEL = 4;
+
+    static uint32_t MAX_DENOMINATOR = 256;
+    static uint32_t MAX_NUMERATOR = 256;
+    static uint32_t MAX_BITRATE_DIV = 64;
+
+    static uint32_t PCLK_RATE = 12288000;
+};
+
 /** A class to play give access to the I2S library
+ *
+ * - 12.288MHz MCLK sent from FRDM
+ * - BitClk is BCLK for DA7212
+ * - WordSelect is WCLK for DA7212
  */
 
 class FrdmI2s {
    public:
-    /** Create a I2S instance
+    /** Create an I2S instance
      *
      * @param rxtx     Set the I2S instance to be transmit or recieve
      * (I2S_TRANSMIT/I2S_RECEIVE)
@@ -276,7 +296,7 @@ class FrdmI2s {
 
     void mclk_enable(bool mclk_en);
 
-    void write_registers();
+    void update_config();
 
     void pin_setup();
 
@@ -284,6 +304,7 @@ class FrdmI2s {
 
     float mod(float in);
 
+    FrdmI2s_defaults defaults;
     void defaulter();
 
     PinName _SerialData, _WordSelect, _BitClk, _MasterClk;

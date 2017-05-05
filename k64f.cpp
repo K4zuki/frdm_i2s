@@ -15,7 +15,7 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #if defined(TARGET_MCU_K64F)
-// see https://developer.mbed.org/media/uploads/GregC/k64f_rm_rev2.pdf for details
+// see https://developer.mbed.org/media/uploads/GregC/k64f_rm_rev2.pdf page 1721 for details
 #include "FrdmI2s.h"
 
 #define I2S_DF_WORDWIDTH 16
@@ -162,11 +162,11 @@ FrdmI2s::~FrdmI2s() {
 
     deallocating = true;
     pin_setup();
-    write_registers();
+    update_config();
 }
 
 void FrdmI2s::defaulter() {
-    I2S0->TCSR |= 1u << 31;
+    I2S0->TCSR |= I2S_TCSR_TE(1);
 
     stop();
     master = false;
@@ -330,7 +330,7 @@ void FrdmI2s::power(bool pwr) {
     } else {
         stopped = true;
     }
-    write_registers();
+    update_config();
 }
 
 void FrdmI2s::masterslave(bool mastermode) {
@@ -339,23 +339,23 @@ void FrdmI2s::masterslave(bool mastermode) {
     } else {
         master = false;
     }
-    write_registers();
+    update_config();
 }
 
 void FrdmI2s::wordsize(int words) {
     wordwidth = 16;
-    //    write_registers();
+    //    update_config();
 }
 
 void FrdmI2s::mclk_freq(int freq) {
     mclk_frequency = 12288000;
-    //    write_registers();
+    //    update_config();
 }
 
 void FrdmI2s::frequency(int desired_freq) {
     freq = 32000;
     _i2s_set_rate(freq);
-    // write_registers();
+    // update_config();
 }
 
 int FrdmI2s::fifo_level() {
@@ -385,28 +385,28 @@ void FrdmI2s::stereomono(bool stereomode) {
 
 void FrdmI2s::mute() {
     muted = true;
-    //    write_registers();
+    //    update_config();
 }
 
 void FrdmI2s::mute(bool mute_en) {
     muted = mute_en;
-    //    write_registers();
+    //    update_config();
 }
 
 void FrdmI2s::stop() {
     stopped = true;
-    //    write_registers();
+    //    update_config();
 }
 
 void FrdmI2s::set_interrupt_fifo_level(int level) {
     interrupt_fifo_level = 4;
-    //    write_registers();
+    //    update_config();
 }
 
 void FrdmI2s::start() {
     stopped = false;
     muted = false;
-    //    write_registers();
+    //    update_config();
 }
 
 bool FrdmI2s::setup_ok() {
@@ -542,7 +542,7 @@ void FrdmI2s::_i2s_init(void) {
     I2S0->TMR = I2S_TMR_TWM(0);
 
     // enable TX
-    I2S0->TCSR = I2S_TCSR_TE(0) |  // enable tx
+    I2S0->TCSR = I2S_TCSR_TE(1) |  // enable tx
                  I2S_TCSR_BCE(1);  // enable bit clock
 }
 
@@ -574,92 +574,83 @@ void FrdmI2s::_i2s_set_rate(int smprate) {
     I2S0->TCR2 |= I2S_TCR2_DIV(3);
 }
 
-void FrdmI2s::write_registers() {
+void FrdmI2s::update_config() {
     reg_write_err = 0;
     // Clock Multiplier Calculations
     float pre_mult = 0;
     int pre_num = 0;
     int pre_den = 0;
     int bitrate_div = 0;
-    //    if (master == true) { // In the hope of not doing all this heavy lifting
-    //    every configuration
-    //        //printf("Doing some clock magic..\n\r");
-    //        int bitrate = freq * 64;
-    //        float target_div = I2S_PCLK_RATE / float(bitrate * 2);// Work out
-    //        what divider is needed in the end, including the halving of rates
-    //        the smoother does
-    //        if (mclk_frequency == 0) {
-    //            float rnd = fmod(target_div,1);// To make the X/Y fraction
-    //            closest to 1, we set the last divider to the nearest integer to
-    //            the rate divider
-    //            bitrate_div = int(target_div - rnd);
-    //            while (bitrate_div > I2S_MAX_BITRATE_DIV) { // But this might be
-    //            out of range, so we right shift it into focus
-    //                bitrate_div >>= 1;
-    //            }
-    //            if (bitrate_div == 0) { // Could be zero, which would disable
-    //            the the clock...
-    //                bitrate_div = 1;
-    //            }
-    //            pre_mult = float(bitrate_div) / target_div;    // Work out what
-    //            we have left to correct
-    //            pre_num = 0;
-    //            pre_den = 0;
-    //            fraction_estimator(pre_mult, &pre_num, &pre_den);// Get the
-    //            function to work out the closest fraction, there might be some
-    //            point in adding some possible multipliers of these values to add
-    //            to the smoothing, the reference manual (UM10360 page 480)
-    //            suggests this
+    // if (master == true) {  // In the hope of not doing all this heavy lifting
+    //     every configuration
+    //         // printf("Doing some clock magic..\n\r");
+    //         int bitrate = freq * 64;
+    //     float target_div = I2S_PCLK_RATE / float(bitrate * 2);  // Work out
+    //     what divider is needed in the end, including the halving of rates the smoother does if (mclk_frequency == 0)
+    //     {
+    //         float rnd = fmod(target_div, 1);  // To make the X/Y fraction
+    //         closest to 1,
+    //             we set the last divider to the nearest integer to the rate divider bitrate_div = int(target_div -
+    //             rnd);
+    //         while (bitrate_div > I2S_MAX_BITRATE_DIV) {  // But this might be
+    //             out of range, so we right shift it into focus bitrate_div >>= 1;
+    //         }
+    //         if (bitrate_div == 0) {  // Could be zero, which would disable
+    //             the the clock... bitrate_div = 1;
+    //         }
+    //         pre_mult = float(bitrate_div) / target_div;  // Work out what
+    //         we have left to correct pre_num = 0;
+    //         pre_den = 0;
+    //         fraction_estimator(pre_mult, &pre_num, &pre_den);  // Get the
+    //         function to work out the closest fraction,
+    //             there might be some point in adding some possible multipliers of these values to add to the
+    //             smoothing,
+    //             the reference manual(UM10360 page 480) suggests this
+    //     }
+    //     else {
+    //         pre_mult = float(mclk_frequency * 2) / (I2S_PCLK_RATE);
+    //         pre_num = 0;
+    //         pre_den = 0;
+    //         fraction_estimator(pre_mult, &pre_num, &pre_den);  // Get the
+    //         function to work out the closest fraction,
+    //             there might be some point in adding some possible multipliers of these values to add to the
+    //             smoothing,
+    //             the reference manual(UM10360 page 480) suggests this bitrate_div =
+    //                 int(I2S_PCLK_RATE * float(pre_num) / float(pre_den) / float(bitrate));
+    //     }
     //
-    //        } else {
-    //            pre_mult = float(mclk_frequency * 2) / (I2S_PCLK_RATE);
-    //            pre_num = 0;
-    //            pre_den = 0;
-    //            fraction_estimator(pre_mult, &pre_num, &pre_den);// Get the
-    //            function to work out the closest fraction, there might be some
-    //            point in adding some possible multipliers of these values to add
-    //            to the smoothing, the reference manual (UM10360 page 480)
-    //            suggests this
-    //            bitrate_div = int(
-    //                              I2S_PCLK_RATE * float(pre_num) /
-    //                              float(pre_den)
-    //                              / float(bitrate));
-    //        }
-    //
-    //        old_freq = freq;
-    //        old_pre_num = pre_num;
-    //        old_pre_den = pre_den;
-    //        old_bitrate_div = bitrate_div;
-    //    } else {
-    //        pre_num = old_pre_num;
-    //        pre_den = old_pre_den;
-    //        bitrate_div = old_bitrate_div;
-    //    }
+    //     old_freq = freq;
+    //     old_pre_num = pre_num;
+    //     old_pre_den = pre_den;
+    //     old_bitrate_div = bitrate_div;
+    // } else {
+    //     pre_num = old_pre_num;
+    //     pre_den = old_pre_den;
+    //     bitrate_div = old_bitrate_div;
+    // }
 
     // Clock Multiplier, MCLK setup
     if (_rxtx == I2S_TRANSMIT) {
         int regvals = ((pre_num << 8) & 0xFF00) | (pre_den & 0xFF);
-        //        LPC_I2S->I2STXRATE = regvals;                // Setting the X/Y
-        //        fraction
-        //        LPC_I2S->I2STXBITRATE = (bitrate_div - 1) & 0x3F;// Setting up the
-        //        bitrate divider, the periferal adds one to this
-
-        //        LPC_I2S->I2STXMODE = fourwire << 2;
+        // LPC_I2S->I2STXRATE = regvals;                      // Setting the X/Y fraction
+        // LPC_I2S->I2STXBITRATE = (bitrate_div - 1) & 0x3F;  // Setting up the
+        //                                                    // bitrate divider, the periferal adds one to this
+        //
+        // LPC_I2S->I2STXMODE = fourwire << 2;
 
         if (MasterClk_d == true) {
-            //            LPC_I2S->I2STXMODE |= (1 << 3);
+            // LPC_I2S->I2STXMODE |= (1 << 3);
         }
     } else {
-        int regvals = ((pre_num << 8) & 0xFF00) | (pre_den & 0xFF);
-        //        LPC_I2S->I2SRXRATE = regvals;                // Setting the X/Y
-        //        fraction
-        //        LPC_I2S->I2SRXBITRATE = (bitrate_div - 1) & 0x3F;// Setting up the
-        //        bitrate divider, the periferal adds one to this
+        // int regvals = ((pre_num << 8) & 0xFF00) | (pre_den & 0xFF);
+        // LPC_I2S->I2SRXRATE = regvals;                      // Setting the X/Y fraction
+        // LPC_I2S->I2SRXBITRATE = (bitrate_div - 1) & 0x3F;  // Setting up the
+        // bitrate divider, the periferal adds one to this
 
-        //        LPC_I2S->I2SRXMODE = fourwire << 2;
+        // LPC_I2S->I2SRXMODE = fourwire << 2;
 
         if (MasterClk_d == true) {
-            //            LPC_I2S->I2SRXMODE |= (1 << 3);
+            // LPC_I2S->I2SRXMODE |= (1 << 3);
         }
     }
 
@@ -687,31 +678,29 @@ void FrdmI2s::write_registers() {
 
     if (_rxtx == I2S_TRANSMIT) {
         ;
-        //        LPC_I2S->I2SDAO = I2SDA_reg;
+        // LPC_I2S->I2SDAO = I2SDA_reg;
     } else {
         ;
-        //        LPC_I2S->I2SDAI = I2SDA_reg;
+        // LPC_I2S->I2SDAI = I2SDA_reg;
     }
 
     if (_rxtx == I2S_TRANSMIT) {
         if (txisr) {
-            //            LPC_I2S->I2SIRQ = (LPC_I2S->I2SIRQ & 0xFF0FFFFF)
-            //                              | ((interrupt_fifo_level & 0xF) << 16);
-            //            LPC_I2S->I2SIRQ |= 0x2;
+            // LPC_I2S->I2SIRQ = (LPC_I2S->I2SIRQ & 0xFF0FFFFF) | ((interrupt_fifo_level & 0xF) << 16);
+            // LPC_I2S->I2SIRQ |= 0x2;
         } else {
             ;
-            //            LPC_I2S->I2SIRQ &= 0xFFFFFFFD;
+            // LPC_I2S->I2SIRQ &= 0xFFFFFFFD;
         }
     } else {
         if (rxisr) {
-            //            LPC_I2S->I2SIRQ = (LPC_I2S->I2SIRQ & 0xFFFFF0FF)
-            //                              | ((interrupt_fifo_level & 0xF) << 8);
-            //            LPC_I2S->I2SIRQ |= 0x1;
+            // LPC_I2S->I2SIRQ = (LPC_I2S->I2SIRQ & 0xFFFFF0FF) | ((interrupt_fifo_level & 0xF) << 8);
+            // LPC_I2S->I2SIRQ |= 0x1;
         }
 
         else {
             ;
-            //            LPC_I2S->I2SIRQ &= 0xFFFFFFFE;
+            // LPC_I2S->I2SIRQ &= 0xFFFFFFFE;
         }
     }
 }
@@ -725,42 +714,38 @@ void FrdmI2s::_i2sisr(void) {
 // denomnator less than 256
 // This is used when trying to get the clocks correct
 
-// void FrdmI2s::fraction_estimator(float in, int * num, int * den)
-//{
-//    int test_num = 0;
-//    int test_den = 0;
-//    float least_error = 1;
-//    int least_err_den = 0;
-//    float genval;
-//    float generr;
+// void FrdmI2s::fraction_estimator(float in, int* num, int* den) {
+//     int test_num = 0;
+//     int test_den = 0;
+//     float least_error = 1;
+//     int least_err_den = 0;
+//     float genval;
+//     float generr;
 //
-//    for (test_den = 1; test_den < I2S_MAX_DENOMINATOR; test_den++) {
-//        test_num = int(float(test_den) * in);
-//        if (test_num < I2S_MAX_NUMERATOR && test_num > 0) {
-//            genval = float(test_num) / float(test_den);
-//            generr = mod(genval - in);
-//            if (generr < least_error) {
-//                least_error = generr;
-//                least_err_den = test_den;
-//            }
-//            if (generr == 0) {
-//                break;
-//            }
-//        }
-//    }
+//     for (test_den = 1; test_den < I2S_MAX_DENOMINATOR; test_den++) {
+//         test_num = int(float(test_den) * in);
+//         if (test_num < I2S_MAX_NUMERATOR && test_num > 0) {
+//             genval = float(test_num) / float(test_den);
+//             generr = mod(genval - in);
+//             if (generr < least_error) {
+//                 least_error = generr;
+//                 least_err_den = test_den;
+//             }
+//             if (generr == 0) {
+//                 break;
+//             }
+//         }
+//     }
 //
-//    test_num = int(float(least_err_den) * in);
-//    *num = test_num;
-//    *den = least_err_den;
+//     test_num = int(float(least_err_den) * in);
+//     *num = test_num;
+//     *den = least_err_den;
+// }
+
+// float FrdmI2s::mod(float in) {
+//     if (in < 0) in *= -1;
 //
-//}
-//
-// float FrdmI2s::mod(float in)
-//{
-//    if (in < 0)
-//        in *= -1;
-//
-//    return in;
-//}
+//     return in;
+// }
 
 #endif

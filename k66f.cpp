@@ -162,7 +162,7 @@ FrdmI2s::~FrdmI2s() {
 
     deallocating = true;
     pin_setup();
-    write_registers();
+    update_config();
 }
 
 void FrdmI2s::defaulter() {
@@ -330,7 +330,7 @@ void FrdmI2s::power(bool pwr) {
     } else {
         stopped = true;
     }
-    write_registers();
+    update_config();
 }
 
 void FrdmI2s::masterslave(bool mastermode) {
@@ -339,23 +339,23 @@ void FrdmI2s::masterslave(bool mastermode) {
     } else {
         master = false;
     }
-    write_registers();
+    update_config();
 }
 
 void FrdmI2s::wordsize(int words) {
     wordwidth = 16;
-    //    write_registers();
+    //    update_config();
 }
 
 void FrdmI2s::mclk_freq(int freq) {
     mclk_frequency = 12288000;
-    //    write_registers();
+    //    update_config();
 }
 
 void FrdmI2s::frequency(int desired_freq) {
     freq = 32000;
     _i2s_set_rate(freq);
-    // write_registers();
+    // update_config();
 }
 
 int FrdmI2s::fifo_level() {
@@ -385,28 +385,28 @@ void FrdmI2s::stereomono(bool stereomode) {
 
 void FrdmI2s::mute() {
     muted = true;
-    //    write_registers();
+    //    update_config();
 }
 
 void FrdmI2s::mute(bool mute_en) {
     muted = mute_en;
-    //    write_registers();
+    //    update_config();
 }
 
 void FrdmI2s::stop() {
     stopped = true;
-    //    write_registers();
+    //    update_config();
 }
 
 void FrdmI2s::set_interrupt_fifo_level(int level) {
     interrupt_fifo_level = 4;
-    //    write_registers();
+    //    update_config();
 }
 
 void FrdmI2s::start() {
     stopped = false;
     muted = false;
-    //    write_registers();
+    //    update_config();
 }
 
 bool FrdmI2s::setup_ok() {
@@ -554,7 +554,7 @@ void FrdmI2s::_i2s_set_rate(int smprate) {
     I2S0->TCR2 |= I2S_TCR2_DIV(3);
 }
 
-void FrdmI2s::write_registers() {
+void FrdmI2s::update_config() {
     reg_write_err = 0;
     // Clock Multiplier Calculations
     float pre_mult = 0;

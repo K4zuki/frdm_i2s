@@ -44,9 +44,9 @@ FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitC
     NVIC_DisableIRQ(I2S0_Tx_IRQn);
     NVIC_DisableIRQ(I2S0_Rx_IRQn);
 
-    _SerialData = SerialData;
-    _WordSelect = WordSelect;
-    _BitClk = BitClk;
+    DataPin = SerialData;
+    WclkPin = WordSelect;
+    BclkPin = BitClk;
     _rxtx = rxtx;
 
     WordSelect_d = true;
@@ -72,7 +72,7 @@ FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitC
 //    NVIC_DisableIRQ (I2S0_Tx_IRQn);
 //    NVIC_DisableIRQ (I2S0_Rx_IRQn);
 //
-//    _SerialData = SerialData;
+//    DataPin = SerialData;
 //    _rxtx = rxtx;
 //
 //    WordSelect_d = false;
@@ -109,8 +109,8 @@ FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitC
 //    NVIC_DisableIRQ (I2S0_Tx_IRQn);
 //    NVIC_DisableIRQ (I2S0_Rx_IRQn);
 //
-//    _SerialData = SerialData;
-//    _WordSelect = WordSelect;
+//    DataPin = SerialData;
+//    WclkPin = WordSelect;
 //    _rxtx = rxtx;
 //
 //    WordSelect_d = true;
@@ -135,8 +135,8 @@ FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitC
 //    NVIC_DisableIRQ (I2S0_Tx_IRQn);
 //    NVIC_DisableIRQ (I2S0_Rx_IRQn);
 //
-//    _SerialData = SerialData;
-//    _WordSelect = WordSelect;
+//    DataPin = SerialData;
+//    WclkPin = WordSelect;
 //    _rxtx = rxtx;
 //
 //    WordSelect_d = true;
@@ -420,24 +420,24 @@ bool FrdmI2s::setup_ok() {
 void FrdmI2s::pin_setup() {
     pin_setup_err = 0;
 
+    printf("\n\rSetting up pins....\n\r");
     if (_rxtx == I2S_TRANSMIT) {
-        printf("\n\rSetting up pins....\n\r");
-        if (_SerialData != PTC1) pin_setup_err++;
-        if (_WordSelect != PTB19 && WordSelect_d == true) pin_setup_err++;
-        if (_BitClk != PTB18 && BitClk_d == true) pin_setup_err++;
-        printf("Hmm....%i\n\r", pin_setup_err);
+        if (DataPin != PTC1) pin_setup_err++;
+        if (WclkPin != PTE11 && WordSelect_d == true) pin_setup_err++;
+        if (BclkPin != PTE12 && BitClk_d == true) pin_setup_err++;
     } else {
-        if (_SerialData != PTC5) pin_setup_err++;
-        if (_WordSelect != PTC7 && WordSelect_d == true) pin_setup_err++;
-        if (_BitClk != PTC6 && BitClk_d == true) pin_setup_err++;
+        if (DataPin != PTE7) pin_setup_err++;
+        if (WclkPin != PTE8 && WordSelect_d == true) pin_setup_err++;
+        if (BclkPin != PTC9 && BitClk_d == true) pin_setup_err++;
     }
+    printf("Hmm....%i\n\r", pin_setup_err);
     /*
      * @param SerialData    The serial data pin
      * @param WordSelect    The word select pin
      * @param BitClk    The clock pin
      */
 
-    SIM_SCGC5 |= SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTC_MASK;
+    SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTC_MASK;
     if (pin_setup_err == 0) {
         PORTC->PCR[6] &= PORT_PCR_MUX_MASK;
         PORTC->PCR[6] |= PORT_PCR_MUX(0x04);  // PTC6 I2S0_MCLK
@@ -473,7 +473,7 @@ void FrdmI2s::pin_setup() {
 
             if (WordSelect_d == true) {
                 PORTE->PCR[8] &= PORT_PCR_MUX_MASK;
-                PORTE->PCR[8] |= PORT_PCR_MUX(0x04);  // PTE12 I2S0_RX_FS
+                PORTE->PCR[8] |= PORT_PCR_MUX(0x04);  // PTE8 I2S0_RX_FS
             }
 
             if (BitClk_d == true) {
@@ -535,13 +535,12 @@ void FrdmI2s::_i2s_set_rate(int smprate) {
     I2S0->MCR = I2S_MCR_MOE(1) |  // MCLK = output
                 I2S_MCR_MICS(0);  // MCLK SRC = core clock = 48M
 
-    if ((smprate == 11025) || (smprate == 22050) || (smprate == 44100)) {
+    if ((smprate % 441) == 0) {
+        // 11k/ 22k/ 44k
         _set_clock_112896();
         mclk_frequency = 11289600;
-    }
-
-    if ((smprate == 8000) || (smprate == 12000) || (smprate == 16000) || (smprate == 24000) || (smprate == 32000) ||
-        (smprate == 48000)) {
+    } else if ((smprate % 400) == 0) {
+        // 8000/ 12000/ 16000/ 24000/ 32000/ 48000
         _set_clock_122800();
         mclk_frequency = 12288000;
     }

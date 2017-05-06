@@ -307,7 +307,7 @@ class FrdmI2s {
     FrdmI2s_defaults defaults;
     void defaulter();
 
-    PinName _SerialData, _WordSelect, _BitClk, _MasterClk;
+    PinName IoPin, WclkPin, BclkPin, MclkPin;
     bool WordSelect_d, BitClk_d, MasterClk_d;
     bool _rxtx;
     bool pwr;

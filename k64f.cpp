@@ -44,9 +44,9 @@ FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitC
     NVIC_DisableIRQ(I2S0_Tx_IRQn);
     NVIC_DisableIRQ(I2S0_Rx_IRQn);
 
-    _SerialData = SerialData;
-    _WordSelect = WordSelect;
-    _BitClk = BitClk;
+    DataPin = SerialData;
+    WclkPin = WordSelect;
+    BclkPin = BitClk;
     _rxtx = rxtx;
 
     WordSelect_d = true;
@@ -67,94 +67,89 @@ FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitC
     _i2s_init();
 }
 
-// FrdmI2s::I2S(bool rxtx, PinName SerialData)
-//{
-//    NVIC_DisableIRQ (I2S0_Tx_IRQn);
-//    NVIC_DisableIRQ (I2S0_Rx_IRQn);
+// FrdmI2s::I2S(bool rxtx, PinName SerialData) {
+//     NVIC_DisableIRQ(I2S0_Tx_IRQn);
+//     NVIC_DisableIRQ(I2S0_Rx_IRQn);
 //
-//    _SerialData = SerialData;
-//    _rxtx = rxtx;
+//     DataPin = SerialData;
+//     _rxtx = rxtx;
 //
-//    WordSelect_d = false;
-//    BitClk_d = false;
-//    MasterClk_d = false;
+//     WordSelect_d = false;
+//     BitClk_d = false;
+//     MasterClk_d = false;
 //
-//    fourwire = false;
+//     fourwire = false;
 //
-//    reg_write_err = 0;
+//     reg_write_err = 0;
 //
-//    pin_setup();
+//     pin_setup();
 //
-//    if (pin_setup_err != 0) {
-//        perror("I2S Pins incorrectly defined.");
-//    }
+//     if (pin_setup_err != 0) {
+//         perror("I2S Pins incorrectly defined.");
+//     }
 //
-//    defaulter();
-//}
+//     defaulter();
+// }
+
+// FrdmI2s::I2S(bool rxtx, PinName SerialData, bool fourwiremode) {
+//     pin_setup();
 //
-// FrdmI2s::I2S(bool rxtx, PinName SerialData, bool fourwiremode)
-//{
-//    pin_setup();
+//     if (pin_setup_err != 0) {
+//         perror("I2S Pins incorrectly defined.");
+//     }
 //
-//    if (pin_setup_err != 0) {
-//        perror("I2S Pins incorrectly defined.");
-//    }
+//     defaulter();
+// }
+
+// FrdmI2s::I2S(bool rxtx, PinName SerialData, PinName WordSelect, bool fourwiremode) {
+//     NVIC_DisableIRQ(I2S0_Tx_IRQn);
+//     NVIC_DisableIRQ(I2S0_Rx_IRQn);
 //
-//    defaulter();
-//}
+//     DataPin = SerialData;
+//     WclkPin = WordSelect;
+//     _rxtx = rxtx;
 //
-// FrdmI2s::I2S(bool rxtx, PinName SerialData, PinName WordSelect, bool
-// fourwiremode)
-//{
-//    NVIC_DisableIRQ (I2S0_Tx_IRQn);
-//    NVIC_DisableIRQ (I2S0_Rx_IRQn);
+//     WordSelect_d = true;
+//     BitClk_d = false;
+//     MasterClk_d = false;
 //
-//    _SerialData = SerialData;
-//    _WordSelect = WordSelect;
-//    _rxtx = rxtx;
+//     reg_write_err = 0;
 //
-//    WordSelect_d = true;
-//    BitClk_d = false;
-//    MasterClk_d = false;
+//     fourwire = fourwiremode;
 //
-//    reg_write_err = 0;
+//     pin_setup();
 //
-//    fourwire = fourwiremode;
+//     if (pin_setup_err != 0) {
+//         perror("I2S Pins incorrectly defined.");
+//     }
 //
-//    pin_setup();
+//     defaulter();
+// }
+
+// FrdmI2s::I2S(bool rxtx, PinName SerialData, PinName WordSelect) {
+//     NVIC_DisableIRQ(I2S0_Tx_IRQn);
+//     NVIC_DisableIRQ(I2S0_Rx_IRQn);
 //
-//    if (pin_setup_err != 0) {
-//        perror("I2S Pins incorrectly defined.");
-//    }
+//     DataPin = SerialData;
+//     WclkPin = WordSelect;
+//     _rxtx = rxtx;
 //
-//    defaulter();
-//}
+//     WordSelect_d = true;
+//     BitClk_d = false;
+//     MasterClk_d = false;
 //
-// FrdmI2s::I2S(bool rxtx, PinName SerialData, PinName WordSelect)
-//{
-//    NVIC_DisableIRQ (I2S0_Tx_IRQn);
-//    NVIC_DisableIRQ (I2S0_Rx_IRQn);
+//     reg_write_err = 0;
 //
-//    _SerialData = SerialData;
-//    _WordSelect = WordSelect;
-//    _rxtx = rxtx;
+//     fourwire = false;
 //
-//    WordSelect_d = true;
-//    BitClk_d = false;
-//    MasterClk_d = false;
+//     pin_setup();
 //
-//    reg_write_err = 0;
+//     if (pin_setup_err != 0) {
+//         perror("I2S Pins incorrectly defined.");
+//     }
 //
-//    fourwire = false;
-//
-//    pin_setup();
-//
-//    if (pin_setup_err != 0) {
-//        perror("I2S Pins incorrectly defined.");
-//    }
-//
-//    defaulter();
-//}
+//     defaulter();
+// }
 
 FrdmI2s::~FrdmI2s() {
     NVIC_DisableIRQ(I2S0_Tx_IRQn);
@@ -185,8 +180,12 @@ void FrdmI2s::defaulter() {
 
 void FrdmI2s::write(char buf[], int len) {
     if (_rxtx == I2S_TRANSMIT) {
-        if (len > max_fifo_points()) len = max_fifo_points();
-        if (len <= 0) return;
+        if (len > max_fifo_points()) {
+            len = max_fifo_points();
+        }
+        if (len <= 0) {
+            return;
+        }
         int temp = 0;
         for (int i = 0; i < len; i += 4) {
             temp = 0;
@@ -204,7 +203,9 @@ void FrdmI2s::write(int buf[], int len) {
             len = max_fifo_points();
             printf("Trying to write too much data!\n\r");
         }
-        if (len <= 0) return;
+        if (len <= 0) {
+            return;
+        }
         uint32_t temp = 0;
         int increment = 32 / wordwidth;
         unsigned char recast[] = {0, 0, 0, 0};
@@ -254,8 +255,12 @@ int FrdmI2s::read() { return I2S0->RDR[0]; }
 
 void FrdmI2s::read(char buf[], int len) {
     bool len_valid = true;
-    if (len <= 0) return;
-    if (len >= fifo_points()) len = fifo_points();
+    if (len <= 0) {
+        return;
+    }
+    if (len >= fifo_points()) {
+        len = fifo_points();
+    }
     int temp[8];
     int counter = 0;
     int increment = 4;  // 32/wordwidth;
@@ -275,8 +280,12 @@ void FrdmI2s::read(char buf[], int len) {
 
 void FrdmI2s::read(int buf[], int len) {
     bool len_valid = true;
-    if (len <= 0) return;
-    if (len >= fifo_points()) len = fifo_points();
+    if (len <= 0) {
+        return;
+    }
+    if (len >= fifo_points()) {
+        len = fifo_points();
+    }
     int temp[8];
     int counter = 0;
     int increment = 32 / wordwidth;
@@ -421,14 +430,14 @@ void FrdmI2s::pin_setup() {
 
     if (_rxtx == I2S_TRANSMIT) {
         printf("\n\rSetting up pins....\n\r");
-        if (_SerialData != PTC1) pin_setup_err++;
-        if (_WordSelect != PTB19 && WordSelect_d == true) pin_setup_err++;
-        if (_BitClk != PTB18 && BitClk_d == true) pin_setup_err++;
+        if (DataPin != PTC1) pin_setup_err++;
+        if (WclkPin != PTB19 && WordSelect_d == true) pin_setup_err++;
+        if (BclkPin != PTB18 && BitClk_d == true) pin_setup_err++;
         printf("Hmm....%i\n\r", pin_setup_err);
     } else {
-        if (_SerialData != PTC5) pin_setup_err++;
-        if (_WordSelect != PTC7 && WordSelect_d == true) pin_setup_err++;
-        if (_BitClk != PTC6 && BitClk_d == true) pin_setup_err++;
+        if (DataPin != PTC5) pin_setup_err++;
+        if (WclkPin != PTC7 && WordSelect_d == true) pin_setup_err++;
+        if (BclkPin != PTC6 && BitClk_d == true) pin_setup_err++;
     }
     /*
      * @param SerialData    The serial data pin
@@ -456,7 +465,7 @@ void FrdmI2s::pin_setup() {
     PORTB->PCR[18] |= PORT_PCR_MUX(0x04); // PTB18 I2S0_TX_BCLK
      */
 
-    SIM_SCGC5 |= SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTC_MASK;
+    SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTC_MASK;
     if (pin_setup_err == 0) {
         PORTC->PCR[8] &= PORT_PCR_MUX_MASK;
         PORTC->PCR[8] |= PORT_PCR_MUX(0x04);  // PTC8 I2S0_MCLK
@@ -554,13 +563,12 @@ void FrdmI2s::_i2s_set_rate(int smprate) {
     I2S0->MCR = I2S_MCR_MOE(1) |  // MCLK = output
                 I2S_MCR_MICS(0);  // MCLK SRC = core clock = 48M
 
-    if ((smprate == 11025) || (smprate == 22050) || (smprate == 44100)) {
+    if ((smprate % 441) == 0) {
+        // 11k/ 22k/ 44k
         _set_clock_112896();
         mclk_frequency = 11289600;
-    }
-
-    if ((smprate == 8000) || (smprate == 12000) || (smprate == 16000) || (smprate == 24000) || (smprate == 32000) ||
-        (smprate == 48000)) {
+    } else if ((smprate % 400) == 0) {
+        // 8000/ 12000/ 16000/ 24000/ 32000/ 48000
         _set_clock_122800();
         mclk_frequency = 12288000;
     }

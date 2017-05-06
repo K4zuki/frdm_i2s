@@ -2982,6 +2982,7 @@ BLKATTR	MK64F12.h	/^  __IO uint32_t BLKATTR;                           \/**< Blo
 BLKATTR	MK66F18.h	/^  __IO uint32_t BLKATTR;                           \/**< Block Attributes register, offset: 0x4 *\/$/;"	m	struct:__anon135
 BLOCK	MK66F18.h	/^  } BLOCK[2];$/;"	m	struct:__anon136	typeref:struct:__anon136::__anon137
 BURSTSIZE	MK66F18.h	/^  __IO uint32_t BURSTSIZE;                         \/**< Master Interface Data Burst Size Register, offset: 0x160 *\/$/;"	m	struct:__anon154
+BclkPin	FrdmI2s.h	/^    PinName IoPin, WclkPin, BclkPin, MclkPin;$/;"	m	class:FrdmI2s
 BitClk_d	FrdmI2s.h	/^    bool WordSelect_d, BitClk_d, MasterClk_d;$/;"	m	class:FrdmI2s
 BusFault_IRQn	MK64F12.h	/^  BusFault_IRQn                = -11,              \/**< Cortex-M4 Bus Fault Interrupt *\/$/;"	e	enum:IRQn
 BusFault_IRQn	MK66F18.h	/^  BusFault_IRQn                = -11,              \/**< Cortex-M4 Bus Fault Interrupt *\/$/;"	e	enum:IRQn
@@ -10974,9 +10975,9 @@ I2S_BASE_ADDRS	MK64F12.h	7556;"	d
 I2S_BASE_ADDRS	MK66F18.h	8397;"	d
 I2S_BASE_PTRS	MK64F12.h	7558;"	d
 I2S_BASE_PTRS	MK66F18.h	8399;"	d
-I2S_CONFIG_BITS_IN_A_WORD	k64f.cpp	521;"	d	file:
+I2S_CONFIG_BITS_IN_A_WORD	k64f.cpp	530;"	d	file:
 I2S_CONFIG_BITS_IN_A_WORD	k66f.cpp	502;"	d	file:
-I2S_CONFIG_WORDS_IN_A_FRAME	k64f.cpp	520;"	d	file:
+I2S_CONFIG_WORDS_IN_A_FRAME	k64f.cpp	529;"	d	file:
 I2S_CONFIG_WORDS_IN_A_FRAME	k66f.cpp	501;"	d	file:
 I2S_DF_INTERRUPT_FIFO_LEVEL	k64f.cpp	26;"	d	file:
 I2S_DF_INTERRUPT_FIFO_LEVEL	k66f.cpp	26;"	d	file:
@@ -11665,6 +11666,7 @@ ISFR	MK64F12.h	/^  __IO uint32_t ISFR;                              \/**< Interr
 ISFR	MK66F18.h	/^  __IO uint32_t ISFR;                              \/**< Interrupt Status Flag Register, offset: 0xA0 *\/$/;"	m	struct:__anon129
 ISTAT	MK64F12.h	/^  __IO uint8_t ISTAT;                              \/**< Interrupt Status register, offset: 0x80 *\/$/;"	m	struct:__anon68
 ISTAT	MK66F18.h	/^  __IO uint8_t ISTAT;                              \/**< Interrupt Status register, offset: 0x80 *\/$/;"	m	struct:__anon150
+IoPin	FrdmI2s.h	/^    PinName IoPin, WclkPin, BclkPin, MclkPin;$/;"	m	class:FrdmI2s
 LDR_CA	MK64F12.h	/^  __O  uint32_t LDR_CA[9];                         \/**< General Purpose Register 0 - Load Register command..General Purpose Register 8 - Load Register command, array offset: 0x848, array step: 0x4 *\/$/;"	m	struct:__anon7
 LDR_CA	MK66F18.h	/^  __O  uint32_t LDR_CA[9];                         \/**< General Purpose Register 0 - Load Register command..General Purpose Register 8 - Load Register command, array offset: 0x848, array step: 0x4 *\/$/;"	m	struct:__anon80
 LDR_CAA	MK64F12.h	/^  __O  uint32_t LDR_CAA;                           \/**< Accumulator register - Load Register command, offset: 0x844 *\/$/;"	m	struct:__anon7
@@ -13645,6 +13647,7 @@ MUTED	FrdmI2s.h	/^    static const uint32_t MUTED = I2S_UNMUTED;$/;"	m	class:Frd
 MUXCR	MK64F12.h	/^  __IO uint8_t MUXCR;                              \/**< MUX Control Register, offset: 0x5 *\/$/;"	m	struct:__anon8
 MUXCR	MK66F18.h	/^  __IO uint8_t MUXCR;                              \/**< MUX Control Register, offset: 0x5 *\/$/;"	m	struct:__anon81
 MasterClk_d	FrdmI2s.h	/^    bool WordSelect_d, BitClk_d, MasterClk_d;$/;"	m	class:FrdmI2s
+MclkPin	FrdmI2s.h	/^    PinName IoPin, WclkPin, BclkPin, MclkPin;$/;"	m	class:FrdmI2s
 MemoryManagement_IRQn	MK64F12.h	/^  MemoryManagement_IRQn        = -12,              \/**< Cortex-M4 Memory Management Interrupt *\/$/;"	e	enum:IRQn
 MemoryManagement_IRQn	MK66F18.h	/^  MemoryManagement_IRQn        = -12,              \/**< Cortex-M4 Memory Management Interrupt *\/$/;"	e	enum:IRQn
 NBYTES_MLNO	MK64F12.h	/^      __IO uint32_t NBYTES_MLNO;                       \/**< TCD Minor Byte Count (Minor Loop Disabled), array offset: 0x1008, array step: 0x20 *\/$/;"	m	union:__anon21::__anon22::__anon23
@@ -22346,6 +22349,7 @@ Watchdog_IRQHandler	MK64F12.h	12706;"	d
 Watchdog_IRQHandler	MK66F18.h	17512;"	d
 Watchdog_IRQn	MK64F12.h	12705;"	d
 Watchdog_IRQn	MK66F18.h	17511;"	d
+WclkPin	FrdmI2s.h	/^    PinName IoPin, WclkPin, BclkPin, MclkPin;$/;"	m	class:FrdmI2s
 WordSelect_d	FrdmI2s.h	/^    bool WordSelect_d, BitClk_d, MasterClk_d;$/;"	m	class:FrdmI2s
 XACCH0	MK66F18.h	/^  __I  uint8_t XACCH0;                             \/**< Execute-only Access Registers, offset: 0x1B *\/$/;"	m	struct:__anon107
 XACCH1	MK66F18.h	/^  __I  uint8_t XACCH1;                             \/**< Execute-only Access Registers, offset: 0x1A *\/$/;"	m	struct:__anon107
@@ -22363,12 +22367,8 @@ XOR_CAA	MK64F12.h	/^  __O  uint32_t XOR_CAA;                           \/**< Acc
 XOR_CAA	MK66F18.h	/^  __O  uint32_t XOR_CAA;                           \/**< Accumulator register - Exclusive Or command, offset: 0x984 *\/$/;"	m	struct:__anon80
 XOR_CASR	MK64F12.h	/^  __O  uint32_t XOR_CASR;                          \/**< Status register - Exclusive Or command, offset: 0x980 *\/$/;"	m	struct:__anon7
 XOR_CASR	MK66F18.h	/^  __O  uint32_t XOR_CASR;                          \/**< Status register - Exclusive Or command, offset: 0x980 *\/$/;"	m	struct:__anon80
-_BitClk	FrdmI2s.h	/^    PinName _SerialData, _WordSelect, _BitClk, _MasterClk;$/;"	m	class:FrdmI2s
 _MK64F12_H_	MK64F12.h	105;"	d
 _MK66F18_H_	MK66F18.h	85;"	d
-_MasterClk	FrdmI2s.h	/^    PinName _SerialData, _WordSelect, _BitClk, _MasterClk;$/;"	m	class:FrdmI2s
-_SerialData	FrdmI2s.h	/^    PinName _SerialData, _WordSelect, _BitClk, _MasterClk;$/;"	m	class:FrdmI2s
-_WordSelect	FrdmI2s.h	/^    PinName _SerialData, _WordSelect, _BitClk, _MasterClk;$/;"	m	class:FrdmI2s
 __FPU_PRESENT	MK64F12.h	284;"	d
 __FPU_PRESENT	MK66F18.h	278;"	d
 __MPU_PRESENT	MK64F12.h	281;"	d

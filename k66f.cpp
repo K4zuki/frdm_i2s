@@ -44,7 +44,7 @@ FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitC
     NVIC_DisableIRQ(I2S0_Tx_IRQn);
     NVIC_DisableIRQ(I2S0_Rx_IRQn);
 
-    DataPin = SerialData;
+    IoPin = SerialData;
     WclkPin = WordSelect;
     BclkPin = BitClk;
     _rxtx = rxtx;
@@ -72,7 +72,7 @@ FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitC
 //    NVIC_DisableIRQ (I2S0_Tx_IRQn);
 //    NVIC_DisableIRQ (I2S0_Rx_IRQn);
 //
-//    DataPin = SerialData;
+//    IoPin = SerialData;
 //    _rxtx = rxtx;
 //
 //    WordSelect_d = false;
@@ -109,7 +109,7 @@ FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitC
 //    NVIC_DisableIRQ (I2S0_Tx_IRQn);
 //    NVIC_DisableIRQ (I2S0_Rx_IRQn);
 //
-//    DataPin = SerialData;
+//    IoPin = SerialData;
 //    WclkPin = WordSelect;
 //    _rxtx = rxtx;
 //
@@ -135,7 +135,7 @@ FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitC
 //    NVIC_DisableIRQ (I2S0_Tx_IRQn);
 //    NVIC_DisableIRQ (I2S0_Rx_IRQn);
 //
-//    DataPin = SerialData;
+//    IoPin = SerialData;
 //    WclkPin = WordSelect;
 //    _rxtx = rxtx;
 //
@@ -422,11 +422,11 @@ void FrdmI2s::pin_setup() {
 
     printf("\n\rSetting up pins....\n\r");
     if (_rxtx == I2S_TRANSMIT) {
-        if (DataPin != PTC1) pin_setup_err++;
+        if (IoPin != PTC1) pin_setup_err++;
         if (WclkPin != PTE11 && WordSelect_d == true) pin_setup_err++;
         if (BclkPin != PTE12 && BitClk_d == true) pin_setup_err++;
     } else {
-        if (DataPin != PTE7) pin_setup_err++;
+        if (IoPin != PTE7) pin_setup_err++;
         if (WclkPin != PTE8 && WordSelect_d == true) pin_setup_err++;
         if (BclkPin != PTC9 && BitClk_d == true) pin_setup_err++;
     }

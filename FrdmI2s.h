@@ -32,8 +32,10 @@
 #include "mbed.h"
 
 #if defined(TARGET_MCU_K64F)
+#warning "MK64F12.h"
 #include "MK64F12.h"
-#else if defined(TARGET_K66F)
+#elif defined(TARGET_K66F)
+#warning "MK66F18.h"
 #include "MK66F18.h"
 #endif
 
@@ -262,15 +264,15 @@ class FrdmI2s {
      *
      * @param fptr A pointer to the function to be called
      */
-    void attach(void (*fptr)(void)) {
-        if (_rxtx == I2S_TRANSMIT) {
-            I2STXISR.attach(fptr);
-            txisr = true;
-        } else {
-            I2SRXISR.attach(fptr);
-            rxisr = true;
-        }
-    }
+    // void attach(void (*fptr)(void)) {
+    //     if (_rxtx == I2S_TRANSMIT) {
+    //         I2STXISR.attach(fptr);
+    //         txisr = true;
+    //     } else {
+    //         I2SRXISR.attach(fptr);
+    //         rxisr = true;
+    //     }
+    // }
 
     /** Attach a member function to be called when the FIFO triggers
      *

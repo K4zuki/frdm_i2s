@@ -1,6 +1,8 @@
 # FRDM-K64F
 - [platform page on mbed.org](https://developer.mbed.org/platforms/FRDM-K64F/)
 
+## Board overview
+
 |   [(K64F USB)]   |      [RJ45]      |      [(mbed USB)]      | [Reset button #1] |
 |:----------------:|:----------------:|:----------------------:|:-----------------:|
 | **[Headers #1]** |                  |                        | **[Headers #3]**  |
@@ -10,7 +12,6 @@
 |                  |                  |   **[Wifi Module]**    |                   |
 |                  |  **[RGB LED]**   | **[Bluetooth Module]** |                   |
 | **[Button #3]**  | **[uSD socket]** |                        |  **[Button #2]**  |
-
 
 ## pins on left headers
 ### [Headers #1]
@@ -35,7 +36,7 @@
 | A2       | PTB10   | --- | ADC1_D~ifferential~P1 | ?       |
 | A3       | PTB11   | --- | ADC1_D~ifferential~M1 | ?       |
 | A4 \*    | PTC11   | --- | PTB20                 | PTB20   |
-| A5 \*    | PTBC10  | --- | DAC_OUT               | ?       |
+| A5 \*    | PTC10   | --- | DAC_OUT               | ?       |
 
 - Pins with * has PWM capability
 
@@ -72,15 +73,7 @@
 
 - Pins with * has PWM capability
 
-### [connection to onboard Accelerometer]
-
-| function | PinName |
-|----------|---------|
-| SCL      | PTE24   |
-| SDA      | PTE25   |
-| INT1     | PTC6    |
-| INT2     | PTC13   |
-
+## pins on other headers
 ### [Wifi Module Headers]
 
 | # | function | PinName | # | function | PinName |
@@ -100,6 +93,16 @@
 | 2 | GND      | NA      |
 | 3 | UART RX  | PTC14   |
 | 4 | UART TX  | PTC15   |
+
+## connections to onboard features
+### [connection to onboard Accelerometer]
+
+| function | PinName |
+|----------|---------|
+| SCL      | PTE24   |
+| SDA      | PTE25   |
+| INT1     | PTC6    |
+| INT2     | PTC13   |
 
 ### [connection to onboard microSD]
 
@@ -172,7 +175,7 @@
 ## Board Features
 - Onboard Components
     - FXOS8700CQ - 6-axis combo Sensor Accelerometer and Magnetometer
-        - [link to driver page]()
+        - [link to driver page](https://developer.mbed.org/users/AswinSivakumar/code/FXOS8700/)
     - 2 user push-buttons
     - RGB LED
 - Connectivity
@@ -208,3 +211,219 @@
 - Supplier website: http://www.nxp.com/frdm-k64F
 
 # FRDM-K66F
+- [platform page on mbed.org](https://developer.mbed.org/platforms/FRDM-K66F/)
+
+## Board overview
+
+|   [(K66F USB)]   |      [RJ45]      |      [(mbed USB)]      | [Reset button #1] |
+|:----------------:|:----------------:|:----------------------:|:-----------------:|
+| **[Headers #1]** |                  |                        | **[Headers #3]**  |
+|                  |                  |                        |                   |
+| **[Headers #2]** |                  |                        | **[Headers #4]**  |
+|                  |                  |  **[Accelerometer]**   |                   |
+|                  |                  |   **[Wifi Module]**    |                   |
+|                  |  **[RGB LED]**   | **[Bluetooth Module]** |                   |
+| **[Button #3]**  | **[uSD socket]** |                        |  **[Button #2]**  |
+
+## pins on left headers
+### [Headers #1]
+
+| function | pin | --- | function | pin   |
+|----------|-----|-----|----------|-------|
+| NC       | NA  | --- | PTA27    | PTA27 |
+| 3.3V     | NA  | --- | PTA26    | PTA26 |
+| RESET    | NA  | --- | PTA4     | PTA4  |
+| 3.3V     | NA  | --- | PTA6     | PTA6  |
+| 5V       | NA  | --- | PTA7     | PTA7  |
+| GND      | NA  | --- | PTA8     | PTA8  |
+| GND      | NA  | --- | PTA9     | PTA9  |
+| VIN      | NA  | --- | PTA1     | PTA1  |
+
+### [Headers #2]
+
+| function | PinName | --- | function              | PinName |
+|----------|---------|-----|-----------------------|---------|
+| A0       | PTB7    | --- | ADC1_D~ifferential~P0 | ?       |
+| A1       | PTB6    | --- | ADC1_D~ifferential~M0 | ?       |
+| A2       | PTB5    | --- | ADC0_S~ingle~E~nd~16  | ?       |
+| A3       | PTB4    | --- | ADC1_S~ingle~E~nd~16  | ?       |
+| A4 \*    | PTC3    | --- | PTB23                 | PTB23   |
+| A5 \*    | PTB2    | --- | DAC_OUT               | ?       |
+
+- Pins with * has PWM capability
+
+## pins on right headers
+### [Headers #3]
+
+| function              | PinName | --- | function | PinName |
+|-----------------------|---------|-----|----------|---------|
+| PTD12                 | PTD12   | --- | SCL      | PTC10   |
+| PTD13                 | PTD13   | --- | SDA      | PTC11   |
+| PTE25                 | PTE25   | --- | AREF     | NA      |
+| PTE24                 | PTE24   | --- | GND      | NA      |
+| PTC0                  | PTC0    | --- | D13      | PTD1    |
+| PTB11                 | PTB11   | --- | D12      | PTD3    |
+| PTB10                 | PTB10   | --- | D11      | PTD2    |
+| ADC1_S~ingle~E~nd~23  | ?       | --- | D10 \*   | PTD0    |
+| ADC0_D~ifferential~M0 | ?       | --- | D9  \*   | PTA19   |
+| ADC1_S~ingle~E~nd~18  | ?       | --- | D8  \*   | PTB18   |
+
+- Pins with * has PWM capability
+
+### [Headers #4]
+
+| function               | PinName | --- | function | PinName |
+|------------------------|---------|-----|----------|---------|
+| I2S_RXD                | PTE7    | --- | D7       | PTA25   |
+| I2S_RX_F~rame~S~elect~ | PTE8    | --- | D6 \*    | PTC2    |
+| I2S_SOF_OUT            | PTC7    | --- | D5 \*    | PTC5    |
+| I2S_RX_B~it~CL~oc~K    | PTC9    | --- | D4 \*    | PTC12   |
+| I2S_MCLK               | PTC6    | --- | D3 \*    | PTC8    |
+| I2S_TXD                | PTC1    | --- | D2       | PTC16   |
+| I2S_TX_F~rame~S~elect~ | PTE11   | --- | D1       | PTC4    |
+| I2S_TX_B~it~CL~oc~K    | PTE12   | --- | D0       | PTC3    |
+
+- Pins with * has PWM capability
+
+## pins on other headers
+### [Wifi Module Headers]
+
+| # | function | PinName | # | function | PinName |
+|---|----------|---------|---|----------|---------|
+| 1 | GND      | NA      | 2 | 3.3V     | NA      |
+| 3 | CE       | PTB20   | 4 | CS       | PTD4    |
+| 5 | SCLK     | PTD5    | 6 | MOSI     | PTD6    |
+| 7 | MISO     | PTD7    | 8 | IRQ      | PTC18   |
+
+### [Bluetooth Module Headers]
+
+| # | function | PinName |
+|---|----------|---------|
+| 1 | 3.3V     | NA      |
+| 2 | GND      | NA      |
+| 3 | UART RX  | PTC14   |
+| 4 | UART TX  | PTC15   |
+
+## connections to onboard features
+### [connection to onboard Accelerometer]
+
+| function | PinName |
+|----------|---------|
+| SDA      | PTD9    |
+| SCL      | PTD8    |
+| INT1     | PTC6    |
+| INT2     | PTC13   |
+
+### [connection to onboard Gyroscope]
+
+| function | PinName |
+|----------|---------|
+| SDA      | PTD9    |
+| SCL      | PTD8    |
+| INT1     | PTA29   |
+| INT2     | PTA28   |
+
+### [connection to onboard audio codec]
+
+| function | PinName |
+|----------|---------|
+| SDA      | PTC11   |
+| SCL      | PTC10   |
+
+
+### [connection to onboard microSD]
+
+| function | PinName |
+|----------|---------|
+| MOSI     | PTE3    |
+| MISO     | PTE1    |
+| SCLK     | PTE2    |
+| CS       | PTE4    |
+| DETECT   | PTD10   |
+
+### [connection to onboard user RGB LED]
+
+| function | PinName |
+|----------|---------|
+| R        | PTC9    |
+| G        | PTE6    |
+| B        | PTA11   |
+
+### [connection to onboard user buttons]
+
+| function | PinName |
+|----------|---------|
+| SW2      | PTA4    |
+| SW3      | PTA13   |
+
+## MCU Features
+- Kinetis MK66FN2M0VMD18 in 144BGA package
+- ARM® Cortex™-M4 32-bit core, with DSP instructions
+- 180 MHz max CPU frequency
+- 2 MB program flash memory
+- 256 KB RAM
+- FlexBus external bus interface and SDRAM controller
+- Multiple low-power modes
+- 1x Internal Reference Clocks, 2x Crystal inputs, 1x real-time clock
+- 6x UART modules including 1 low-power TX/RX
+- 2x CAN modules
+- 3x SPI modules
+- 4x I2C modules
+- 1x I2S module
+- 1x USB high-speed OTG, 1x USB full-speed OTG
+- 1x Ethernet MAC controller with MII/RMII interface IEEE1588 capable
+- Secure Digital Host Controller
+- 2x 16-bit ADC, 2x 12-bit DAC
+- 11x Timers
+- Low-power hardware touch sensor interface (TSI)
+- Hardware random-number generator
+- Hardware encryption supporting DES, AES and SHA algorithms
+- Advanced flash security
+
+
+## Board Features
+- Onboard Components
+    - FXOS8700CQ - Accelerometer and Magnetometer
+        - [link to driver page](https://developer.mbed.org/users/AswinSivakumar/code/FXOS8700/)
+    - FXAS21002 - Gyroscope
+        - [link to driver page](https://developer.mbed.org/users/AswinSivakumar/code/FXAS21002/)
+    - 2 user push-buttons
+    - RGB LED
+- Connectivity
+    - Dual role High-speed USB interface with micro-B USB connector
+    - Ethernet 10/100 controller with on-board transceiver and RJ45 connector
+    - up to 5x UARTs, 3x SPIs, 3x I2Cs, 1xI2S and 2xCANs connected to Headers (multiplexed peripherals)
+- Extensions
+    - Micro SD-Card Socket
+    - Headers compatible with Arduino R3 shields (32-pins / outter row)
+    - Headers for proprietary shields (32-pins / inner row)
+    - Optional header for add-on RF module: RF24L01+ Nordic 2.4 GHz Radio
+    - Optional header for add-on Bluetooth module: JY-MCU BT Board V1.05 BT
+- Analog and Digital IOs (multiplexed peripherals)
+    - 2x ADC 16-bit resolution with 29 Analog I/O Pins connected to Headers
+    - up to 6x timers with 37 PWM signals accessible from Headers
+    - up to 4x Comparator Inputs or 2x DAC outputs
+    - up to 46 MCU I/O Pins connected to Headers (3.3v, 4mA each, 400mA max total)
+- Audio
+    - Digital MEMS microphone
+    - Auxiliary input jack
+    - Headset/Analog microphone jack
+    - Two optional input for analogue microphone
+- Board power-supply options (onboard 5 to 3.3V regulator)
+    - USB Debug 5V
+    - USB Target 5V
+    - 5-9V Vin on Arduino headers
+    - 5V PWR input
+    - Coin-cell 3.3V
+- Integrated OpenSDA USB Debug and Programming adapter
+    - Several industry standard Debug interfaces (PEmicro, CMSIS-DAP, JLink)
+    - Drag-n-drop MSD Flash-programming
+    - Virtual USB to Serial Port
+- Form factor: 3.2” x 2.1” / 81mm x 53mm
+- Software Development Tools
+    - mbed HDK & SDK enabled
+    - Online development tools
+    - Easy to use C/C++ SDK
+    - Lots of published libraries and projects
+    - Alternate Offline options NXP free KDS (compiler toolchain) and KSDK library/examples
+- Supplier website: http://www.nxp.com/frdm-k66f

@@ -3,15 +3,16 @@
 
 ## Board overview
 
-|   [(K64F USB)]   |      [RJ45]      |      [(mbed USB)]      | [Reset button #1] |
-|:----------------:|:----------------:|:----------------------:|:-----------------:|
-| **[Headers #1]** |                  |                        | **[Headers #3]**  |
-|                  |                  |                        |                   |
-| **[Headers #2]** |                  |                        | **[Headers #4]**  |
-|                  |                  |  **[Accelerometer]**   |                   |
-|                  |                  |   **[Wifi Module]**    |                   |
-|                  |  **[RGB LED]**   | **[Bluetooth Module]** |                   |
-| **[Button #3]**  | **[uSD socket]** |                        |  **[Button #2]**  |
+|           [(K64F USB)]           | [RJ45] | [(mbed USB)] |                 [Reset button #1]                  |
+|:--------------------------------:|:------:|:------------:|:--------------------------------------------------:|
+|  **[[Headers #1]](#headers-1)**  |        |              |           **[[Headers #3]](#headers-3)**           |
+|                                  |        |              |                                                    |
+|  **[[Headers #2]](#headers-2)**  |        |              |           **[[Headers #4]](#headers-4)**           |
+|                                  |        |              |        **[[Accelerometer]](accelerometer)**        |
+|                                  |        |              |      **[[Wifi Module]](wifi-module-headers)**      |
+|   **[[RGB LED]](#user-leds)**    |        |              | **[[Bluetooth Module]](bluetooth-module-headers)** |
+| **[[Button #3]](#user-buttons)** |        |              |          **[[Button #2]](#user-buttons)**          |
+|   **[[uSD socket]](#microsd)**   |        |              |                                                    |
 
 ## pins on left headers
 ### [Headers #1]
@@ -95,7 +96,7 @@
 | 4 | UART TX  | PTC15   |
 
 ## connections to onboard features
-### [connection to onboard Accelerometer]
+### [Accelerometer]
 
 | function | PinName |
 |----------|---------|
@@ -104,7 +105,7 @@
 | INT1     | PTC6    |
 | INT2     | PTC13   |
 
-### [connection to onboard microSD]
+### [microSD]
 
 | function | PinName |
 |----------|---------|
@@ -114,7 +115,7 @@
 | CS       | PTE4    |
 | DETECT   | PTE6    |
 
-### [connection to onboard user RGB LED]
+### [user LEDs]
 
 | function | PinName |
 |----------|---------|
@@ -122,7 +123,7 @@
 | G        | PTE26   |
 | B        | PTB21   |
 
-### [connection to onboard user buttons]
+### [user buttons]
 
 | function | PinName |
 |----------|---------|
@@ -215,15 +216,17 @@
 
 ## Board overview
 
-|   [(K66F USB)]   |      [RJ45]      |      [(mbed USB)]      | [Reset button #1] |
-|:----------------:|:----------------:|:----------------------:|:-----------------:|
-| **[Headers #1]** |                  |                        | **[Headers #3]**  |
-|                  |                  |                        |                   |
-| **[Headers #2]** |                  |                        | **[Headers #4]**  |
-|                  |                  |  **[Accelerometer]**   |                   |
-|                  |                  |   **[Wifi Module]**    |                   |
-|                  |  **[RGB LED]**   | **[Bluetooth Module]** |                   |
-| **[Button #3]**  | **[uSD socket]** |                        |  **[Button #2]**  |
+|            [(K66F USB)]            | [RJ45] | [(mbed USB)] |                  [Reset button #1]                   |
+|:----------------------------------:|:------:|:------------:|:----------------------------------------------------:|
+|  **[[Headers #1]](#headers-1-1)**  |        |              |           **[[Headers #3]](#headers-3-1)**           |
+|                                    |        |              |                                                      |
+|  **[[Headers #2]](#headers-2-1)**  |        |              |           **[[Headers #4]](#headers-4-1)**           |
+|                                    |        |              |        **[[Accelerometer]](accelerometer-1)**        |
+|                                    |        |              |      **[[Wifi Module]](wifi-module-headers-1)**      |
+|   **[[Gyroscope]](#gyroscope)**    |        |              |       **[[Audio Codec]](#audio-codec-da7212)**       |
+|   **[[RGB LED]](#user-leds-1)**    |        |              | **[[Bluetooth Module]](bluetooth-module-headers-1)** |
+| **[[Button #3]](#user-buttons-1)** |        |              |          **[[Button #2]](#user-buttons-1)**          |
+|   **[[uSD socket]](#microsd-1)**   |        |              |                                                      |
 
 ## pins on left headers
 ### [Headers #1]
@@ -305,7 +308,7 @@
 | 4 | UART TX  | PTC15   |
 
 ## connections to onboard features
-### [connection to onboard Accelerometer]
+### [Accelerometer]
 
 | function | PinName |
 |----------|---------|
@@ -314,7 +317,7 @@
 | INT1     | PTC6    |
 | INT2     | PTC13   |
 
-### [connection to onboard Gyroscope]
+### [Gyroscope]
 
 | function | PinName |
 |----------|---------|
@@ -323,25 +326,44 @@
 | INT1     | PTA29   |
 | INT2     | PTA28   |
 
-### [connection to onboard audio codec]
+### [Audio codec DA7212]
 
-| function | PinName |
-|----------|---------|
-| SDA      | PTC11   |
-| SCL      | PTC10   |
+| function(DA7212/K66F) | PinName                 |
+|-----------------------|-------------------------|
+| SDA                   | PTC11                   |
+| SCL                   | PTC10                   |
+| BCLK                  | ***1** [J37](#j37-bclk) |
+| WCLK                  | ***2** [J38](#j38-wclk) |
+| DATIN/TXD             | PTC1                    |
+| DATOUT/RXD            | PTE7                    |
 
+#### J37: BCLK
 
-### [connection to onboard microSD]
+| short  | function    | PinName |
+|--------|-------------|---------|
+| 2-3(*) | I2S_TX_BCLK | PTE12   |
+| 1-2    | I2S_RX_BCLK | PTE9    |
 
-| function | PinName |
-|----------|---------|
-| MOSI     | PTE3    |
-| MISO     | PTE1    |
-| SCLK     | PTE2    |
-| CS       | PTE4    |
-| DETECT   | PTD10   |
+#### J38: WCLK
 
-### [connection to onboard user RGB LED]
+| short  | function    | PinName |
+|--------|-------------|---------|
+| 2-3(*) | I2S_TX_WCLK | PTE11   |
+| 1-2    | I2S_RX_WCLK | PTE8    |
+
+### [microSD]
+
+| SPI mode | SD mode | PinName |
+|----------|---------|---------|
+|          | DAT2    | PTE5    |
+| CS       | CD/DAT3 | PTE4    |
+| MOSI     | CMD     | PTE3    |
+| SCLK     | CLK     | PTE2    |
+| MISO     | DAT0    | PTE1    |
+|          | DAT1    | PTE0    |
+| DETECT   |         | PTD10   |
+
+### [user LEDs]
 
 | function | PinName |
 |----------|---------|
@@ -349,7 +371,7 @@
 | G        | PTE6    |
 | B        | PTA11   |
 
-### [connection to onboard user buttons]
+### [user buttons]
 
 | function | PinName |
 |----------|---------|

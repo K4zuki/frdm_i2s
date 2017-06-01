@@ -8,9 +8,9 @@
 |  **[[Headers #1]](#headers-1)**  |        |              |           **[[Headers #3]](#headers-3)**           |
 |                                  |        |              |                                                    |
 |  **[[Headers #2]](#headers-2)**  |        |              |           **[[Headers #4]](#headers-4)**           |
-|                                  |        |              |        **[[Accelerometer]](accelerometer)**        |
-|                                  |        |              |      **[[Wifi Module]](wifi-module-headers)**      |
-|   **[[RGB LED]](#user-leds)**    |        |              | **[[Bluetooth Module]](bluetooth-module-headers)** |
+|                                  |        |              |        **[[Accelerometer]](#accelerometer)**        |
+|                                  |        |              |      **[[Wifi Module]](#wifi-module-headers)**      |
+|   **[[RGB LED]](#user-leds)**    |        |              | **[[Bluetooth Module]](#bluetooth-module-headers)** |
 | **[[Button #3]](#user-buttons)** |        |              |          **[[Button #2]](#user-buttons)**          |
 |   **[[uSD socket]](#microsd)**   |        |              |                                                    |
 
@@ -221,10 +221,10 @@
 |  **[[Headers #1]](#headers-1-1)**  |        |              |           **[[Headers #3]](#headers-3-1)**           |
 |                                    |        |              |                                                      |
 |  **[[Headers #2]](#headers-2-1)**  |        |              |           **[[Headers #4]](#headers-4-1)**           |
-|                                    |        |              |        **[[Accelerometer]](accelerometer-1)**        |
-|                                    |        |              |      **[[Wifi Module]](wifi-module-headers-1)**      |
+|                                    |        |              |        **[[Accelerometer]](#accelerometer-1)**        |
+|                                    |        |              |      **[[Wifi Module]](#wifi-module-headers-1)**      |
 |   **[[Gyroscope]](#gyroscope)**    |        |              |       **[[Audio Codec]](#audio-codec-da7212)**       |
-|   **[[RGB LED]](#user-leds-1)**    |        |              | **[[Bluetooth Module]](bluetooth-module-headers-1)** |
+|   **[[RGB LED]](#user-leds-1)**    |        |              | **[[Bluetooth Module]](#bluetooth-module-headers-1)** |
 | **[[Button #3]](#user-buttons-1)** |        |              |          **[[Button #2]](#user-buttons-1)**          |
 |   **[[uSD socket]](#microsd-1)**   |        |              |                                                      |
 

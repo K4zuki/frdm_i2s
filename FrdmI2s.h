@@ -264,15 +264,15 @@ class FrdmI2s {
      *
      * @param fptr A pointer to the function to be called
      */
-    // void attach(void (*fptr)(void)) {
-    //     if (_rxtx == I2S_TRANSMIT) {
-    //         I2STXISR.attach(fptr);
-    //         txisr = true;
-    //     } else {
-    //         I2SRXISR.attach(fptr);
-    //         rxisr = true;
-    //     }
-    // }
+    void attach(void (*fptr)(void)) {
+        if (_rxtx == I2S_TRANSMIT) {
+            I2STXISR.attach(fptr);
+            txisr = true;
+        } else {
+            I2SRXISR.attach(fptr);
+            rxisr = true;
+        }
+    }
 
     /** Attach a member function to be called when the FIFO triggers
      *

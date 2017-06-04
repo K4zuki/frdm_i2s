@@ -430,7 +430,7 @@ void FrdmI2s::_i2s_init(void) {
 
     I2S0->TCR1 = I2S_TCR1_TFW(4);    // 6;    // water mark
     I2S0->TCR2 = I2S_TCR2_SYNC(0) |  // master mode(Async mode)
-                 I2S_TCR2_MSEL(1) |  // MSEL = MCLK 1 option
+                 I2S_TCR2_MSEL(1) |  // MSEL = internal
                                      // +------------------------+---------------+
                                      // | TCR2[MSEL], RCR2[MSEL] | Master Clock  |
                                      // +========================+===============+
@@ -442,8 +442,8 @@ void FrdmI2s::_i2s_init(void) {
                                      // +------------------------+---------------+
                                      // | 11                     | Not supported |
                                      // +------------------------+---------------+
-                 I2S_TCR2_BCP(1) |   // CLK = drive on falling edge, sample on rising edge
-                 I2S_TCR2_BCD(1);    // CLK = OUTPUT
+                 I2S_TCR2_BCP(1) |   // BCLK = drive on falling edge, sample on rising edge
+                 I2S_TCR2_BCD(1);    // BCLK = OUTPUT
 
     I2S0->TCR3 = I2S_TCR3_TCE(1);  // enable channel 0
 

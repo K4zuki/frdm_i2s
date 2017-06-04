@@ -62,9 +62,9 @@ FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitC
     if (pin_setup_err != 0) {
         perror("I2S Pins incorrectly defined.");
     }
+    _i2s_init();
     _i2s_set_rate(32000);
     defaulter();
-    _i2s_init();
 }
 
 FrdmI2s::~FrdmI2s() {
@@ -351,11 +351,11 @@ void FrdmI2s::pin_setup() {
     SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTC_MASK | SIM_SCGC5_PORTE_MASK;
     if (pin_setup_err == 0) {
         PORTC->PCR[6] &= PORT_PCR_MUX_MASK;
-        PORTC->PCR[6] |= PORT_PCR_MUX(0x04);  // PTC6 I2S0_MCLK
+        PORTC->PCR[6] |= PORT_PCR_MUX(0x06);  // PTC6 I2S0_MCLK
 
         if (_rxtx == I2S_TRANSMIT) {
             PORTC->PCR[1] &= PORT_PCR_MUX_MASK;
-            PORTC->PCR[1] |= PORT_PCR_MUX(0x04);  // PTC1 I2S0_TXD0
+            PORTC->PCR[1] |= PORT_PCR_MUX(0x06);  // PTC1 I2S0_TXD0
 
             PORTE->PCR[11] &= PORT_PCR_MUX_MASK;
             PORTE->PCR[11] |= PORT_PCR_MUX(0x04);  // PTE11 I2S0_TX_FS
@@ -481,13 +481,7 @@ void FrdmI2s::update_config() {
     // Clock Multiplier, MCLK setup
     if (_rxtx == I2S_TRANSMIT) {
         int regvals = ((pre_num << 8) & 0xFF00) | (pre_den & 0xFF);
-        if (MasterClk_d == true) {
-            //
-        }
     } else {
-        if (MasterClk_d == true) {
-            //
-        }
     }
 
     switch (wordwidth) {

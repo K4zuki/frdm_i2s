@@ -10975,10 +10975,8 @@ I2S_BASE_ADDRS	MK64F12.h	7556;"	d
 I2S_BASE_ADDRS	MK66F18.h	8397;"	d
 I2S_BASE_PTRS	MK64F12.h	7558;"	d
 I2S_BASE_PTRS	MK66F18.h	8399;"	d
-I2S_CONFIG_BITS_IN_A_WORD	k64f.cpp	533;"	d	file:
-I2S_CONFIG_BITS_IN_A_WORD	k66f.cpp	505;"	d	file:
-I2S_CONFIG_WORDS_IN_A_FRAME	k64f.cpp	532;"	d	file:
-I2S_CONFIG_WORDS_IN_A_FRAME	k66f.cpp	504;"	d	file:
+I2S_CONFIG_BITS_IN_A_WORD	k66f.cpp	397;"	d	file:
+I2S_CONFIG_WORDS_IN_A_FRAME	k66f.cpp	396;"	d	file:
 I2S_DF_INTERRUPT_FIFO_LEVEL	k64f.cpp	26;"	d	file:
 I2S_DF_INTERRUPT_FIFO_LEVEL	k66f.cpp	26;"	d	file:
 I2S_DF_MASTERSLAVE	k64f.cpp	23;"	d	file:
@@ -22391,6 +22389,7 @@ _set_clock_112896	k66f.cpp	/^void FrdmI2s::_set_clock_112896(void) {$/;"	f	class
 _set_clock_122800	k64f.cpp	/^void FrdmI2s::_set_clock_122800(void) {$/;"	f	class:FrdmI2s
 _set_clock_122800	k66f.cpp	/^void FrdmI2s::_set_clock_122800(void) {$/;"	f	class:FrdmI2s
 attach	FrdmI2s.h	/^    void attach(T *tptr, void (T::*mptr)(void)) {$/;"	f	class:FrdmI2s
+attach	FrdmI2s.h	/^    void attach(void (*fptr)(void)) {$/;"	f	class:FrdmI2s
 deallocating	FrdmI2s.h	/^    bool deallocating;$/;"	m	class:FrdmI2s
 defaulter	k64f.cpp	/^void FrdmI2s::defaulter() {$/;"	f	class:FrdmI2s
 defaulter	k66f.cpp	/^void FrdmI2s::defaulter() {$/;"	f	class:FrdmI2s

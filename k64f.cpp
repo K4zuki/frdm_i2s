@@ -62,94 +62,10 @@ FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitC
     if (pin_setup_err != 0) {
         perror("I2S Pins incorrectly defined.");
     }
-
+    _i2s_set_rate(32000);
     defaulter();
     _i2s_init();
 }
-
-// FrdmI2s::I2S(bool rxtx, PinName SerialData) {
-//     NVIC_DisableIRQ(I2S0_Tx_IRQn);
-//     NVIC_DisableIRQ(I2S0_Rx_IRQn);
-//
-//     IoPin = SerialData;
-//     _rxtx = rxtx;
-//
-//     WordSelect_d = false;
-//     BitClk_d = false;
-//     MasterClk_d = false;
-//
-//     fourwire = false;
-//
-//     reg_write_err = 0;
-//
-//     pin_setup();
-//
-//     if (pin_setup_err != 0) {
-//         perror("I2S Pins incorrectly defined.");
-//     }
-//
-//     defaulter();
-// }
-
-// FrdmI2s::I2S(bool rxtx, PinName SerialData, bool fourwiremode) {
-//     pin_setup();
-//
-//     if (pin_setup_err != 0) {
-//         perror("I2S Pins incorrectly defined.");
-//     }
-//
-//     defaulter();
-// }
-
-// FrdmI2s::I2S(bool rxtx, PinName SerialData, PinName WordSelect, bool fourwiremode) {
-//     NVIC_DisableIRQ(I2S0_Tx_IRQn);
-//     NVIC_DisableIRQ(I2S0_Rx_IRQn);
-//
-//     IoPin = SerialData;
-//     WclkPin = WordSelect;
-//     _rxtx = rxtx;
-//
-//     WordSelect_d = true;
-//     BitClk_d = false;
-//     MasterClk_d = false;
-//
-//     reg_write_err = 0;
-//
-//     fourwire = fourwiremode;
-//
-//     pin_setup();
-//
-//     if (pin_setup_err != 0) {
-//         perror("I2S Pins incorrectly defined.");
-//     }
-//
-//     defaulter();
-// }
-
-// FrdmI2s::I2S(bool rxtx, PinName SerialData, PinName WordSelect) {
-//     NVIC_DisableIRQ(I2S0_Tx_IRQn);
-//     NVIC_DisableIRQ(I2S0_Rx_IRQn);
-//
-//     IoPin = SerialData;
-//     WclkPin = WordSelect;
-//     _rxtx = rxtx;
-//
-//     WordSelect_d = true;
-//     BitClk_d = false;
-//     MasterClk_d = false;
-//
-//     reg_write_err = 0;
-//
-//     fourwire = false;
-//
-//     pin_setup();
-//
-//     if (pin_setup_err != 0) {
-//         perror("I2S Pins incorrectly defined.");
-//     }
-//
-//     defaulter();
-// }
 
 FrdmI2s::~FrdmI2s() {
     NVIC_DisableIRQ(I2S0_Tx_IRQn);
@@ -431,13 +347,13 @@ void FrdmI2s::pin_setup() {
     if (_rxtx == I2S_TRANSMIT) {
         printf("\n\rSetting up pins....\n\r");
         if (IoPin != PTC1) pin_setup_err++;
-        if (WclkPin != PTB19 && WordSelect_d == true) pin_setup_err++;
-        if (BclkPin != PTB18 && BitClk_d == true) pin_setup_err++;
+        if (WclkPin != PTB19) pin_setup_err++;
+        if (BclkPin != PTB18) pin_setup_err++;
         printf("Hmm....%i\n\r", pin_setup_err);
     } else {
         if (IoPin != PTC5) pin_setup_err++;
-        if (WclkPin != PTC7 && WordSelect_d == true) pin_setup_err++;
-        if (BclkPin != PTC6 && BitClk_d == true) pin_setup_err++;
+        if (WclkPin != PTC7) pin_setup_err++;
+        if (BclkPin != PTC6) pin_setup_err++;
     }
     /*
      * @param SerialData    The serial data pin
@@ -471,43 +387,24 @@ void FrdmI2s::pin_setup() {
         PORTC->PCR[8] |= PORT_PCR_MUX(0x04);  // PTC8 I2S0_MCLK
 
         if (_rxtx == I2S_TRANSMIT) {
-            int val1 = 1;
-            if (deallocating) {
-                val1 = 0;
-            }
-
             PORTC->PCR[1] &= PORT_PCR_MUX_MASK;
             PORTC->PCR[1] |= PORT_PCR_MUX(0x04);  // PTC1 I2S0_TXD0
 
-            if (WordSelect_d == true) {
-                PORTB->PCR[18] &= PORT_PCR_MUX_MASK;
-                PORTB->PCR[18] |= PORT_PCR_MUX(0x04);  // PTB18 I2S0_TX_BCLK
-            }
-            if (BitClk_d == true) {
-                PORTB->PCR[19] &= PORT_PCR_MUX_MASK;
-                PORTB->PCR[19] |= PORT_PCR_MUX(0x04);  // PTB19 I2S0_TX_FS
-            }
+            PORTB->PCR[18] &= PORT_PCR_MUX_MASK;
+            PORTB->PCR[18] |= PORT_PCR_MUX(0x04);  // PTB18 I2S0_TX_BCLK
+
+            PORTB->PCR[19] &= PORT_PCR_MUX_MASK;
+            PORTB->PCR[19] |= PORT_PCR_MUX(0x04);  // PTB19 I2S0_TX_FS
 
         } else {
-            int val1 = 1;
-            int val2 = 2;
-            if (deallocating) {
-                val1 = 0;
-                val2 = 0;
-            }
-
             PORTC->PCR[5] &= PORT_PCR_MUX_MASK;
             PORTC->PCR[5] |= PORT_PCR_MUX(0x04);  // PTC5 I2S0_RXD0
 
-            if (WordSelect_d == true) {
-                PORTB->PCR[18] &= PORT_PCR_MUX_MASK;
-                PORTB->PCR[18] |= PORT_PCR_MUX(0x04);  // PTB18 I2S0_TX_BCLK
-            }
+            PORTB->PCR[18] &= PORT_PCR_MUX_MASK;
+            PORTB->PCR[18] |= PORT_PCR_MUX(0x04);  // PTB18 I2S0_TX_BCLK
 
-            if (BitClk_d == true) {
-                PORTC->PCR[6] &= PORT_PCR_MUX_MASK;
-                PORTC->PCR[6] |= PORT_PCR_MUX(0x04);  // PTC6 I2S0_RX_BCLK
-            }
+            PORTC->PCR[6] &= PORT_PCR_MUX_MASK;
+            PORTC->PCR[6] |= PORT_PCR_MUX(0x04);  // PTC6 I2S0_RX_BCLK
         }
     }
 }
@@ -526,11 +423,10 @@ void FrdmI2s::_set_clock_122800(void) {
     I2S0->MDR = I2S_MDR_FRACT(63) | I2S_MDR_DIVIDE(624);
 }
 void FrdmI2s::_i2s_init(void) {
-/**
-See note.md might give you more details
-*/
-#define I2S_CONFIG_WORDS_IN_A_FRAME 2
-#define I2S_CONFIG_BITS_IN_A_WORD 16
+    // enable TX
+    I2S0->TCSR = I2S_TCSR_TE(1) |    // enable tx
+                 I2S_TCSR_FRIE(1) |  // enable FIFO request interrupt
+                 I2S_TCSR_BCE(1);    // enable bit clock
 
     I2S0->TCR1 = I2S_TCR1_TFW(4);    // 6;    // water mark
     I2S0->TCR2 = I2S_TCR2_SYNC(0) |  // master mode(Async mode)
@@ -546,11 +442,9 @@ See note.md might give you more details
                                      // +------------------------+---------------+
                                      // | 11                     | Not supported |
                                      // +------------------------+---------------+
-                 I2S_TCR2_BCP(1) |
-                 //  Bit clock is active low with drive outputs on falling edge and sample inputs on rising edge.
-                 I2S_TCR2_BCD(1);  // CLK = OUTPUT
+                 I2S_TCR2_BCP(1) |   // CLK = drive on falling edge, sample on rising edge
+                 I2S_TCR2_BCD(1);    // CLK = OUTPUT
 
-    I2S0->TCR3 = I2S_TCR3_CFR(1);  // Channel FIFO Reset
     I2S0->TCR3 = I2S_TCR3_TCE(1);  // enable channel 0
 
     I2S0->TCR4 = I2S_TCR4_FRSZ(I2S_CONFIG_WORDS_IN_A_FRAME - 1) |  // words in a frame
@@ -558,17 +452,28 @@ See note.md might give you more details
                  I2S_TCR4_MF(1) |                                  // MSB first
                  I2S_TCR4_FSE(1) |                                 // one bit early
                  I2S_TCR4_FSP(1) |                                 // frame active low
-                 I2S_TCR4_FSD(0);                                  // frame = output
+                 I2S_TCR4_FSD(1);                                  // frame = output
 
     I2S0->TCR5 = I2S_TCR5_WNW((I2S_CONFIG_BITS_IN_A_WORD - 1)) |  // word N width
                  I2S_TCR5_W0W((I2S_CONFIG_BITS_IN_A_WORD - 1)) |  // word 0 width
                  I2S_TCR5_FBT(23);                                // right adjust, where the first bit starts
 
     I2S0->TMR = I2S_TMR_TWM(0);
-
-    // enable TX
-    I2S0->TCSR = I2S_TCSR_TE(1) |  // enable tx
-                 I2S_TCSR_BCE(1);  // enable bit clock
+    I2S0->MCR = I2S_MCR_MOE(1) |  // MCLK = output
+                I2S_MCR_MICS(0);  // MCLK SRC = core clock = 48M
+                                  // Select MCLK input source
+                                  // +-----------+------------------------------------+
+                                  // | MCR[MICS] | Clock Selection                    |
+                                  // +===========+====================================+
+                                  // | 00        | System clock                       |
+                                  // +-----------+------------------------------------+
+                                  // | 01        | OSC0ERCLK                          |
+                                  // +-----------+------------------------------------+
+                                  // | 10        | Not supported                      |
+                                  // +-----------+------------------------------------+
+                                  // | 11        | MCGPLLCK , IRC48MCLK, or MCGFLLCLK |
+                                  // +-----------+------------------------------------+
+    I2S0->MDR = I2S_MDR_FRACT(63) | I2S_MDR_DIVIDE(624);
 }
 
 void FrdmI2s::_i2s_set_rate(int smprate) {

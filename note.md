@@ -466,7 +466,19 @@ output:
     - Alternate Offline options NXP free KDS (compiler toolchain) and KSDK library/examples
 - Supplier website: http://www.nxp.com/frdm-k66f
 
-# K64F/K66F I2S from datasheet
+# K66F pin config from datasheet P184~; Picking up I2S related pins
+
+| 144 LQFP | **144 MAP BGA** | Pin Name          | Default             | ~ | **ALT4**          | ALT5              | **ALT6**      |
+|----------|-----------------|-------------------|---------------------|---|-------------------|-------------------|---------------|
+| 10       | F4              | **PTE7**          | DISABLED            |   | **I2S0_RXD0**     |                   | FTM3_CH2      |
+| 11       | F3              | **PTE8**          | DISABLED            |   | **I2S0_RX_FS**    | LPUART0_TX        | FTM3_CH3      |
+| 14       | G4              | **PTE11**         | DISABLED            |   | **I2S0_TX_FS**    | LPUART0_RTS_b     | FTM3_CH6      |
+| 15       | G3              | **PTE12**         | DISABLED            |   | **I2S0_TX_BCLK**  |                   | FTM3_CH7      |
+| 104      | B11             | **PTC1**/LLWU_P6  | ADC0_SE15/TSI0_CH14 |   | FTM0_CH0          | FB_AD13/SDRAM_A21 | **I2S0_TXD0** |
+| 111      | C8              | **PTC6**/LLWU_P10 | CMP0_IN0            |   | I2S0_RX_BCLK      | FB_AD9/SDRAM_A17  | **I2S0_MCLK** |
+| 114      | D7              | **PTC9**          | ADC1_SE5b/CMP0_IN3  |   | **I2S0_RX_BCLK**  | FB_AD6/SDRAM_A14  | FTM2_FLT0     |
+
+# K64F/K66F I2S peripheral description from datasheet
 
 ```
 +------------+---------------------------------------------------+-----------+--------------------+-------------+

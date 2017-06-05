@@ -92,47 +92,6 @@ class FrdmI2s {
      */
     FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk);
 
-    /** Create a I2S instance: Only with the serial data line set. Won't really do
-     * much.
-     *
-     * @param rxtx     Set the I2S instance to be transmit or recieve
-     * (I2S_TRANSMIT/I2S_RECEIVE)
-     * @param SerialData    The serial data pin
-     */
-    // I2S(bool rxtx, PinName SerialData);
-
-    /** Create a I2S instance: Only with serial data line and word select.
-     *
-     * @param rxtx     Set the I2S instance to be transmit or recieve
-     * (I2S_TRANSMIT/I2S_RECEIVE)
-     * @param SerialData    The serial data pin
-     * @param WordSelect    The word select pin
-     */
-    // I2S(bool rxtx, PinName SerialData, PinName WordSelect);
-
-    /** Create a I2S instance: Only with serial data line. Four wire mode means
-     * this is functional
-     *
-     * @param rxtx     Set the I2S instance to be transmit or recieve
-     * (I2S_TRANSMIT/I2S_RECEIVE)
-     * @param SerialData    The serial data pin
-     * @param fourwiremode True means the peripheral is in 4-wire mode. It
-     * borroWordSelect WS and CLK from the other half
-     */
-    // I2S(bool rxtx, PinName SerialData, bool fourwiremode);
-
-    /** Create a I2S instance: Only with serial data line and word select line.
-     * Four wire mode means this is functional
-     *
-     * @param rxtx     Set the I2S instance to be transmit or recieve
-     * (I2S_TRANSMIT/I2S_RECEIVE)
-     * @param SerialData    The serial data pin
-     * @param WordSelect    The word select pin
-     * @param fourwiremode True means the peripheral is in 4-wire mode. It
-     * borroWordSelect WS and CLK from the other half
-     */
-    // I2S(bool rxtx, PinName SerialData, PinName WordSelect, bool fourwiremode);
-
     /** Destroy the I2S instance
      */
     ~FrdmI2s();
@@ -143,6 +102,15 @@ class FrdmI2s {
      * @param len    The number of chars to write
      */
     void write(char buf[], int len);
+
+    /** format whole thing
+    *
+    * @param mode The peripherals master/slave status (I2S_MASTER/I2S_SLAVE)
+    * @param mclk The frequency desired for the MasterClk
+    * @param sample The desired sample rate frequency
+    * @param bit The number of bits per word: 8,16,32
+    */
+    void format(int mode = I2S_MASTER, int mclk = 12288000, int sample = 32000, int bit = 16);
 
     /** Write to the FIFO
      *

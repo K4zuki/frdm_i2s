@@ -77,7 +77,7 @@ FrdmI2s::~FrdmI2s() {
 }
 
 void FrdmI2s::defaulter() {
-    I2S0->TCSR |= 1u << 31;
+    // I2S0->TCSR |= 1u << 31;
 
     stop();
     master = false;
@@ -90,8 +90,8 @@ void FrdmI2s::defaulter() {
     set_interrupt_fifo_level(I2S_DF_INTERRUPT_FIFO_LEVEL);
     mute(I2S_DF_MUTED);
 
-    NVIC_SetVector(I2S0_Tx_IRQn, (uint32_t)&_i2sisr);
-    NVIC_EnableIRQ(I2S0_Tx_IRQn);
+    // NVIC_SetVector(I2S0_Tx_IRQn, (uint32_t)&_i2sisr);
+    // NVIC_EnableIRQ(I2S0_Tx_IRQn);
 }
 
 void FrdmI2s::write(char buf[], int len) {
@@ -350,27 +350,27 @@ void FrdmI2s::pin_setup() {
 
     SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTC_MASK | SIM_SCGC5_PORTE_MASK;
     if (pin_setup_err == 0) {
-        PORTC->PCR[6] &= PORT_PCR_MUX_MASK;
+        PORTC->PCR[6] &= ~PORT_PCR_MUX_MASK;
         PORTC->PCR[6] |= PORT_PCR_MUX(0x06);  // PTC6 I2S0_MCLK
 
         if (_rxtx == I2S_TRANSMIT) {
-            PORTC->PCR[1] &= PORT_PCR_MUX_MASK;
+            PORTC->PCR[1] &= ~PORT_PCR_MUX_MASK;
             PORTC->PCR[1] |= PORT_PCR_MUX(0x06);  // PTC1 I2S0_TXD0
 
-            PORTE->PCR[11] &= PORT_PCR_MUX_MASK;
+            PORTE->PCR[11] &= ~PORT_PCR_MUX_MASK;
             PORTE->PCR[11] |= PORT_PCR_MUX(0x04);  // PTE11 I2S0_TX_FS
 
-            PORTE->PCR[12] &= PORT_PCR_MUX_MASK;
+            PORTE->PCR[12] &= ~PORT_PCR_MUX_MASK;
             PORTE->PCR[12] |= PORT_PCR_MUX(0x04);  // PTE12 I2S0_TX_BCLK
 
         } else {
-            PORTE->PCR[7] &= PORT_PCR_MUX_MASK;
+            PORTE->PCR[7] &= ~PORT_PCR_MUX_MASK;
             PORTE->PCR[7] |= PORT_PCR_MUX(0x04);  // PTE7 I2S0_RXD0
 
-            PORTE->PCR[8] &= PORT_PCR_MUX_MASK;
+            PORTE->PCR[8] &= ~PORT_PCR_MUX_MASK;
             PORTE->PCR[8] |= PORT_PCR_MUX(0x04);  // PTE8 I2S0_RX_FS
 
-            PORTC->PCR[9] &= PORT_PCR_MUX_MASK;
+            PORTC->PCR[9] &= ~PORT_PCR_MUX_MASK;
             PORTC->PCR[9] |= PORT_PCR_MUX(0x04);  // PTC9 I2S0_RX_BCLK
         }
     }
@@ -464,11 +464,11 @@ void FrdmI2s::_i2s_set_rate(int smprate) {
 
     switch (smprate) {
         case 32000:
-            div = 3;
-            break;  // 12.288M/(32K*48) = 8, 8 = (DIV+1)*2, DIV = 3
+            div = 5;
+            break;  // 12.288M/(32K*16*2) = 12, 12 = (DIV+1)*2, DIV = 5
     }
 
-    I2S0->TCR2 |= I2S_TCR2_DIV(3);
+    I2S0->TCR2 |= I2S_TCR2_DIV(div);
 }
 
 void FrdmI2s::update_config() {

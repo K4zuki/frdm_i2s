@@ -42,21 +42,6 @@
 #ifndef I2S_H
 #define I2S_H
 
-#define I2S_TRANSMIT 0
-#define I2S_RECEIVE 1
-
-#define I2S_MASTER 0
-#define I2S_SLAVE 1
-
-#define I2S_STEREO 0
-#define I2S_MONO 1
-
-#define I2S_MUTED 1
-#define I2S_UNMUTED 0
-
-#define I2S_4WIRE 1
-#define I2S_3WIRE 0
-
 class FrdmI2s_defaults {
    public:
     static const uint32_t WORDWIDTH = 16;
@@ -90,11 +75,18 @@ class FrdmI2s {
      * @param WordSelect    The word select pin
      * @param BitClk    The clock pin
      */
-    FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk);
+    FrdmI2s(I2sFunc rxtx = TRANSMIT, PinName SerialData, PinName WordSelect, PinName BitClk);
 
     /** Destroy the I2S instance
      */
     ~FrdmI2s();
+
+    typedef enum { TRANSMIT = 0, RECEIVE } I2sFunc;
+    typedef enum { MASTER = 0, SLAVE } I2sRole;
+    typedef enum { STEREO = 0, MONO } I2sChannel;
+    typedef enum { MUTED = 1, UNMUTED } I2sMute;
+    typedef enum { _4WIRE = 1, _3WIRE } I2sWire;
+    typedef enum { RUN = 0, STOP = 1 } I2sStatus;
 
     /** Write to the FIFO
      *
@@ -110,7 +102,7 @@ class FrdmI2s {
     * @param sample The desired sample rate frequency
     * @param bit The number of bits per word: 8,16,32
     */
-    void format(int mode = I2S_MASTER, int mclk = 12288000, int sample = 32000, int bit = 16);
+    void format(I2sRole role = MASTER, int mclk = 12288000, int sample = 32000, int bit = 16);
 
     /** Write to the FIFO
      *
@@ -144,6 +136,7 @@ class FrdmI2s {
      * @return The number of points
      */
     int max_fifo_points();
+
     /** Switch the peripheral on and off
      *
      * @param pwr Power status
@@ -155,7 +148,7 @@ class FrdmI2s {
      * @param mastermode The peripherals master/slave status
      * (I2S_MASTER/I2S_SLAVE)
      */
-    void masterslave(bool mastermode);
+    void role(I2sRole mastermode);
 
     /** Switch the peripheral between different wordsizes
      *
@@ -165,15 +158,15 @@ class FrdmI2s {
 
     /** Define the MasterClk frequency
      *
-     * @param freq The frequency desired for the MasterClk
+     * @param mclk The frequency desired for the MasterClk
      */
-    void mclk_freq(int freq);
+    void mclk_freq(int mclk);
 
     /** Define the sample rate
      *
-     * @param freq The desired sample rate frequency
+     * @param wclk The desired sample rate frequency
      */
-    void frequency(int freq);
+    void frequency(int wclk);
 
     /** Set the level that the fifo interrupts at
      *
@@ -199,7 +192,7 @@ class FrdmI2s {
      * @param stereomode Whether the peripheral is in stereo or mono:
      * I2S_STEREO/I2S_MONO
      */
-    void stereomono(bool stereomode);
+    void stereomono(I2sChannel stereomode = STEREO);
 
     /** Mute the peripheral
      *
@@ -210,7 +203,7 @@ class FrdmI2s {
      *
      * @param mute_en Set whether the mute is enabled
      */
-    void mute(bool mute_en);
+    void mute(I2sMute mute_en = MUTED);
 
     /** Stop the peripheral
      *
@@ -279,28 +272,23 @@ class FrdmI2s {
 
     PinName IoPin, WclkPin, BclkPin, MclkPin;
     bool WordSelect_d, BitClk_d, MasterClk_d;
-    bool _rxtx;
+    I2sFunc _rxtx;
+    I2sRole _role;
+    I2sMute _mute;
+    I2sChannel _stereo;
+    I2sStatus _stat;
     bool pwr;
-    bool master;
     int wordwidth;
     char wordwidth_code;
     bool mclk_en;
     int mclk_frequency;
     int freq;
-    bool stereo;
-    bool muted;
-    bool stopped;
     int interrupt_fifo_level;
     int pin_setup_err;
     int reg_write_err;
-    bool deallocating;
-    int old_freq;
 
     bool fourwire;
 
-    int old_pre_num;
-    int old_pre_den;
-    int old_bitrate_div;
     static void _i2sisr(void);
 
     static FunctionPointer I2STXISR;

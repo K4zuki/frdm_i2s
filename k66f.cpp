@@ -37,21 +37,13 @@ FunctionPointer FrdmI2s::I2SRXISR;
 bool FrdmI2s::txisr;
 bool FrdmI2s::rxisr;
 
-FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk) {
+FrdmI2s::FrdmI2s(I2sFunc rxtx, PinName SerialData, PinName WordSelect, PinName BitClk)
+    : _rxtx(rxtx), IoPin(SerialData), WclkPin(WordSelect), BclkPin(BitClk) {
     SIM->SCGC6 &= ~(SIM_SCGC6_I2S_MASK);
     SIM->SCGC6 |= SIM_SCGC6_I2S(1);
 
     NVIC_DisableIRQ(I2S0_Tx_IRQn);
     NVIC_DisableIRQ(I2S0_Rx_IRQn);
-
-    IoPin = SerialData;
-    WclkPin = WordSelect;
-    BclkPin = BitClk;
-    _rxtx = rxtx;
-
-    WordSelect_d = true;
-    BitClk_d = true;
-    MasterClk_d = false;
 
     fourwire = false;
 
@@ -92,6 +84,16 @@ void FrdmI2s::defaulter() {
 
     // NVIC_SetVector(I2S0_Tx_IRQn, (uint32_t)&_i2sisr);
     // NVIC_EnableIRQ(I2S0_Tx_IRQn);
+}
+void FrdmI2s::format(I2sRole role, int mclk, int sample, int bit) {
+    /*
+    role -> pin out
+    mclk/sample/bit -> MCLK freq, BCLK freq, WCLK freq, FIFO depth
+    */
+    role(role);
+    mclk_freq(mclk);
+    frequency(sample);
+    wordsize(bit);
 }
 
 void FrdmI2s::write(char buf[], int len) {
@@ -147,12 +149,6 @@ void FrdmI2s::write(int buf[], int len) {
                 temp |= recast[j] << (j * 8);
             }
 
-            // if (((temp >> 16) & 0xFFFF) == 0xFFFF)
-            //     printf("Hmmm %x %x %x\n\r", temp, increment, i);  //|| temp &0xFFFF == 0xFFFF
-            // if ((buf[i] - buf[i + 1]) > 5000 || (buf[i] - buf[i + 1]) < -5000) {
-            //     printf("J:%i,%i\n\r", buf[i], buf[i + 1]);
-            // }
-            // printf("%x\n", temp);
             I2S0->TDR[0] = temp;
         }
     }
@@ -236,35 +232,19 @@ int FrdmI2s::fifo_points() {
     }
 }
 
-void FrdmI2s::power(bool pwr) {
-    if (pwr) {
-        stopped = false;
-    } else {
-        stopped = true;
-    }
-    update_config();
-}
-
-void FrdmI2s::masterslave(bool mastermode) {
-    if (mastermode == I2S_MASTER) {
-        master = true;
-    } else {
-        master = false;
-    }
-    update_config();
-}
+void FrdmI2s::role(I2sRole mastermode) { _role = mastermode }
 
 void FrdmI2s::wordsize(int words) {
     wordwidth = 16;
     //    update_config();
 }
 
-void FrdmI2s::mclk_freq(int freq) {
+void FrdmI2s::mclk_freq(int mclk) {
     mclk_frequency = 12288000;
     //    update_config();
 }
 
-void FrdmI2s::frequency(int desired_freq) {
+void FrdmI2s::frequency(int wclk) {
     freq = 32000;
     _i2s_set_rate(freq);
     // update_config();
@@ -284,41 +264,31 @@ int FrdmI2s::fifo_level() {
     return level;
 }
 
-void FrdmI2s::stereomono(bool stereomode) {
-    stereo = true;
-    /*
-        if (stereomode == I2S_STEREO) {
-            stereo = true;
-        } else {
-            stereo = false;
-        }
-    */
-}
+void FrdmI2s::stereomono(I2sChannel stereomode) { _stereo = stereomode; }
 
-void FrdmI2s::mute() {
-    muted = true;
-    //    update_config();
-}
+void FrdmI2s::mute() { _mute = MUTED; }
 
-void FrdmI2s::mute(bool mute_en) {
-    muted = mute_en;
-    //    update_config();
-}
+void FrdmI2s::mute(I2sMute mute_en) { _mute = mute_en; }
+
+void FrdmI2s::set_interrupt_fifo_level(int level) { interrupt_fifo_level = 4; }
 
 void FrdmI2s::stop() {
-    stopped = true;
-    //    update_config();
-}
-
-void FrdmI2s::set_interrupt_fifo_level(int level) {
-    interrupt_fifo_level = 4;
-    //    update_config();
+    _stat = STOP;
+    _mute = MUTED;
 }
 
 void FrdmI2s::start() {
-    stopped = false;
-    muted = false;
-    //    update_config();
+    _stat = RUN;
+    _mute = UNMUTED;
+}
+
+void FrdmI2s::power(bool pwr) {
+    if (pwr) {
+        _stat = STOP;
+    } else {
+        _stat = RUN;
+    }
+    update_config();
 }
 
 bool FrdmI2s::setup_ok() {
@@ -472,53 +442,53 @@ void FrdmI2s::_i2s_set_rate(int smprate) {
 }
 
 void FrdmI2s::update_config() {
-    reg_write_err = 0;
-    // Clock Multiplier Calculations
-    float pre_mult = 0;
-    int pre_num = 0;
-    int pre_den = 0;
-    int bitrate_div = 0;
-    // Clock Multiplier, MCLK setup
-    if (_rxtx == I2S_TRANSMIT) {
-        int regvals = ((pre_num << 8) & 0xFF00) | (pre_den & 0xFF);
-    } else {
-    }
-
-    switch (wordwidth) {
-        case 8:
-            wordwidth_code = 0;
-            break;
-        case 16:
-            wordwidth_code = 1;
-            break;
-        case 32:
-            wordwidth_code = 3;
-            break;
-        default:
-            reg_write_err++;
-            break;
-    }
-
-    int I2SDA_reg = (wordwidth_code & 0x3);
-    I2SDA_reg |= ((!stereo << 2) & 0x4);
-    I2SDA_reg |= ((stopped << 3) & 0x8);
-    I2SDA_reg |= ((!master << 5) & 0x20);
-    I2SDA_reg |= (0x1F << 6);
-    I2SDA_reg |= ((muted << 15) & 0x8000);
-
-    if (_rxtx == I2S_TRANSMIT) {
-        if (txisr) {
-            //
-        } else {
-            //
-        }
-    } else {
-        if (rxisr) {
-            //
-        } else {
-            //
-        }
-    }
+    // reg_write_err = 0;
+    // // Clock Multiplier Calculations
+    // float pre_mult = 0;
+    // int pre_num = 0;
+    // int pre_den = 0;
+    // int bitrate_div = 0;
+    // // Clock Multiplier, MCLK setup
+    // if (_rxtx == TRANSMIT) {
+    //     int regvals = ((pre_num << 8) & 0xFF00) | (pre_den & 0xFF);
+    // } else {
+    // }
+    //
+    // switch (wordwidth) {
+    //     case 8:
+    //         wordwidth_code = 0;
+    //         break;
+    //     case 16:
+    //         wordwidth_code = 1;
+    //         break;
+    //     case 32:
+    //         wordwidth_code = 3;
+    //         break;
+    //     default:
+    //         reg_write_err++;
+    //         break;
+    // }
+    //
+    // int I2SDA_reg = (wordwidth_code & 0x3);
+    // I2SDA_reg |= ((!stereo << 2) & 0x4);
+    // I2SDA_reg |= ((_stat << 3) & 0x8);
+    // I2SDA_reg |= ((!master << 5) & 0x20);
+    // I2SDA_reg |= (0x1F << 6);
+    // I2SDA_reg |= ((muted << 15) & 0x8000);
+    //
+    // if (_rxtx == I2S_TRANSMIT) {
+    //     if (txisr) {
+    //         //
+    //     } else {
+    //         //
+    //     }
+    // } else {
+    //     if (rxisr) {
+    //         //
+    //     } else {
+    //         //
+    //     }
+    // }
 }
 
 void FrdmI2s::_i2sisr(void) {

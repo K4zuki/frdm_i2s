@@ -226,7 +226,7 @@ class FrdmI2s {
      * @param fptr A pointer to the function to be called
      */
     void attach(void (*fptr)(void)) {
-        if (_rxtx == I2S_TRANSMIT) {
+        if (_rxtx == TRANSMIT) {
             I2STXISR.attach(fptr);
             txisr = true;
         } else {

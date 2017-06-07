@@ -71,8 +71,6 @@ void FrdmI2s::defaulter() {
     // I2S0->TCSR |= 1u << 31;
 
     stop();
-    master = false;
-    deallocating = false;
 
     frequency();
     wordsize();
@@ -96,7 +94,7 @@ void FrdmI2s::format(I2sRole _role, int mclk, int sample, int bit) {
 }
 
 void FrdmI2s::write(char buf[], int len) {
-    if (_rxtx == I2S_TRANSMIT) {
+    if (_rxtx == TRANSMIT) {
         if (len > max_fifo_points()) len = max_fifo_points();
         if (len <= 0) return;
         int temp = 0;
@@ -111,7 +109,7 @@ void FrdmI2s::write(char buf[], int len) {
 }
 
 void FrdmI2s::write(int buf[], int len) {
-    if (_rxtx == I2S_TRANSMIT && wordwidth > 0) {
+    if (_rxtx == TRANSMIT && wordwidth > 0) {
         if (len > max_fifo_points()) {
             len = max_fifo_points();
             printf("Trying to write too much data!\n\r");
@@ -231,7 +229,7 @@ int FrdmI2s::fifo_points() {
     }
 }
 
-void FrdmI2s::role(I2sRole mastermode) { _role = mastermode }
+void FrdmI2s::role(I2sRole mastermode) { _role = mastermode; }
 
 void FrdmI2s::wordsize(int words) {
     wordwidth = 16;

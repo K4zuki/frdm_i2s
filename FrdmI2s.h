@@ -42,21 +42,21 @@
 #ifndef I2S_H
 #define I2S_H
 
-class FrdmI2s_defaults {
-   public:
-    static const uint32_t WORDWIDTH = 16;
-    static const uint32_t SAMPLERATE = 32000;
-    static const uint32_t MASTERSLAVE = I2S_MASTER;
-    static const uint32_t STEREOMONO = I2S_STEREO;
-    static const uint32_t MUTED = I2S_UNMUTED;
-    static const uint32_t INTERRUPT_FIFO_LEVEL = 4;
-
-    static const uint32_t MAX_DENOMINATOR = 256;
-    static const uint32_t MAX_NUMERATOR = 256;
-    static const uint32_t MAX_BITRATE_DIV = 64;
-
-    static const uint32_t PCLK_RATE = 12288000;
-};
+// class FrdmI2s_defaults {
+//    public:
+//     static const uint32_t WORDWIDTH = 16;
+//     static const uint32_t SAMPLERATE = 32000;
+//     static const uint32_t MASTERSLAVE = I2S_MASTER;
+//     static const uint32_t STEREOMONO = I2S_STEREO;
+//     static const uint32_t MUTED = I2S_UNMUTED;
+//     static const uint32_t INTERRUPT_FIFO_LEVEL = 4;
+//
+//     static const uint32_t MAX_DENOMINATOR = 256;
+//     static const uint32_t MAX_NUMERATOR = 256;
+//     static const uint32_t MAX_BITRATE_DIV = 64;
+//
+//     static const uint32_t PCLK_RATE = 12288000;
+// };
 
 /** A class to play give access to the I2S library
  *
@@ -64,6 +64,13 @@ class FrdmI2s_defaults {
  * - BitClk is BCLK for DA7212
  * - WordSelect is WCLK for DA7212
  */
+
+typedef enum { TRANSMIT = 0, RECEIVE } I2sFunc;
+typedef enum { MASTER = 0, SLAVE } I2sRole;
+typedef enum { STEREO = 0, MONO } I2sChannel;
+typedef enum { MUTED = 1, UNMUTED } I2sMute;
+typedef enum { _4WIRE = 1, _3WIRE } I2sWire;
+typedef enum { RUN = 0, STOP = 1 } I2sStatus;
 
 class FrdmI2s {
    public:
@@ -75,18 +82,11 @@ class FrdmI2s {
      * @param WordSelect    The word select pin
      * @param BitClk    The clock pin
      */
-    FrdmI2s(I2sFunc rxtx = TRANSMIT, PinName SerialData, PinName WordSelect, PinName BitClk);
+    FrdmI2s(PinName SerialData, PinName WordSelect, PinName BitClk, I2sFunc rxtx = TRANSMIT);
 
     /** Destroy the I2S instance
      */
     ~FrdmI2s();
-
-    typedef enum { TRANSMIT = 0, RECEIVE } I2sFunc;
-    typedef enum { MASTER = 0, SLAVE } I2sRole;
-    typedef enum { STEREO = 0, MONO } I2sChannel;
-    typedef enum { MUTED = 1, UNMUTED } I2sMute;
-    typedef enum { _4WIRE = 1, _3WIRE } I2sWire;
-    typedef enum { RUN = 0, STOP = 1 } I2sStatus;
 
     /** Write to the FIFO
      *
@@ -148,25 +148,25 @@ class FrdmI2s {
      * @param mastermode The peripherals master/slave status
      * (I2S_MASTER/I2S_SLAVE)
      */
-    void role(I2sRole mastermode);
+    void role(I2sRole mastermode = MASTER);
 
     /** Switch the peripheral between different wordsizes
      *
      * @param words The number of bits per word: 8,16,32
      */
-    void wordsize(int words);
+    void wordsize(int words = 16);
 
     /** Define the MasterClk frequency
      *
      * @param mclk The frequency desired for the MasterClk
      */
-    void mclk_freq(int mclk);
+    void mclk_freq(int mclk12288000);
 
     /** Define the sample rate
      *
      * @param wclk The desired sample rate frequency
      */
-    void frequency(int wclk);
+    void frequency(int wclk = 32000);
 
     /** Set the level that the fifo interrupts at
      *
@@ -267,7 +267,7 @@ class FrdmI2s {
 
     float mod(float in);
 
-    FrdmI2s_defaults defaults;
+    // FrdmI2s_defaults defaults;
     void defaulter();
 
     PinName IoPin, WclkPin, BclkPin, MclkPin;

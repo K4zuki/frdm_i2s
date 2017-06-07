@@ -37,7 +37,7 @@ FunctionPointer FrdmI2s::I2SRXISR;
 bool FrdmI2s::txisr;
 bool FrdmI2s::rxisr;
 
-FrdmI2s::FrdmI2s(I2sFunc rxtx, PinName SerialData, PinName WordSelect, PinName BitClk)
+FrdmI2s::FrdmI2s(PinName SerialData, PinName WordSelect, PinName BitClk, I2sFunc rxtx)
     : _rxtx(rxtx), IoPin(SerialData), WclkPin(WordSelect), BclkPin(BitClk) {
     SIM->SCGC6 &= ~(SIM_SCGC6_I2S_MASK);
     SIM->SCGC6 |= SIM_SCGC6_I2S(1);
@@ -63,7 +63,6 @@ FrdmI2s::~FrdmI2s() {
     NVIC_DisableIRQ(I2S0_Tx_IRQn);
     NVIC_DisableIRQ(I2S0_Rx_IRQn);
 
-    deallocating = true;
     pin_setup();
     update_config();
 }
@@ -75,22 +74,22 @@ void FrdmI2s::defaulter() {
     master = false;
     deallocating = false;
 
-    frequency(I2S_DF_SAMPLERATE);
-    wordsize(I2S_DF_WORDWIDTH);
-    masterslave(I2S_DF_MASTERSLAVE);
-    stereomono(I2S_DF_STEREOMONO);
+    frequency();
+    wordsize();
+    role();
+    stereomono();
     set_interrupt_fifo_level(I2S_DF_INTERRUPT_FIFO_LEVEL);
-    mute(I2S_DF_MUTED);
+    mute(MUTED);
 
     // NVIC_SetVector(I2S0_Tx_IRQn, (uint32_t)&_i2sisr);
     // NVIC_EnableIRQ(I2S0_Tx_IRQn);
 }
-void FrdmI2s::format(I2sRole role, int mclk, int sample, int bit) {
+void FrdmI2s::format(I2sRole _role, int mclk, int sample, int bit) {
     /*
     role -> pin out
     mclk/sample/bit -> MCLK freq, BCLK freq, WCLK freq, FIFO depth
     */
-    role(role);
+    role(_role);
     mclk_freq(mclk);
     frequency(sample);
     wordsize(bit);
@@ -252,7 +251,7 @@ void FrdmI2s::frequency(int wclk) {
 
 int FrdmI2s::fifo_level() {
     int level = 0;
-    if (_rxtx == I2S_TRANSMIT) {
+    if (_rxtx == TRANSMIT) {
         level = I2S0->TFR[0];
         level >>= 16;
         level &= 0x0F;
@@ -302,7 +301,7 @@ void FrdmI2s::pin_setup() {
     pin_setup_err = 0;
 
     printf("\n\rSetting up pins....\n\r");
-    if (_rxtx == I2S_TRANSMIT) {
+    if (_rxtx == TRANSMIT) {
         if (IoPin != PTC1) pin_setup_err++;
         if (WclkPin != PTE11) pin_setup_err++;
         if (BclkPin != PTE12) pin_setup_err++;
@@ -323,7 +322,7 @@ void FrdmI2s::pin_setup() {
         PORTC->PCR[6] &= ~PORT_PCR_MUX_MASK;
         PORTC->PCR[6] |= PORT_PCR_MUX(0x06);  // PTC6 I2S0_MCLK
 
-        if (_rxtx == I2S_TRANSMIT) {
+        if (_rxtx == TRANSMIT) {
             PORTC->PCR[1] &= ~PORT_PCR_MUX_MASK;
             PORTC->PCR[1] |= PORT_PCR_MUX(0x06);  // PTC1 I2S0_TXD0
 

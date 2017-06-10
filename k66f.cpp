@@ -248,16 +248,22 @@ void FrdmI2s::frequency(int wclk) {
 }
 
 int FrdmI2s::fifo_level() {
+    int tfr = 0;
+    int wfp = 0;
+    int rfp = 0;
     int level = 0;
+
     if (_rxtx == TRANSMIT) {
-        level = I2S0->TFR[0];
-        level >>= 16;
-        level &= 0x0F;
+        tfr = I2S0->TFR[0];
+        wfp = (tfr & I2S_TFR_WFP_MASK) >> I2S_TFR_WFP_SHIFT;
+        rfp = (tfr & I2S_TFR_RFP_MASK) >> I2S_TFR_RFP_SHIFT;
     } else {
-        level = I2S0->TFR[0];
-        level >>= 0;
-        level &= 0x0F;
+        tfr = I2S0->RFR[0];
+        wfp = (tfr & I2S_RFR_WFP_MASK) >> I2S_RFR_WFP_SHIFT;
+        rfp = (tfr & I2S_RFR_RFP_MASK) >> I2S_RFR_RFP_SHIFT;
     }
+    level = 0x0F & (rfp - wfp);
+
     return level;
 }
 

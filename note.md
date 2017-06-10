@@ -45,7 +45,7 @@ output:
 
 ### [Headers #2]
 
-| function | PinName | --- | function              | PinName |
+| function | PinName | --- |       function        | PinName |
 |----------|---------|-----|-----------------------|---------|
 | A0       | PTB2    | --- | ADC0_D~ifferential~P1 | ?       |
 | A1       | PTB3    | --- | ADC0_D~ifferential~M1 | ?       |
@@ -59,7 +59,7 @@ output:
 ## pins on right headers
 ### [Headers #3]
 
-| function              | PinName | --- | function | PinName |
+|       function        | PinName | --- | function | PinName |
 |-----------------------|---------|-----|----------|---------|
 | NC                    | NA      | --- | SCL      | PTE24   |
 | ADC1_S~ingle~E~nd~18  | PTB2    | --- | SDA      | PTE25   |
@@ -76,11 +76,11 @@ output:
 
 ### [Headers #4]
 
-| function               | PinName | --- | function | PinName |
+|        function        | PinName | --- | function | PinName |
 |------------------------|---------|-----|----------|---------|
 | I2S_RXD                | PTC5    | --- | D7 \*    | PTC3    |
 | I2S_RX_F~rame~S~elect~ | PTC7    | --- | D6 \*    | PTC2    |
-| I2S_SOF_OUT            | PTC0    | --- | D5 \*    | PTA2    |
+| SOF_OUT                | PTC0    | --- | D5 \*    | PTA2    |
 | I2S_RX_B~it~CL~oc~K    | PTC9    | --- | D4       | PTB23   |
 | I2S_MCLK               | PTC8    | --- | D3 \*    | PTA1    |
 | I2S_TXD                | PTC1    | --- | D2       | PTB9    |
@@ -274,7 +274,7 @@ output:
 ## pins on right headers
 ### [Headers #3]
 
-| function              | PinName | --- | function | PinName |
+|       function        | PinName | --- | function | PinName |
 |-----------------------|---------|-----|----------|---------|
 | PTD12                 | PTD12   | --- | SCL      | PTC10   |
 | PTD13                 | PTD13   | --- | SDA      | PTC11   |
@@ -283,20 +283,20 @@ output:
 | PTC0                  | PTC0    | --- | D13      | PTD1    |
 | PTB11                 | PTB11   | --- | D12      | PTD3    |
 | PTB10                 | PTB10   | --- | D11      | PTD2    |
-| ADC1_S~ingle~E~nd~23  | ?       | --- | D10 \*   | PTD0    |
-| ADC0_D~ifferential~M0 | ?       | --- | D9  \*   | PTA19   |
-| ADC1_S~ingle~E~nd~18  | ?       | --- | D8  \*   | PTB18   |
+| ADC1_S~ingle~E~nd~23  | NA      | --- | D10 \*   | PTD0    |
+| ADC0_D~ifferential~M0 | NA      | --- | D9  \*   | PTA19   |
+| ADC1_S~ingle~E~nd~18  | NA      | --- | D8  \*   | PTB18   |
 
 - Pins with * has PWM capability
 
 ### [Headers #4]
 
-| function               | PinName | --- | function | PinName |
+|        function        | PinName | --- | function | PinName |
 |------------------------|---------|-----|----------|---------|
 | I2S_RXD                | PTE7    | --- | D7       | PTA25   |
 | I2S_RX_F~rame~S~elect~ | PTE8    | --- | D6 \*    | PTC2    |
-| I2S_SOF_OUT            | PTC7    | --- | D5 \*    | PTC5    |
-| I2S_RX_B~it~CL~oc~K    | PTC9    | --- | D4 \*    | PTC12   |
+| SOF_OUT                | PTC7    | --- | D5 \*    | PTC5    |
+| I2S_RX_B~it~CL~oc~K    | PTE9    | --- | D4 \*    | PTC12   |
 | I2S_MCLK               | PTC6    | --- | D3 \*    | PTC8    |
 | I2S_TXD                | PTC1    | --- | D2       | PTC16   |
 | I2S_TX_F~rame~S~elect~ | PTE11   | --- | D1       | PTC4    |
@@ -344,7 +344,7 @@ output:
 
 ### [Audio codec DA7212]
 
-| function(DA7212/K66F) | PinName                 |
+| function(DA7212/K66F) |         PinName         |
 |-----------------------|-------------------------|
 | SDA                   | PTC11                   |
 | SCL                   | PTC10                   |
@@ -355,7 +355,7 @@ output:
 
 #### J37: BCLK
 
-| short  | function    | PinName |
+| short  |  function   | PinName |
 |--------|-------------|---------|
 | 2-3(*) | I2S_TX_BCLK | PTE12   |
 | 1-2    | I2S_RX_BCLK | PTE9    |

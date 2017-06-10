@@ -135,7 +135,7 @@ class FrdmI2s {
      *
      * @return The number of points
      */
-    int max_fifo_points();
+    int get_fifo_limit();
 
     /** Switch the peripheral on and off
      *

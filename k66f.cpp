@@ -95,7 +95,7 @@ void FrdmI2s::format(I2sRole _role, int mclk, int sample, int bit) {
 
 void FrdmI2s::write(char buf[], int len) {
     if (_rxtx == TRANSMIT) {
-        if (len > max_fifo_points()) len = max_fifo_points();
+        if (len > get_fifo_limit()) len = get_fifo_limit();
         if (len <= 0) return;
         int temp = 0;
         for (int i = 0; i < len; i += 4) {
@@ -110,8 +110,8 @@ void FrdmI2s::write(char buf[], int len) {
 
 void FrdmI2s::write(int buf[], int len) {
     if (_rxtx == TRANSMIT && wordwidth > 0) {
-        if (len > max_fifo_points()) {
-            len = max_fifo_points();
+        if (len > get_fifo_limit()) {
+            len = get_fifo_limit();
             printf("Trying to write too much data!\n\r");
         }
         if (len <= 0) return;
@@ -203,7 +203,7 @@ void FrdmI2s::read(int bufr[], int bufl[], int len) {
     //#TODO: Write this
 }
 
-int FrdmI2s::max_fifo_points() {
+int FrdmI2s::get_fifo_limit() {
     switch (wordwidth) {
         case 8:
             return (4 * 8);

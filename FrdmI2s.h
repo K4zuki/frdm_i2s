@@ -31,6 +31,8 @@
 #include "math.h"
 #include "mbed.h"
 
+#include "Callback.h"
+
 #if defined(TARGET_MCU_K64F)
 #warning "MK64F12.h"
 #include "MK64F12.h"

@@ -6,7 +6,7 @@ output:
     "--self-contained",
     # "--number-sections", # if you like it numbered
     # "--reference-docx=C:/Path/To/Reference.docx",
-    "-M","css=~/.pandoc/pandoc_misc/github_css/github.css", # this does not work
+    "-M","css=/home/yamamoto/.pandoc/pandoc_misc/github_css/github.css", # this does not work
     "--read=markdown+east_asian_line_breaks+emoji",
     "--toc",
     "-t","html"
@@ -793,3 +793,387 @@ The word start flag is set at the start of the second bit clock for the selected
 configured by the Word Flag register field.
 
 The word start flag can generate an interrupt only.
+
+```cpp
+/* ----------------------------------------------------------------------------
+   -- I2S Register Masks
+   ---------------------------------------------------------------------------- */
+
+/*!
+ * @addtogroup I2S_Register_Masks I2S Register Masks
+ * @{
+ */
+
+/*! @name TCSR - SAI Transmit Control Register */
+#define I2S_TCSR_FRDE_MASK                       (0x1U)
+#define I2S_TCSR_FRDE_SHIFT                      (0U)
+#define I2S_TCSR_FRDE(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_FRDE_SHIFT)) & I2S_TCSR_FRDE_MASK)
+#define I2S_TCSR_FWDE_MASK                       (0x2U)
+#define I2S_TCSR_FWDE_SHIFT                      (1U)
+#define I2S_TCSR_FWDE(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_FWDE_SHIFT)) & I2S_TCSR_FWDE_MASK)
+#define I2S_TCSR_FRIE_MASK                       (0x100U)
+#define I2S_TCSR_FRIE_SHIFT                      (8U)
+#define I2S_TCSR_FRIE(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_FRIE_SHIFT)) & I2S_TCSR_FRIE_MASK)
+#define I2S_TCSR_FWIE_MASK                       (0x200U)
+#define I2S_TCSR_FWIE_SHIFT                      (9U)
+#define I2S_TCSR_FWIE(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_FWIE_SHIFT)) & I2S_TCSR_FWIE_MASK)
+#define I2S_TCSR_FEIE_MASK                       (0x400U)
+#define I2S_TCSR_FEIE_SHIFT                      (10U)
+#define I2S_TCSR_FEIE(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_FEIE_SHIFT)) & I2S_TCSR_FEIE_MASK)
+#define I2S_TCSR_SEIE_MASK                       (0x800U)
+#define I2S_TCSR_SEIE_SHIFT                      (11U)
+#define I2S_TCSR_SEIE(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_SEIE_SHIFT)) & I2S_TCSR_SEIE_MASK)
+#define I2S_TCSR_WSIE_MASK                       (0x1000U)
+#define I2S_TCSR_WSIE_SHIFT                      (12U)
+#define I2S_TCSR_WSIE(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_WSIE_SHIFT)) & I2S_TCSR_WSIE_MASK)
+#define I2S_TCSR_FRF_MASK                        (0x10000U)
+#define I2S_TCSR_FRF_SHIFT                       (16U)
+#define I2S_TCSR_FRF(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_FRF_SHIFT)) & I2S_TCSR_FRF_MASK)
+#define I2S_TCSR_FWF_MASK                        (0x20000U)
+#define I2S_TCSR_FWF_SHIFT                       (17U)
+#define I2S_TCSR_FWF(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_FWF_SHIFT)) & I2S_TCSR_FWF_MASK)
+#define I2S_TCSR_FEF_MASK                        (0x40000U)
+#define I2S_TCSR_FEF_SHIFT                       (18U)
+#define I2S_TCSR_FEF(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_FEF_SHIFT)) & I2S_TCSR_FEF_MASK)
+#define I2S_TCSR_SEF_MASK                        (0x80000U)
+#define I2S_TCSR_SEF_SHIFT                       (19U)
+#define I2S_TCSR_SEF(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_SEF_SHIFT)) & I2S_TCSR_SEF_MASK)
+#define I2S_TCSR_WSF_MASK                        (0x100000U)
+#define I2S_TCSR_WSF_SHIFT                       (20U)
+#define I2S_TCSR_WSF(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_WSF_SHIFT)) & I2S_TCSR_WSF_MASK)
+#define I2S_TCSR_SR_MASK                         (0x1000000U)
+#define I2S_TCSR_SR_SHIFT                        (24U)
+#define I2S_TCSR_SR(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_SR_SHIFT)) & I2S_TCSR_SR_MASK)
+#define I2S_TCSR_FR_MASK                         (0x2000000U)
+#define I2S_TCSR_FR_SHIFT                        (25U)
+#define I2S_TCSR_FR(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_FR_SHIFT)) & I2S_TCSR_FR_MASK)
+#define I2S_TCSR_BCE_MASK                        (0x10000000U)
+#define I2S_TCSR_BCE_SHIFT                       (28U)
+#define I2S_TCSR_BCE(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_BCE_SHIFT)) & I2S_TCSR_BCE_MASK)
+#define I2S_TCSR_DBGE_MASK                       (0x20000000U)
+#define I2S_TCSR_DBGE_SHIFT                      (29U)
+#define I2S_TCSR_DBGE(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_DBGE_SHIFT)) & I2S_TCSR_DBGE_MASK)
+#define I2S_TCSR_STOPE_MASK                      (0x40000000U)
+#define I2S_TCSR_STOPE_SHIFT                     (30U)
+#define I2S_TCSR_STOPE(x)                        (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_STOPE_SHIFT)) & I2S_TCSR_STOPE_MASK)
+#define I2S_TCSR_TE_MASK                         (0x80000000U)
+#define I2S_TCSR_TE_SHIFT                        (31U)
+#define I2S_TCSR_TE(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_TCSR_TE_SHIFT)) & I2S_TCSR_TE_MASK)
+
+/*! @name TCR1 - SAI Transmit Configuration 1 Register */
+#define I2S_TCR1_TFW_MASK                        (0x7U)
+#define I2S_TCR1_TFW_SHIFT                       (0U)
+#define I2S_TCR1_TFW(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCR1_TFW_SHIFT)) & I2S_TCR1_TFW_MASK)
+
+/*! @name TCR2 - SAI Transmit Configuration 2 Register */
+#define I2S_TCR2_DIV_MASK                        (0xFFU)
+#define I2S_TCR2_DIV_SHIFT                       (0U)
+#define I2S_TCR2_DIV(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCR2_DIV_SHIFT)) & I2S_TCR2_DIV_MASK)
+#define I2S_TCR2_BCD_MASK                        (0x1000000U)
+#define I2S_TCR2_BCD_SHIFT                       (24U)
+#define I2S_TCR2_BCD(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCR2_BCD_SHIFT)) & I2S_TCR2_BCD_MASK)
+#define I2S_TCR2_BCP_MASK                        (0x2000000U)
+#define I2S_TCR2_BCP_SHIFT                       (25U)
+#define I2S_TCR2_BCP(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCR2_BCP_SHIFT)) & I2S_TCR2_BCP_MASK)
+#define I2S_TCR2_MSEL_MASK                       (0xC000000U)
+#define I2S_TCR2_MSEL_SHIFT                      (26U)
+#define I2S_TCR2_MSEL(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_TCR2_MSEL_SHIFT)) & I2S_TCR2_MSEL_MASK)
+#define I2S_TCR2_BCI_MASK                        (0x10000000U)
+#define I2S_TCR2_BCI_SHIFT                       (28U)
+#define I2S_TCR2_BCI(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCR2_BCI_SHIFT)) & I2S_TCR2_BCI_MASK)
+#define I2S_TCR2_BCS_MASK                        (0x20000000U)
+#define I2S_TCR2_BCS_SHIFT                       (29U)
+#define I2S_TCR2_BCS(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCR2_BCS_SHIFT)) & I2S_TCR2_BCS_MASK)
+#define I2S_TCR2_SYNC_MASK                       (0xC0000000U)
+#define I2S_TCR2_SYNC_SHIFT                      (30U)
+#define I2S_TCR2_SYNC(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_TCR2_SYNC_SHIFT)) & I2S_TCR2_SYNC_MASK)
+
+/*! @name TCR3 - SAI Transmit Configuration 3 Register */
+#define I2S_TCR3_WDFL_MASK                       (0x1FU)
+#define I2S_TCR3_WDFL_SHIFT                      (0U)
+#define I2S_TCR3_WDFL(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_TCR3_WDFL_SHIFT)) & I2S_TCR3_WDFL_MASK)
+#define I2S_TCR3_TCE_MASK                        (0x30000U)
+#define I2S_TCR3_TCE_SHIFT                       (16U)
+#define I2S_TCR3_TCE(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCR3_TCE_SHIFT)) & I2S_TCR3_TCE_MASK)
+#define I2S_TCR3_CFR_MASK                        (0x3000000U)
+#define I2S_TCR3_CFR_SHIFT                       (24U)
+#define I2S_TCR3_CFR(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCR3_CFR_SHIFT)) & I2S_TCR3_CFR_MASK)
+
+/*! @name TCR4 - SAI Transmit Configuration 4 Register */
+#define I2S_TCR4_FSD_MASK                        (0x1U)
+#define I2S_TCR4_FSD_SHIFT                       (0U)
+#define I2S_TCR4_FSD(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCR4_FSD_SHIFT)) & I2S_TCR4_FSD_MASK)
+#define I2S_TCR4_FSP_MASK                        (0x2U)
+#define I2S_TCR4_FSP_SHIFT                       (1U)
+#define I2S_TCR4_FSP(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCR4_FSP_SHIFT)) & I2S_TCR4_FSP_MASK)
+#define I2S_TCR4_ONDEM_MASK                      (0x4U)
+#define I2S_TCR4_ONDEM_SHIFT                     (2U)
+#define I2S_TCR4_ONDEM(x)                        (((uint32_t)(((uint32_t)(x)) << I2S_TCR4_ONDEM_SHIFT)) & I2S_TCR4_ONDEM_MASK)
+#define I2S_TCR4_FSE_MASK                        (0x8U)
+#define I2S_TCR4_FSE_SHIFT                       (3U)
+#define I2S_TCR4_FSE(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCR4_FSE_SHIFT)) & I2S_TCR4_FSE_MASK)
+#define I2S_TCR4_MF_MASK                         (0x10U)
+#define I2S_TCR4_MF_SHIFT                        (4U)
+#define I2S_TCR4_MF(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_TCR4_MF_SHIFT)) & I2S_TCR4_MF_MASK)
+#define I2S_TCR4_SYWD_MASK                       (0x1F00U)
+#define I2S_TCR4_SYWD_SHIFT                      (8U)
+#define I2S_TCR4_SYWD(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_TCR4_SYWD_SHIFT)) & I2S_TCR4_SYWD_MASK)
+#define I2S_TCR4_FRSZ_MASK                       (0x1F0000U)
+#define I2S_TCR4_FRSZ_SHIFT                      (16U)
+#define I2S_TCR4_FRSZ(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_TCR4_FRSZ_SHIFT)) & I2S_TCR4_FRSZ_MASK)
+#define I2S_TCR4_FPACK_MASK                      (0x3000000U)
+#define I2S_TCR4_FPACK_SHIFT                     (24U)
+#define I2S_TCR4_FPACK(x)                        (((uint32_t)(((uint32_t)(x)) << I2S_TCR4_FPACK_SHIFT)) & I2S_TCR4_FPACK_MASK)
+#define I2S_TCR4_FCOMB_MASK                      (0xC000000U)
+#define I2S_TCR4_FCOMB_SHIFT                     (26U)
+#define I2S_TCR4_FCOMB(x)                        (((uint32_t)(((uint32_t)(x)) << I2S_TCR4_FCOMB_SHIFT)) & I2S_TCR4_FCOMB_MASK)
+#define I2S_TCR4_FCONT_MASK                      (0x10000000U)
+#define I2S_TCR4_FCONT_SHIFT                     (28U)
+#define I2S_TCR4_FCONT(x)                        (((uint32_t)(((uint32_t)(x)) << I2S_TCR4_FCONT_SHIFT)) & I2S_TCR4_FCONT_MASK)
+
+/*! @name TCR5 - SAI Transmit Configuration 5 Register */
+#define I2S_TCR5_FBT_MASK                        (0x1F00U)
+#define I2S_TCR5_FBT_SHIFT                       (8U)
+#define I2S_TCR5_FBT(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCR5_FBT_SHIFT)) & I2S_TCR5_FBT_MASK)
+#define I2S_TCR5_W0W_MASK                        (0x1F0000U)
+#define I2S_TCR5_W0W_SHIFT                       (16U)
+#define I2S_TCR5_W0W(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCR5_W0W_SHIFT)) & I2S_TCR5_W0W_MASK)
+#define I2S_TCR5_WNW_MASK                        (0x1F000000U)
+#define I2S_TCR5_WNW_SHIFT                       (24U)
+#define I2S_TCR5_WNW(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_TCR5_WNW_SHIFT)) & I2S_TCR5_WNW_MASK)
+
+/*! @name TDR - SAI Transmit Data Register */
+#define I2S_TDR_TDR_MASK                         (0xFFFFFFFFU)
+#define I2S_TDR_TDR_SHIFT                        (0U)
+#define I2S_TDR_TDR(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_TDR_TDR_SHIFT)) & I2S_TDR_TDR_MASK)
+
+/* The count of I2S_TDR */
+#define I2S_TDR_COUNT                            (2U)
+
+/*! @name TFR - SAI Transmit FIFO Register */
+#define I2S_TFR_RFP_MASK                         (0xFU)
+#define I2S_TFR_RFP_SHIFT                        (0U)
+#define I2S_TFR_RFP(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_TFR_RFP_SHIFT)) & I2S_TFR_RFP_MASK)
+#define I2S_TFR_WFP_MASK                         (0xF0000U)
+#define I2S_TFR_WFP_SHIFT                        (16U)
+#define I2S_TFR_WFP(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_TFR_WFP_SHIFT)) & I2S_TFR_WFP_MASK)
+#define I2S_TFR_WCP_MASK                         (0x80000000U)
+#define I2S_TFR_WCP_SHIFT                        (31U)
+#define I2S_TFR_WCP(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_TFR_WCP_SHIFT)) & I2S_TFR_WCP_MASK)
+
+/* The count of I2S_TFR */
+#define I2S_TFR_COUNT                            (2U)
+
+/*! @name TMR - SAI Transmit Mask Register */
+#define I2S_TMR_TWM_MASK                         (0xFFFFFFFFU)
+#define I2S_TMR_TWM_SHIFT                        (0U)
+#define I2S_TMR_TWM(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_TMR_TWM_SHIFT)) & I2S_TMR_TWM_MASK)
+
+/*! @name RCSR - SAI Receive Control Register */
+#define I2S_RCSR_FRDE_MASK                       (0x1U)
+#define I2S_RCSR_FRDE_SHIFT                      (0U)
+#define I2S_RCSR_FRDE(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_FRDE_SHIFT)) & I2S_RCSR_FRDE_MASK)
+#define I2S_RCSR_FWDE_MASK                       (0x2U)
+#define I2S_RCSR_FWDE_SHIFT                      (1U)
+#define I2S_RCSR_FWDE(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_FWDE_SHIFT)) & I2S_RCSR_FWDE_MASK)
+#define I2S_RCSR_FRIE_MASK                       (0x100U)
+#define I2S_RCSR_FRIE_SHIFT                      (8U)
+#define I2S_RCSR_FRIE(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_FRIE_SHIFT)) & I2S_RCSR_FRIE_MASK)
+#define I2S_RCSR_FWIE_MASK                       (0x200U)
+#define I2S_RCSR_FWIE_SHIFT                      (9U)
+#define I2S_RCSR_FWIE(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_FWIE_SHIFT)) & I2S_RCSR_FWIE_MASK)
+#define I2S_RCSR_FEIE_MASK                       (0x400U)
+#define I2S_RCSR_FEIE_SHIFT                      (10U)
+#define I2S_RCSR_FEIE(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_FEIE_SHIFT)) & I2S_RCSR_FEIE_MASK)
+#define I2S_RCSR_SEIE_MASK                       (0x800U)
+#define I2S_RCSR_SEIE_SHIFT                      (11U)
+#define I2S_RCSR_SEIE(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_SEIE_SHIFT)) & I2S_RCSR_SEIE_MASK)
+#define I2S_RCSR_WSIE_MASK                       (0x1000U)
+#define I2S_RCSR_WSIE_SHIFT                      (12U)
+#define I2S_RCSR_WSIE(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_WSIE_SHIFT)) & I2S_RCSR_WSIE_MASK)
+#define I2S_RCSR_FRF_MASK                        (0x10000U)
+#define I2S_RCSR_FRF_SHIFT                       (16U)
+#define I2S_RCSR_FRF(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_FRF_SHIFT)) & I2S_RCSR_FRF_MASK)
+#define I2S_RCSR_FWF_MASK                        (0x20000U)
+#define I2S_RCSR_FWF_SHIFT                       (17U)
+#define I2S_RCSR_FWF(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_FWF_SHIFT)) & I2S_RCSR_FWF_MASK)
+#define I2S_RCSR_FEF_MASK                        (0x40000U)
+#define I2S_RCSR_FEF_SHIFT                       (18U)
+#define I2S_RCSR_FEF(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_FEF_SHIFT)) & I2S_RCSR_FEF_MASK)
+#define I2S_RCSR_SEF_MASK                        (0x80000U)
+#define I2S_RCSR_SEF_SHIFT                       (19U)
+#define I2S_RCSR_SEF(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_SEF_SHIFT)) & I2S_RCSR_SEF_MASK)
+#define I2S_RCSR_WSF_MASK                        (0x100000U)
+#define I2S_RCSR_WSF_SHIFT                       (20U)
+#define I2S_RCSR_WSF(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_WSF_SHIFT)) & I2S_RCSR_WSF_MASK)
+#define I2S_RCSR_SR_MASK                         (0x1000000U)
+#define I2S_RCSR_SR_SHIFT                        (24U)
+#define I2S_RCSR_SR(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_SR_SHIFT)) & I2S_RCSR_SR_MASK)
+#define I2S_RCSR_FR_MASK                         (0x2000000U)
+#define I2S_RCSR_FR_SHIFT                        (25U)
+#define I2S_RCSR_FR(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_FR_SHIFT)) & I2S_RCSR_FR_MASK)
+#define I2S_RCSR_BCE_MASK                        (0x10000000U)
+#define I2S_RCSR_BCE_SHIFT                       (28U)
+#define I2S_RCSR_BCE(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_BCE_SHIFT)) & I2S_RCSR_BCE_MASK)
+#define I2S_RCSR_DBGE_MASK                       (0x20000000U)
+#define I2S_RCSR_DBGE_SHIFT                      (29U)
+#define I2S_RCSR_DBGE(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_DBGE_SHIFT)) & I2S_RCSR_DBGE_MASK)
+#define I2S_RCSR_STOPE_MASK                      (0x40000000U)
+#define I2S_RCSR_STOPE_SHIFT                     (30U)
+#define I2S_RCSR_STOPE(x)                        (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_STOPE_SHIFT)) & I2S_RCSR_STOPE_MASK)
+#define I2S_RCSR_RE_MASK                         (0x80000000U)
+#define I2S_RCSR_RE_SHIFT                        (31U)
+#define I2S_RCSR_RE(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_RCSR_RE_SHIFT)) & I2S_RCSR_RE_MASK)
+
+/*! @name RCR1 - SAI Receive Configuration 1 Register */
+#define I2S_RCR1_RFW_MASK                        (0x7U)
+#define I2S_RCR1_RFW_SHIFT                       (0U)
+#define I2S_RCR1_RFW(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCR1_RFW_SHIFT)) & I2S_RCR1_RFW_MASK)
+
+/*! @name RCR2 - SAI Receive Configuration 2 Register */
+#define I2S_RCR2_DIV_MASK                        (0xFFU)
+#define I2S_RCR2_DIV_SHIFT                       (0U)
+#define I2S_RCR2_DIV(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCR2_DIV_SHIFT)) & I2S_RCR2_DIV_MASK)
+#define I2S_RCR2_BCD_MASK                        (0x1000000U)
+#define I2S_RCR2_BCD_SHIFT                       (24U)
+#define I2S_RCR2_BCD(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCR2_BCD_SHIFT)) & I2S_RCR2_BCD_MASK)
+#define I2S_RCR2_BCP_MASK                        (0x2000000U)
+#define I2S_RCR2_BCP_SHIFT                       (25U)
+#define I2S_RCR2_BCP(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCR2_BCP_SHIFT)) & I2S_RCR2_BCP_MASK)
+#define I2S_RCR2_MSEL_MASK                       (0xC000000U)
+#define I2S_RCR2_MSEL_SHIFT                      (26U)
+#define I2S_RCR2_MSEL(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_RCR2_MSEL_SHIFT)) & I2S_RCR2_MSEL_MASK)
+#define I2S_RCR2_BCI_MASK                        (0x10000000U)
+#define I2S_RCR2_BCI_SHIFT                       (28U)
+#define I2S_RCR2_BCI(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCR2_BCI_SHIFT)) & I2S_RCR2_BCI_MASK)
+#define I2S_RCR2_BCS_MASK                        (0x20000000U)
+#define I2S_RCR2_BCS_SHIFT                       (29U)
+#define I2S_RCR2_BCS(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCR2_BCS_SHIFT)) & I2S_RCR2_BCS_MASK)
+#define I2S_RCR2_SYNC_MASK                       (0xC0000000U)
+#define I2S_RCR2_SYNC_SHIFT                      (30U)
+#define I2S_RCR2_SYNC(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_RCR2_SYNC_SHIFT)) & I2S_RCR2_SYNC_MASK)
+
+/*! @name RCR3 - SAI Receive Configuration 3 Register */
+#define I2S_RCR3_WDFL_MASK                       (0x1FU)
+#define I2S_RCR3_WDFL_SHIFT                      (0U)
+#define I2S_RCR3_WDFL(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_RCR3_WDFL_SHIFT)) & I2S_RCR3_WDFL_MASK)
+#define I2S_RCR3_RCE_MASK                        (0x30000U)
+#define I2S_RCR3_RCE_SHIFT                       (16U)
+#define I2S_RCR3_RCE(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCR3_RCE_SHIFT)) & I2S_RCR3_RCE_MASK)
+#define I2S_RCR3_CFR_MASK                        (0x3000000U)
+#define I2S_RCR3_CFR_SHIFT                       (24U)
+#define I2S_RCR3_CFR(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCR3_CFR_SHIFT)) & I2S_RCR3_CFR_MASK)
+
+/*! @name RCR4 - SAI Receive Configuration 4 Register */
+#define I2S_RCR4_FSD_MASK                        (0x1U)
+#define I2S_RCR4_FSD_SHIFT                       (0U)
+#define I2S_RCR4_FSD(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCR4_FSD_SHIFT)) & I2S_RCR4_FSD_MASK)
+#define I2S_RCR4_FSP_MASK                        (0x2U)
+#define I2S_RCR4_FSP_SHIFT                       (1U)
+#define I2S_RCR4_FSP(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCR4_FSP_SHIFT)) & I2S_RCR4_FSP_MASK)
+#define I2S_RCR4_ONDEM_MASK                      (0x4U)
+#define I2S_RCR4_ONDEM_SHIFT                     (2U)
+#define I2S_RCR4_ONDEM(x)                        (((uint32_t)(((uint32_t)(x)) << I2S_RCR4_ONDEM_SHIFT)) & I2S_RCR4_ONDEM_MASK)
+#define I2S_RCR4_FSE_MASK                        (0x8U)
+#define I2S_RCR4_FSE_SHIFT                       (3U)
+#define I2S_RCR4_FSE(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCR4_FSE_SHIFT)) & I2S_RCR4_FSE_MASK)
+#define I2S_RCR4_MF_MASK                         (0x10U)
+#define I2S_RCR4_MF_SHIFT                        (4U)
+#define I2S_RCR4_MF(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_RCR4_MF_SHIFT)) & I2S_RCR4_MF_MASK)
+#define I2S_RCR4_SYWD_MASK                       (0x1F00U)
+#define I2S_RCR4_SYWD_SHIFT                      (8U)
+#define I2S_RCR4_SYWD(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_RCR4_SYWD_SHIFT)) & I2S_RCR4_SYWD_MASK)
+#define I2S_RCR4_FRSZ_MASK                       (0x1F0000U)
+#define I2S_RCR4_FRSZ_SHIFT                      (16U)
+#define I2S_RCR4_FRSZ(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_RCR4_FRSZ_SHIFT)) & I2S_RCR4_FRSZ_MASK)
+#define I2S_RCR4_FPACK_MASK                      (0x3000000U)
+#define I2S_RCR4_FPACK_SHIFT                     (24U)
+#define I2S_RCR4_FPACK(x)                        (((uint32_t)(((uint32_t)(x)) << I2S_RCR4_FPACK_SHIFT)) & I2S_RCR4_FPACK_MASK)
+#define I2S_RCR4_FCOMB_MASK                      (0xC000000U)
+#define I2S_RCR4_FCOMB_SHIFT                     (26U)
+#define I2S_RCR4_FCOMB(x)                        (((uint32_t)(((uint32_t)(x)) << I2S_RCR4_FCOMB_SHIFT)) & I2S_RCR4_FCOMB_MASK)
+#define I2S_RCR4_FCONT_MASK                      (0x10000000U)
+#define I2S_RCR4_FCONT_SHIFT                     (28U)
+#define I2S_RCR4_FCONT(x)                        (((uint32_t)(((uint32_t)(x)) << I2S_RCR4_FCONT_SHIFT)) & I2S_RCR4_FCONT_MASK)
+
+/*! @name RCR5 - SAI Receive Configuration 5 Register */
+#define I2S_RCR5_FBT_MASK                        (0x1F00U)
+#define I2S_RCR5_FBT_SHIFT                       (8U)
+#define I2S_RCR5_FBT(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCR5_FBT_SHIFT)) & I2S_RCR5_FBT_MASK)
+#define I2S_RCR5_W0W_MASK                        (0x1F0000U)
+#define I2S_RCR5_W0W_SHIFT                       (16U)
+#define I2S_RCR5_W0W(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCR5_W0W_SHIFT)) & I2S_RCR5_W0W_MASK)
+#define I2S_RCR5_WNW_MASK                        (0x1F000000U)
+#define I2S_RCR5_WNW_SHIFT                       (24U)
+#define I2S_RCR5_WNW(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_RCR5_WNW_SHIFT)) & I2S_RCR5_WNW_MASK)
+
+/*! @name RDR - SAI Receive Data Register */
+#define I2S_RDR_RDR_MASK                         (0xFFFFFFFFU)
+#define I2S_RDR_RDR_SHIFT                        (0U)
+#define I2S_RDR_RDR(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_RDR_RDR_SHIFT)) & I2S_RDR_RDR_MASK)
+
+/* The count of I2S_RDR */
+#define I2S_RDR_COUNT                            (2U)
+
+/*! @name RFR - SAI Receive FIFO Register */
+#define I2S_RFR_RFP_MASK                         (0xFU)
+#define I2S_RFR_RFP_SHIFT                        (0U)
+#define I2S_RFR_RFP(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_RFR_RFP_SHIFT)) & I2S_RFR_RFP_MASK)
+#define I2S_RFR_RCP_MASK                         (0x8000U)
+#define I2S_RFR_RCP_SHIFT                        (15U)
+#define I2S_RFR_RCP(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_RFR_RCP_SHIFT)) & I2S_RFR_RCP_MASK)
+#define I2S_RFR_WFP_MASK                         (0xF0000U)
+#define I2S_RFR_WFP_SHIFT                        (16U)
+#define I2S_RFR_WFP(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_RFR_WFP_SHIFT)) & I2S_RFR_WFP_MASK)
+
+/* The count of I2S_RFR */
+#define I2S_RFR_COUNT                            (2U)
+
+/*! @name RMR - SAI Receive Mask Register */
+#define I2S_RMR_RWM_MASK                         (0xFFFFFFFFU)
+#define I2S_RMR_RWM_SHIFT                        (0U)
+#define I2S_RMR_RWM(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_RMR_RWM_SHIFT)) & I2S_RMR_RWM_MASK)
+
+/*! @name MCR - SAI MCLK Control Register */
+#define I2S_MCR_MICS_MASK                        (0x3000000U)
+#define I2S_MCR_MICS_SHIFT                       (24U)
+#define I2S_MCR_MICS(x)                          (((uint32_t)(((uint32_t)(x)) << I2S_MCR_MICS_SHIFT)) & I2S_MCR_MICS_MASK)
+#define I2S_MCR_MOE_MASK                         (0x40000000U)
+#define I2S_MCR_MOE_SHIFT                        (30U)
+#define I2S_MCR_MOE(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_MCR_MOE_SHIFT)) & I2S_MCR_MOE_MASK)
+#define I2S_MCR_DUF_MASK                         (0x80000000U)
+#define I2S_MCR_DUF_SHIFT                        (31U)
+#define I2S_MCR_DUF(x)                           (((uint32_t)(((uint32_t)(x)) << I2S_MCR_DUF_SHIFT)) & I2S_MCR_DUF_MASK)
+
+/*! @name MDR - SAI MCLK Divide Register */
+#define I2S_MDR_DIVIDE_MASK                      (0xFFFU)
+#define I2S_MDR_DIVIDE_SHIFT                     (0U)
+#define I2S_MDR_DIVIDE(x)                        (((uint32_t)(((uint32_t)(x)) << I2S_MDR_DIVIDE_SHIFT)) & I2S_MDR_DIVIDE_MASK)
+#define I2S_MDR_FRACT_MASK                       (0xFF000U)
+#define I2S_MDR_FRACT_SHIFT                      (12U)
+#define I2S_MDR_FRACT(x)                         (((uint32_t)(((uint32_t)(x)) << I2S_MDR_FRACT_SHIFT)) & I2S_MDR_FRACT_MASK)
+
+
+/*!
+ * @}
+ */ /* end of group I2S_Register_Masks */
+
+
+/* I2S - Peripheral instance base addresses */
+/** Peripheral I2S0 base address */
+#define I2S0_BASE                                (0x4002F000u)
+/** Peripheral I2S0 base pointer */
+#define I2S0                                     ((I2S_Type *)I2S0_BASE)
+/** Array initializer of I2S peripheral base addresses */
+#define I2S_BASE_ADDRS                           { I2S0_BASE }
+/** Array initializer of I2S peripheral base pointers */
+#define I2S_BASE_PTRS                            { I2S0 }
+/** Interrupt vectors for the I2S peripheral type */
+#define I2S_RX_IRQS                              { I2S0_Rx_IRQn }
+#define I2S_TX_IRQS                              { I2S0_Tx_IRQn }
+
+/*!
+ * @}
+ */
+ /* end of group I2S_Peripheral_Access_Layer */
+```

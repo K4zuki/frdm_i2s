@@ -6,7 +6,7 @@ output:
     "--self-contained",
     # "--number-sections", # if you like it numbered
     # "--reference-docx=C:/Path/To/Reference.docx",
-    "-M","css=/home/yamamoto/.pandoc/pandoc_misc/github_css/github.css", # this does not work
+    "-M","css=~/.pandoc/pandoc_misc/github_css/github.css", # this does not work
     "--read=markdown+east_asian_line_breaks+emoji",
     "--toc",
     "-t","html"

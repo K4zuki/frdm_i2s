@@ -41,8 +41,8 @@
 #include "MK66F18.h"
 #endif
 
-#ifndef I2S_H
-#define I2S_H
+#ifndef FRDMI2S_H
+#define FRDMI2S_H
 
 // class FrdmI2s_defaults {
 //    public:
@@ -89,6 +89,13 @@ class FrdmI2s {
     /** Destroy the I2S instance
      */
     ~FrdmI2s();
+
+    enum IrqType {
+        RxIrq = 0,
+        TxIrq,
+
+        IrqCnt
+    };
 
     /** Write to the FIFO
      *
@@ -223,6 +230,16 @@ class FrdmI2s {
      */
     bool setup_ok();
 
+    // static void _irq_handler(uint32_t id, SerialIrq irq_type);
+
+    /** Attach a function to call whenever a serial interrupt is generated
+     *
+     *  @param func A pointer to a void function, or 0 to set as none
+     *  @param type Which serial interrupt to attach the member function to (Seriall::RxIrq for receive, TxIrq for
+     * transmit buffer empty)
+     */
+    // void attach(Callback<void()> func, IrqType type = TxIrq);
+
     /** Attach a function to be called when the FIFO triggers
      *
      * @param fptr A pointer to the function to be called
@@ -301,6 +318,9 @@ class FrdmI2s {
 
     void write(int bufr[], int bufl[], int len);
     void read(int bufr[], int bufl[], int len);
+
+   protected:
+    Callback<void()> _irq[IrqCnt];
 };
 
 #endif

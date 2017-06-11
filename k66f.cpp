@@ -17,7 +17,9 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 #if defined(TARGET_K66F)
 // http://www.nxp.com/assets/documents/data/en/reference-manuals/K66P144M180SF5RMV2.pdf for details
 #include "FrdmI2s.h"
-#include "fsl_port.h"
+
+#include "fsl_port.h"  //NOLINT
+#include "fsl_sai.h"   //NOLINT
 
 #define I2S_DF_WORDWIDTH 16
 #define I2S_DF_SAMPLERATE 32000
@@ -238,6 +240,7 @@ void FrdmI2s::wordsize(int words) {
 }
 
 void FrdmI2s::mclk_freq(int mclk) {
+    SAI_SetMasterClockDivider(I2S0, mclk, 48000000);
     mclk_frequency = 12288000;
     //    update_config();
 }
@@ -396,7 +399,7 @@ See note.md might give you more details
 
     I2S0->TCR5 = I2S_TCR5_WNW((I2S_CONFIG_BITS_IN_A_WORD - 1)) |  // word N width
                  I2S_TCR5_W0W((I2S_CONFIG_BITS_IN_A_WORD - 1)) |  // word 0 width
-                 I2S_TCR5_FBT(23);                                // right adjust, where the first bit starts
+                 I2S_TCR5_FBT(15);                                // right adjust, where the first bit starts
 
     I2S0->TMR = I2S_TMR_TWM(0);
     I2S0->MCR = I2S_MCR_MOE(1) |  // MCLK = output

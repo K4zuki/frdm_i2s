@@ -17,6 +17,7 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 #if defined(TARGET_K66F)
 // http://www.nxp.com/assets/documents/data/en/reference-manuals/K66P144M180SF5RMV2.pdf for details
 #include "FrdmI2s.h"
+#include "fsl_port.h"
 
 #define I2S_DF_WORDWIDTH 16
 #define I2S_DF_SAMPLERATE 32000
@@ -323,28 +324,21 @@ void FrdmI2s::pin_setup() {
 
     SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK | SIM_SCGC5_PORTC_MASK | SIM_SCGC5_PORTE_MASK;
     if (pin_setup_err == 0) {
-        PORTC->PCR[6] &= ~PORT_PCR_MUX_MASK;
-        PORTC->PCR[6] |= PORT_PCR_MUX(0x06);  // PTC6 I2S0_MCLK
+        PORT_SetPinMux(PORTC, 6, kPORT_MuxAlt6);  // PTC6 I2S0_MCLK
 
         if (_rxtx == TRANSMIT) {
-            PORTC->PCR[1] &= ~PORT_PCR_MUX_MASK;
-            PORTC->PCR[1] |= PORT_PCR_MUX(0x06);  // PTC1 I2S0_TXD0
+            PORT_SetPinMux(PORTC, 1, kPORT_MuxAlt6);  // PTC1 I2S0_TXD0
 
-            PORTE->PCR[11] &= ~PORT_PCR_MUX_MASK;
-            PORTE->PCR[11] |= PORT_PCR_MUX(0x04);  // PTE11 I2S0_TX_FS
+            PORT_SetPinMux(PORTE, 11, kPORT_MuxAlt4);  // PTE11 I2S0_TX_FS
 
-            PORTE->PCR[12] &= ~PORT_PCR_MUX_MASK;
-            PORTE->PCR[12] |= PORT_PCR_MUX(0x04);  // PTE12 I2S0_TX_BCLK
+            PORT_SetPinMux(PORTE, 12, kPORT_MuxAlt4);  // PTE12 I2S0_TX_BCLK
 
         } else {
-            PORTE->PCR[7] &= ~PORT_PCR_MUX_MASK;
-            PORTE->PCR[7] |= PORT_PCR_MUX(0x04);  // PTE7 I2S0_RXD0
+            PORT_SetPinMux(PORTE, 7, kPORT_MuxAlt4);  // PTE7 I2S0_RXD0
 
-            PORTE->PCR[8] &= ~PORT_PCR_MUX_MASK;
-            PORTE->PCR[8] |= PORT_PCR_MUX(0x04);  // PTE8 I2S0_RX_FS
+            PORT_SetPinMux(PORTE, 8, kPORT_MuxAlt4);  // PTE8 I2S0_RX_FS
 
-            PORTC->PCR[9] &= ~PORT_PCR_MUX_MASK;
-            PORTC->PCR[9] |= PORT_PCR_MUX(0x04);  // PTC9 I2S0_RX_BCLK
+            PORT_SetPinMux(PORTC, 9, kPORT_MuxAlt4);  // PTC9 I2S0_RX_BCLK
         }
     }
 }

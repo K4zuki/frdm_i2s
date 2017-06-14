@@ -29,7 +29,7 @@ static sai_irq_handler irq_handler;
 /* Array of UART peripheral base address. */
 static I2S_Type *const i2s_addrs[] = I2S_BASE_PTRS;
 /* Array of UART bus clock frequencies */
-static clock_name_t const i2s_clocks[] = BUS_CLK;
+static clock_name_t const i2s_clocks[] = SAI_CLOCKS;
 
 void i2s_init(i2s_t *obj, PinName mclk, PinName wclk, PinName bclk, PinName io, SaiFunc _rxtx) {
     uint32_t i2s_tx_mclk = pinmap_peripheral(mclk, PinMap_I2S_MCLK);

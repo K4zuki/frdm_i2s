@@ -28,6 +28,9 @@
 *
 */
 
+#ifndef FRDMI2S_H
+#define FRDMI2S_H
+
 #include "math.h"
 #include "mbed.h"
 
@@ -41,9 +44,6 @@
 #include "frdm_i2s_api.h"
 #include "k66f.h"
 #endif
-
-#ifndef FRDMI2S_H
-#define FRDMI2S_H
 
 // class FrdmI2s_defaults {
 //    public:
@@ -67,6 +67,7 @@
  * - BitClk is BCLK for DA7212
  * - WordSelect is WCLK for DA7212
  */
+namespace mbed {
 
 class FrdmI2s {
    public:
@@ -325,5 +326,7 @@ class FrdmI2s {
    protected:
     Callback<void()> _irq[IrqCnt];
 };
+
+}  // namespace mbed
 
 #endif  // FRDMI2S_H

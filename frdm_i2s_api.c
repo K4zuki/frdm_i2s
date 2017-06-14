@@ -31,6 +31,8 @@ static I2S_Type *const i2s_addrs[] = I2S_BASE_PTRS;
 /* Array of UART bus clock frequencies */
 static clock_name_t const i2s_clocks[] = SAI_CLOCKS;
 
+void i2s_default_format(sai_transfer_format_t *format);
+
 void i2s_init(i2s_t *obj, PinName mclk, PinName wclk, PinName bclk, PinName io, SaiFunc _rxtx) {
     uint32_t i2s_tx_mclk = pinmap_peripheral(mclk, PinMap_I2S_MCLK);
     if (_rxtx == TRANSMIT) {
@@ -56,41 +58,84 @@ void i2s_init(i2s_t *obj, PinName mclk, PinName wclk, PinName bclk, PinName io, 
     }
 
     sai_config_t config;
+    // typedef struct _sai_config
+    // {
+    //     sai_bclk_source_t bclkSource;   /*!< Bit Clock source */
+    //     sai_master_slave_t masterSlave; /*!< Master or slave */
+    //     sai_mclk_source_t mclkSource;   /*!< Master Clock source */
+    //     sai_protocol_t protocol;  /*!< Audio bus protocol in SAI */
+    //     sai_sync_mode_t syncMode; /*!< SAI sync mode, control Tx/Rx clock sync */
+    // #if defined(FSL_FEATURE_SAI_HAS_MCR) && (FSL_FEATURE_SAI_HAS_MCR)
+    //     bool mclkOutputEnable;          /*!< Master clock output enable, true means master clock divider enabled */
+    // #endif                              /* FSL_FEATURE_SAI_HAS_MCR */
+    // } sai_config_t;
 
     if (_rxtx == TRANSMIT) {
         SAI_TxGetDefaultConfig(&config);
+        // void SAI_TxGetDefaultConfig(sai_config_t *config)
+        // {
+        //     config->bclkSource = kSAI_BclkSourceMclkDiv;
+        //     config->masterSlave = kSAI_Master;
+        //     config->mclkSource = kSAI_MclkSourceSysclk;
+        //     config->protocol = kSAI_BusLeftJustified;
+        //     config->syncMode = kSAI_ModeAsync;
+        // #if defined(FSL_FEATURE_SAI_HAS_MCR) && (FSL_FEATURE_SAI_HAS_MCR)
+        //     config->mclkOutputEnable = true;
+        // #endif /* FSL_FEATURE_SAI_HAS_MCR */
+        // }
         config.protocol = kSAI_BusI2S;
-        // void SAI_TxInit(I2S_Type *base, const sai_config_t *config);
+
         SAI_TxInit(i2s_addrs[obj->instance], &config);
+        // void SAI_TxInit(I2S_Type *base, const sai_config_t *config);
+
     } else {
         SAI_RxGetDefaultConfig(&config);
         config.protocol = kSAI_BusI2S;
         // void SAI_TxInit(I2S_Type *base, const sai_config_t *config);
         SAI_RxInit(i2s_addrs[obj->instance], &config);
     }
-    // void SAI_TxGetDefaultConfig(sai_config_t *config)
-    // {
-    //     config->bclkSource = kSAI_BclkSourceMclkDiv;
-    //     config->masterSlave = kSAI_Master;
-    //     config->mclkSource = kSAI_MclkSourceSysclk;
-    //     config->protocol = kSAI_BusLeftJustified;
-    //     config->syncMode = kSAI_ModeAsync;
-    // #if defined(FSL_FEATURE_SAI_HAS_MCR) && (FSL_FEATURE_SAI_HAS_MCR)
-    //     config->mclkOutputEnable = true;
-    // #endif /* FSL_FEATURE_SAI_HAS_MCR */
-    // }
 
-    // typedef struct _sai_config
+    sai_transfer_format_t format;
+    i2s_default_format(&format);
+    // typedef struct _sai_transfer_format
     // {
-    //     sai_protocol_t protocol;  /*!< Audio bus protocol in SAI */
-    //     sai_sync_mode_t syncMode; /*!< SAI sync mode, control Tx/Rx clock sync */
-    // #if defined(FSL_FEATURE_SAI_HAS_MCR) && (FSL_FEATURE_SAI_HAS_MCR)
-    //     bool mclkOutputEnable;          /*!< Master clock output enable, true means master clock divider enabled */
-    // #endif                              /* FSL_FEATURE_SAI_HAS_MCR */
-    //     sai_mclk_source_t mclkSource;   /*!< Master Clock source */
-    //     sai_bclk_source_t bclkSource;   /*!< Bit Clock source */
-    //     sai_master_slave_t masterSlave; /*!< Master or slave */
-    // } sai_config_t;
+    //     uint32_t sampleRate_Hz;   /*!< Sample rate of audio data */
+    //     uint32_t bitWidth;        /*!< Data length of audio data, usually 8/16/24/32bits */
+    //     sai_mono_stereo_t stereo; /*!< Mono or stereo */
+    //     uint32_t masterClockHz;   /*!< Master clock frequency in Hz */
+    // #if defined(FSL_FEATURE_SAI_FIFO_COUNT) && (FSL_FEATURE_SAI_FIFO_COUNT > 1)
+    //     uint8_t watermark;       /*!< Watermark value */
+    // #endif                       /* FSL_FEATURE_SAI_FIFO_COUNT */
+    //     uint8_t channel;         /*!< Data channel used in transfer.*/
+    //     sai_protocol_t protocol; /*!< Which audio protocol used */
+    // } sai_transfer_format_t;
+
+    format.sampleRate_Hz = samplerate;
+    format.bitWidth = data_bits;
+    format.masterClockHz = mclk_Hz;
+    if (_rxtx == TRANSMIT) {
+        SAI_TxSetFormat(i2s_addrs[obj->instance], &format, i2s_clocks[obj->instance], mclk_Hz);
+    } else {
+        SAI_RxSetFormat(i2s_addrs[obj->instance], &format, i2s_clocks[obj->instance], mclk_Hz);
+    }
+    // void SAI_TxSetFormat(I2S_Type *base,
+    //                      sai_transfer_format_t *format,
+    //                      uint32_t mclkSourceClockHz,
+    //                      uint32_t bclkSourceClockHz)
+}
+void i2s_free(i2s_t *obj) { SAI_Deinit(i2s_addrs[obj->instance]); }
+
+void i2s_default_format(sai_transfer_format_t *format) {
+    format->sampleRate_Hz = kSAI_SampleRate32KHz;
+    format->bitWidth = kSAI_WordWidth16bits;
+    format->stereo = kSAI_Stereo;
+    format->masterClockHz = 12288000;
+    format->watermark = 4;
+    format->channel = 0;
+    format->protocol = kSAI_BusI2S;
 }
 
-void i2s_free(i2s_t *obj) { SAI_Deinit(i2s_addrs[obj->instance]); }
+void i2s_samplerate(i2s_t *obj, int samplerate) {}
+
+void i2s_irq_handler(i2s_t *obj, sai_irq_handler handler, uint32_t id) {}
+void i2s_irq_set(i2s_t *obj, SaiIrq irq, uint32_t enable) {}

@@ -15,17 +15,21 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include "pinmap.h"
-
 #ifndef FRDM_I2S_API_H_
 #define FRDM_I2S_API_H_
+
+#include "pinmap.h"
 
 #if defined(TARGET_K66F)
 #include "k66f.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif  // __cplusplus
+
 typedef struct i2s_s i2s_t;
 
-typedef enum _sai_irq { RxIrq = 0, TxIrq } SaiIrq;
+typedef enum _sai_irq { IRQ_RX = 0, IRQ_TX } SaiIrq;
 typedef enum _sai_role { MASTER = 0, SLAVE } SaiRole;
 typedef enum _sai_func { TRANSMIT = 0, RECEIVE } SaiFunc;
 // typedef enum { STEREO = 0, MONO } I2sChannel;
@@ -34,24 +38,14 @@ typedef enum _sai_func { TRANSMIT = 0, RECEIVE } SaiFunc;
 // typedef enum { RUN = 0, STOP = 1 } I2sStatus;
 typedef void (*sai_irq_handler)(uint32_t id, SaiIrq event);
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 void i2s_init(i2s_t *obj, PinName mclk, PinName wclk, PinName bclk, PinName io, SaiFunc _rxtx);
 void i2s_free(i2s_t *obj);
 
 void i2s_samplerate(i2s_t *obj, int samplerate);
-// void i2s_format(i2s_t *obj, int data_bits, SaiRole role, int stop_bits);
-// void SAI_TxSetFormat(I2S_Type *base,
-//                      sai_transfer_format_t *format,
-//                      uint32_t mclkSourceClockHz,
-//                      uint32_t bclkSourceClockHz);
+void i2s_format(i2s_t *obj, int data_bits, int mclk_Hz, int samplerate);
 
 void i2s_irq_handler(i2s_t *obj, sai_irq_handler handler, uint32_t id);
 void i2s_irq_set(i2s_t *obj, SaiIrq irq, uint32_t enable);
-int i2s_readable(i2s_t *obj);
-int i2s_writable(i2s_t *obj);
 
 #ifdef __cplusplus
 }

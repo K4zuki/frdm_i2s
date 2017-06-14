@@ -17,11 +17,12 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 
 #include "FrdmI2s.h"
 #ifdef DEBUG
+namespace mbed {
+
 FrdmI2s::FrdmI2s(PinName SerialData, PinName WordSelect, PinName BitClk, I2sFunc rxtx)
     : _i2s(), _rxtx(rxtx), IoPin(SerialData), WclkPin(WordSelect), BclkPin(BitClk) {
-    SIM->SCGC6 &= ~(SIM_SCGC6_I2S_MASK);
-    SIM->SCGC6 |= SIM_SCGC6_I2S(1);
-
     i2s_init(&_i2s, MasterClk, WordSelect, BitClk, SerialData, (SaiFunc)rxtx);
 }
+}  // namespace mbed
+
 #endif

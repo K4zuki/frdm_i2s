@@ -18,6 +18,10 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 #ifndef K66F_H_
 #define K66F_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #if defined(TARGET_K66F)
 #warning "MK66F18.h"
 #include "MK66F18.h"
@@ -61,6 +65,10 @@ const PinMap PinMap_I2S_RXD0[] = {
 const PinMap PinMap_I2S_RXD1[] = {
     {PTE8, I2S_0, 0}, {PTA16, I2S_0, 0}, {PTC11, I2S_0, 0},
 };
+
+#ifdef __cplusplus
+}
+#endif  // __cplusplus
 
 #endif  // TARGET_K66F
 #endif  // K66F_H_

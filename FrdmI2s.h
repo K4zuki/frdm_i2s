@@ -33,12 +33,13 @@
 
 #include "Callback.h"
 
-#if defined(TARGET_MCU_K64F)
-#warning "MK64F12.h"
+#if defined(TARGET_K64F)
+#warning "K64F"
 #include "MK64F12.h"
 #elif defined(TARGET_K66F)
-#warning "MK66F18.h"
-#include "MK66F18.h"
+#warning "K66F"
+#include "frdm_i2s_api.h"
+#include "k66f.h"
 #endif
 
 #ifndef FRDMI2S_H
@@ -169,7 +170,7 @@ class FrdmI2s {
      *
      * @param mclk The frequency desired for the MasterClk
      */
-    void mclk_freq(int mclk12288000);
+    void mclk_freq(int mclk = 12288000);
 
     /** Define the sample rate
      *
@@ -318,6 +319,8 @@ class FrdmI2s {
 
     void write(int bufr[], int bufl[], int len);
     void read(int bufr[], int bufl[], int len);
+
+    i2s_t _i2s;
 
    protected:
     Callback<void()> _irq[IrqCnt];

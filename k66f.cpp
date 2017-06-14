@@ -40,7 +40,7 @@ FunctionPointer FrdmI2s::I2SRXISR;
 bool FrdmI2s::txisr;
 bool FrdmI2s::rxisr;
 
-FrdmI2s::FrdmI2s(PinName SerialData, PinName WordSelect, PinName BitClk, I2sFunc rxtx)
+FrdmI2s::FrdmI2s(PinName SerialData, PinName WordSelect, PinName BitClk, int rxtx)
     : _rxtx(rxtx), IoPin(SerialData), WclkPin(WordSelect), BclkPin(BitClk) {
     SIM->SCGC6 &= ~(SIM_SCGC6_I2S_MASK);
     SIM->SCGC6 |= SIM_SCGC6_I2S(1);
@@ -85,7 +85,7 @@ void FrdmI2s::defaulter() {
     // NVIC_SetVector(I2S0_Tx_IRQn, (uint32_t)&_i2sisr);
     // NVIC_EnableIRQ(I2S0_Tx_IRQn);
 }
-void FrdmI2s::format(I2sRole _role, int mclk, int sample, int bit) {
+void FrdmI2s::format(int _role, int mclk, int sample, int bit) {
     /*
     role -> pin out
     mclk/sample/bit -> MCLK freq, BCLK freq, WCLK freq, FIFO depth
@@ -232,7 +232,7 @@ int FrdmI2s::fifo_points() {
     }
 }
 
-void FrdmI2s::role(I2sRole mastermode) { _role = mastermode; }
+void FrdmI2s::role(int mastermode) { _role = mastermode; }
 
 void FrdmI2s::wordsize(int words) {
     wordwidth = 16;
@@ -271,11 +271,11 @@ int FrdmI2s::fifo_level() {
     return level;
 }
 
-void FrdmI2s::stereomono(I2sChannel stereomode) { _stereo = stereomode; }
+void FrdmI2s::stereomono(int stereomode) { _stereo = stereomode; }
 
 void FrdmI2s::mute() { _mute = MUTED; }
 
-void FrdmI2s::mute(I2sMute mute_en) { _mute = mute_en; }
+void FrdmI2s::mute(int mute_en) { _mute = mute_en; }
 
 void FrdmI2s::set_interrupt_fifo_level(int level) { interrupt_fifo_level = 4; }
 

@@ -25,7 +25,7 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //! #include "PeripheralPins.h" replace by "frdm_i2s_api.h"->"k66f.h"
 
 // static uint32_t i2s_irq_ids[FSL_FEATURE_SOC_UART_COUNT] = {0};
-static i2s_irq_handler irq_handler;
+static sai_irq_handler irq_handler;
 /* Array of UART peripheral base address. */
 static I2S_Type *const i2s_addrs[] = I2S_BASE_PTRS;
 /* Array of UART bus clock frequencies */
@@ -46,13 +46,13 @@ void i2s_init(i2s_t *obj, PinName mclk, PinName wclk, PinName bclk, PinName io, 
     // pin out the spi pins
     pinmap_pinout(mclk, PinMap_I2S_MCLK);
     if (_rxtx == TRANSMIT) {
-        pinmap_pinout(wclk, PinMap_TX_WCLK);
-        pinmap_pinout(bclk, PinMap_TX_BCLK);
-        pinmap_pinout(io, PinMap_TXD0);
+        pinmap_pinout(wclk, PinMap_I2S_TX_WCLK);
+        pinmap_pinout(bclk, PinMap_I2S_TX_BCLK);
+        pinmap_pinout(io, PinMap_I2S_TXD0);
     } else {
-        pinmap_pinout(wclk, PinMap_RX_WCLK);
-        pinmap_pinout(bclk, PinMap_RX_BCLK);
-        pinmap_pinout(io, PinMap_RXD0);
+        pinmap_pinout(wclk, PinMap_I2S_RX_WCLK);
+        pinmap_pinout(bclk, PinMap_I2S_RX_BCLK);
+        pinmap_pinout(io, PinMap_I2S_RXD0);
     }
 
     sai_config_t config;

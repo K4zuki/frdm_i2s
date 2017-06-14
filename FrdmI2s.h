@@ -68,13 +68,6 @@
  * - WordSelect is WCLK for DA7212
  */
 
-typedef enum { TRANSMIT = 0, RECEIVE } I2sFunc;
-typedef enum { MASTER = 0, SLAVE } I2sRole;
-typedef enum { STEREO = 0, MONO } I2sChannel;
-typedef enum { MUTED = 1, UNMUTED } I2sMute;
-typedef enum { _4WIRE = 1, _3WIRE } I2sWire;
-typedef enum { RUN = 0, STOP = 1 } I2sStatus;
-
 class FrdmI2s {
    public:
     /** Create an I2S instance
@@ -85,11 +78,18 @@ class FrdmI2s {
      * @param WordSelect    The word select pin
      * @param BitClk    The clock pin
      */
-    FrdmI2s(PinName SerialData, PinName WordSelect, PinName BitClk, I2sFunc rxtx = TRANSMIT);
+    FrdmI2s(PinName SerialData, PinName WordSelect, PinName BitClk, int rxtx = FrdmI2s::TRANSMIT);
 
     /** Destroy the I2S instance
      */
     ~FrdmI2s();
+
+    enum { TRANSMIT = 0, RECEIVE };
+    enum { MASTER = 0, SLAVE };
+    enum { STEREO = 0, MONO };
+    enum { MUTED = 1, UNMUTED };
+    enum { _4WIRE = 1, _3WIRE };
+    enum { RUN = 0, STOP = 1 };
 
     enum IrqType {
         RxIrq = 0,
@@ -112,7 +112,7 @@ class FrdmI2s {
     * @param sample The desired sample rate frequency
     * @param bit The number of bits per word: 8,16,32
     */
-    void format(I2sRole role = MASTER, int mclk = 12288000, int sample = 32000, int bit = 16);
+    void format(int role = MASTER, int mclk = 12288000, int sample = 32000, int bit = 16);
 
     /** Write to the FIFO
      *
@@ -158,7 +158,7 @@ class FrdmI2s {
      * @param mastermode The peripherals master/slave status
      * (I2S_MASTER/I2S_SLAVE)
      */
-    void role(I2sRole mastermode = MASTER);
+    void role(int mastermode = MASTER);
 
     /** Switch the peripheral between different wordsizes
      *
@@ -202,7 +202,7 @@ class FrdmI2s {
      * @param stereomode Whether the peripheral is in stereo or mono:
      * I2S_STEREO/I2S_MONO
      */
-    void stereomono(I2sChannel stereomode = STEREO);
+    void stereomono(int stereomode = STEREO);
 
     /** Mute the peripheral
      *
@@ -213,7 +213,7 @@ class FrdmI2s {
      *
      * @param mute_en Set whether the mute is enabled
      */
-    void mute(I2sMute mute_en = MUTED);
+    void mute(int mute_en = MUTED);
 
     /** Stop the peripheral
      *
@@ -292,11 +292,11 @@ class FrdmI2s {
 
     PinName IoPin, WclkPin, BclkPin, MclkPin;
     bool WordSelect_d, BitClk_d, MasterClk_d;
-    I2sFunc _rxtx;
-    I2sRole _role;
-    I2sMute _mute;
-    I2sChannel _stereo;
-    I2sStatus _stat;
+    int _rxtx;
+    int _role;
+    int _mute;
+    int _stereo;
+    int _stat;
     bool pwr;
     int wordwidth;
     char wordwidth_code;
@@ -326,4 +326,4 @@ class FrdmI2s {
     Callback<void()> _irq[IrqCnt];
 };
 
-#endif
+#endif  // FRDMI2S_H

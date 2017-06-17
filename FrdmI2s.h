@@ -1,9 +1,9 @@
 /**
-* @author Giles Barton-Owen
+* @author K4zuki(github.com/K4zuki), originally Giles Barton-Owen
 *
-* @section LICENSE
+* MIT LICENSE
 *
-* Copyright (c) 2012 mbed
+* Copyright (c) 2017 K4zuki(github.com/K4zuki)
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,9 @@
 * THE SOFTWARE.
 *
 * @section DESCRIPTION
-*    A I2S library for the LPC1768's built-in I2S peripheral
+*    A I2S library for the NXP/Freescale FRDM's built-in I2S peripheral
+*    - [ ] FRDM-K66F
+*    - [ ] FRDM-K64F
 *
 */
 
@@ -60,14 +62,6 @@
 //
 //     static const uint32_t PCLK_RATE = 12288000;
 // };
-
-/** A class to play give access to the I2S library
- *
- * - 12.288MHz MCLK sent from FRDM
- * - BitClk is BCLK for DA7212
- * - WordSelect is WCLK for DA7212
- */
-namespace mbed {
 
 class FrdmI2s {
    public:
@@ -326,7 +320,5 @@ class FrdmI2s {
    protected:
     Callback<void()> _irq[IrqCnt];
 };
-
-}  // namespace mbed
 
 #endif  // FRDMI2S_H

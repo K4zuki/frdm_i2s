@@ -18,16 +18,16 @@ output:
 
 ## Board overview
 
-|           [(K64F USB)]           | [RJ45] | [(mbed USB)] |                 [Reset button #1]                  |
-|:--------------------------------:|:------:|:------------:|:--------------------------------------------------:|
-|  **[[Headers #1]](#headers-1)**  |        |              |           **[[Headers #3]](#headers-3)**           |
-|                                  |        |              |                                                    |
-|  **[[Headers #2]](#headers-2)**  |        |              |           **[[Headers #4]](#headers-4)**           |
+|           [(K64F USB)]           | [RJ45] | [(mbed USB)] |                  [Reset button #1]                  |
+|:--------------------------------:|:------:|:------------:|:---------------------------------------------------:|
+|  **[[Headers #1]](#headers-1)**  |        |              |           **[[Headers #3]](#headers-3)**            |
+|                                  |        |              |                                                     |
+|  **[[Headers #2]](#headers-2)**  |        |              |           **[[Headers #4]](#headers-4)**            |
 |                                  |        |              |        **[[Accelerometer]](#accelerometer)**        |
 |                                  |        |              |      **[[Wifi Module]](#wifi-module-headers)**      |
 |   **[[RGB LED]](#user-leds)**    |        |              | **[[Bluetooth Module]](#bluetooth-module-headers)** |
-| **[[Button #3]](#user-buttons)** |        |              |          **[[Button #2]](#user-buttons)**          |
-|   **[[uSD socket]](#microsd)**   |        |              |                                                    |
+| **[[Button #3]](#user-buttons)** |        |              |          **[[Button #2]](#user-buttons)**           |
+|   **[[uSD socket]](#microsd)**   |        |              |                                                     |
 
 ## pins on left headers
 ### [Headers #1]
@@ -232,17 +232,17 @@ output:
 
 ## Board overview
 
-|            [(K66F USB)]            | [RJ45] | [(mbed USB)] |                  [Reset button #1]                   |
-|:----------------------------------:|:------:|:------------:|:----------------------------------------------------:|
-|  **[[Headers #1]](#headers-1-1)**  |        |              |           **[[Headers #3]](#headers-3-1)**           |
-|                                    |        |              |                                                      |
-|  **[[Headers #2]](#headers-2-1)**  |        |              |           **[[Headers #4]](#headers-4-1)**           |
+|            [(K66F USB)]            | [RJ45] | [(mbed USB)] |                   [Reset button #1]                   |
+|:----------------------------------:|:------:|:------------:|:-----------------------------------------------------:|
+|  **[[Headers #1]](#headers-1-1)**  |        |              |           **[[Headers #3]](#headers-3-1)**            |
+|                                    |        |              |                                                       |
+|  **[[Headers #2]](#headers-2-1)**  |        |              |           **[[Headers #4]](#headers-4-1)**            |
 |                                    |        |              |        **[[Accelerometer]](#accelerometer-1)**        |
 |                                    |        |              |      **[[Wifi Module]](#wifi-module-headers-1)**      |
-|   **[[Gyroscope]](#gyroscope)**    |        |              |       **[[Audio Codec]](#audio-codec-da7212)**       |
+|   **[[Gyroscope]](#gyroscope)**    |        |              |       **[[Audio Codec]](#audio-codec-da7212)**        |
 |   **[[RGB LED]](#user-leds-1)**    |        |              | **[[Bluetooth Module]](#bluetooth-module-headers-1)** |
-| **[[Button #3]](#user-buttons-1)** |        |              |          **[[Button #2]](#user-buttons-1)**          |
-|   **[[uSD socket]](#microsd-1)**   |        |              |                                                      |
+| **[[Button #3]](#user-buttons-1)** |        |              |          **[[Button #2]](#user-buttons-1)**           |
+|   **[[uSD socket]](#microsd-1)**   |        |              |                                                       |
 
 ## pins on left headers
 ### [Headers #1]
@@ -480,7 +480,6 @@ output:
 
 # K64F/K66F I2S peripheral description from datasheet
 
-```
 +------------+---------------------------------------------------+-----------+--------------------+-------------+
 | Absolute \ | Register name                                     | Width\    | Access             | Reset value |
 | address \  |                                                   | (in bits) |                    |             |
@@ -534,13 +533,13 @@ output:
 +------------+---------------------------------------------------+-----------+--------------------+-------------+
 | 4002_F104  | SAI MCLK Divide Register (I2S0_MDR)               | 32        | R/W                | 0000_0000h  |
 +------------+---------------------------------------------------+-----------+--------------------+-------------+
-```
 
 ## 54.4 Functional description
 This section provides a complete functional description of the block.
 
 ### 54.4.1 SAI clocking
 The SAI clocks include:
+
 * The audio master clock
 * The bit clock
 * The bus clock
@@ -582,6 +581,7 @@ the option for synchronous bit clock and frame sync operation between the receiv
 transmitter or between multiple SAI peripherals.
 
 Externally generated bit clocks must be:
+
 * Enabled before the SAI transmitter or receiver is enabled
 * Disabled after the SAI transmitter or receiver is disabled and completes its current frames
 
@@ -628,11 +628,13 @@ The SAI transmitter and receiver can be configured to operate with synchronous b
 and frame sync.
 
 If the transmitter bit clock and frame sync are to be used by both the transmitter and receiver:
+
 * The transmitter must be configured for asynchronous operation and the receiver for synchronous operation.
 * In synchronous mode, the receiver is enabled only when both the transmitter and receiver are enabled.
 * It is recommended that the transmitter is the last enabled and the first disabled.
 
 If the receiver bit clock and frame sync are to be used by both the transmitter and receiver:
+
 * The receiver must be configured for asynchronous operation and the transmitter for synchronous operation.
 * In synchronous mode, the transmitter is enabled only when both the receiver and transmitter are both enabled.
 * It is recommended that the receiver is the last enabled and the first disabled.
@@ -671,6 +673,7 @@ ignored (slave mode) or not generated (master mode) for the first four bit clock
 after enabling the transmitter or receiver.
 
 The transmitter and receiver frame sync can be configured independently with any of the following options:
+
 * Externally generated or internally generated
 * Active high or active low
 * Assert with the first bit in frame or asserts one bit early

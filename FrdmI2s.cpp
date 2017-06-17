@@ -28,4 +28,31 @@ void FrdmI2s::format(int sample = 32000, int bit = 16, int stereo = FrdmI2s::STE
     i2s_format(&_i2s, _rxtx, sample, bit, stereo);
 }
 
+void FrdmI2s::frequency(int wclk = 32000) {}
+
+void FrdmI2s::stop() {
+    _stat = STOP;
+    _mute = MUTED;
+}
+
+void FrdmI2s::start() {
+    _stat = RUN;
+    _mute = UNMUTED;
+}
+
+void FrdmI2s::attach(Callback<void()> func, IrqType type) {
+    lock();
+    // Disable interrupts when attaching interrupt handler
+    core_util_critical_section_enter();
+    if (func) {
+        _irq[type] = func;
+        i2s_irq_set(&_i2s, (IrqType)type, 1);
+    } else {
+        _irq[type] = donothing;
+        i2s_irq_set(&_i2s, (IrqType)type, 0);
+    }
+    core_util_critical_section_exit();
+    unlock();
+}
+
 #endif

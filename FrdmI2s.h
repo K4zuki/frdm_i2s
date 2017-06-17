@@ -78,7 +78,7 @@ class FrdmI2s {
 
     /** Destroy the I2S instance
      */
-    ~FrdmI2s();
+    ~FrdmI2s() {}
 
     enum { TRANSMIT = 0, RECEIVE };
     enum { MASTER = 0, SLAVE };
@@ -297,6 +297,7 @@ class FrdmI2s {
     int _bit;
     int _freq;
 
+    int _mute;
     bool pwr;
     int interrupt_fifo_level;
     int pin_setup_err;

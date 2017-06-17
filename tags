@@ -9133,8 +9133,8 @@ FPROT3	MK64F12.h	/^  __I  uint8_t FPROT3;                             \/**< Non-
 FPROT3	MK64F12.h	/^  __IO uint8_t FPROT3;                             \/**< Program Flash Protection Registers, offset: 0x10 *\/$/;"	m	struct:__anon44
 FPROT3	MK66F18.h	/^  __I  uint8_t FPROT3;                             \/**< Non-volatile P-Flash Protection 1 - Low Register, offset: 0x8 *\/$/;"	m	struct:__anon131
 FPROT3	MK66F18.h	/^  __IO uint8_t FPROT3;                             \/**< Program Flash Protection Registers, offset: 0x10 *\/$/;"	m	struct:__anon117
-FRDMI2S_H	FrdmI2s.h	47;"	d
-FRDM_I2S_API_H_	frdm_i2s_api.h	21;"	d
+FRDMI2S_H	FrdmI2s.h	34;"	d
+FRDM_I2S_API_H_	frdm_i2s_api.h	19;"	d
 FRINDEX	MK66F18.h	/^  __IO uint32_t FRINDEX;                           \/**< Frame Index Register, offset: 0x14C *\/$/;"	m	struct:__anon164
 FRMNUMH	MK64F12.h	/^  __IO uint8_t FRMNUMH;                            \/**< Frame Number register High, offset: 0xA4 *\/$/;"	m	struct:__anon78
 FRMNUMH	MK66F18.h	/^  __IO uint8_t FRMNUMH;                            \/**< Frame Number register High, offset: 0xA4 *\/$/;"	m	struct:__anon160
@@ -9145,7 +9145,7 @@ FSEC	MK64F12.h	/^  __I  uint8_t FSEC;                               \/**< Non-vo
 FSEC	MK66F18.h	/^  __I  uint8_t FSEC;                               \/**< Flash Security Register, offset: 0x2 *\/$/;"	m	struct:__anon117
 FSEC	MK66F18.h	/^  __I  uint8_t FSEC;                               \/**< Non-volatile Flash Security Register, offset: 0xC *\/$/;"	m	struct:__anon131
 FSL_PORT_DRIVER_VERSION	references/fsl_port.h	49;"	d
-FSL_SAI_DRIVER_VERSION	references/fsl_sai.h	48;"	d
+FSL_SAI_DRIVER_VERSION	references/fsl_sai.h	47;"	d
 FSL_UART_DRIVER_VERSION	references/fsl_uart.h	49;"	d
 FSTAT	MK64F12.h	/^  __IO uint8_t FSTAT;                              \/**< Flash Status Register, offset: 0x0 *\/$/;"	m	struct:__anon44
 FSTAT	MK66F18.h	/^  __IO uint8_t FSTAT;                              \/**< Flash Status Register, offset: 0x0 *\/$/;"	m	struct:__anon117
@@ -10571,10 +10571,10 @@ FlowControlRTS	references/serial_api.h	/^typedef enum { FlowControlNone, FlowCon
 FlowControlRTSCTS	references/serial_api.h	/^typedef enum { FlowControlNone, FlowControlRTS, FlowControlCTS, FlowControlRTSCTS } FlowControl;$/;"	e	enum:__anon3
 Forced0	references/SerialBase.h	/^    enum Parity { None = 0, Odd, Even, Forced1, Forced0 };$/;"	e	enum:mbed::SerialBase::Parity
 Forced1	references/SerialBase.h	/^    enum Parity { None = 0, Odd, Even, Forced1, Forced0 };$/;"	e	enum:mbed::SerialBase::Parity
-FrdmI2s	FrdmI2s.cpp	/^FrdmI2s::FrdmI2s(PinName SerialData, PinName WordSelect, PinName BitClk, I2sFunc rxtx)$/;"	f	class:FrdmI2s
+FrdmI2s	FrdmI2s.cpp	/^FrdmI2s::FrdmI2s(PinName MasterClk, PinName SerialData, PinName WordSelect, PinName BitClk,$/;"	f	class:FrdmI2s
 FrdmI2s	FrdmI2s.h	/^class FrdmI2s {$/;"	c
 FrdmI2s	k64f.cpp	/^FrdmI2s::FrdmI2s(bool rxtx, PinName SerialData, PinName WordSelect, PinName BitClk) {$/;"	f	class:FrdmI2s
-FrdmI2s	k66f.cpp	/^FrdmI2s::FrdmI2s(PinName SerialData, PinName WordSelect, PinName BitClk, I2sFunc rxtx)$/;"	f	class:FrdmI2s
+FrdmI2s	k66f.cpp	/^FrdmI2s::FrdmI2s(PinName SerialData, PinName WordSelect, PinName BitClk, int rxtx)$/;"	f	class:FrdmI2s
 GALR	MK64F12.h	/^  __IO uint32_t GALR;                              \/**< Descriptor Group Lower Address Register, offset: 0x124 *\/$/;"	m	struct:__anon37
 GALR	MK66F18.h	/^  __IO uint32_t GALR;                              \/**< Descriptor Group Lower Address Register, offset: 0x124 *\/$/;"	m	struct:__anon110
 GAUR	MK64F12.h	/^  __IO uint32_t GAUR;                              \/**< Descriptor Group Upper Address Register, offset: 0x120 *\/$/;"	m	struct:__anon37
@@ -11897,12 +11897,6 @@ I2S_TX_IRQS	MK64F12.h	7561;"	d
 I2S_TX_IRQS	MK66F18.h	8402;"	d
 I2S_Type	MK64F12.h	/^} I2S_Type;$/;"	t	typeref:struct:__anon49
 I2S_Type	MK66F18.h	/^} I2S_Type;$/;"	t	typeref:struct:__anon122
-I2sChannel	FrdmI2s.h	/^typedef enum { STEREO = 0, MONO } I2sChannel;$/;"	t	typeref:enum:__anon7
-I2sFunc	FrdmI2s.h	/^typedef enum { TRANSMIT = 0, RECEIVE } I2sFunc;$/;"	t	typeref:enum:__anon5
-I2sMute	FrdmI2s.h	/^typedef enum { MUTED = 1, UNMUTED } I2sMute;$/;"	t	typeref:enum:__anon8
-I2sRole	FrdmI2s.h	/^typedef enum { MASTER = 0, SLAVE } I2sRole;$/;"	t	typeref:enum:__anon6
-I2sStatus	FrdmI2s.h	/^typedef enum { RUN = 0, STOP = 1 } I2sStatus;$/;"	t	typeref:enum:__anon10
-I2sWire	FrdmI2s.h	/^typedef enum { _4WIRE = 1, _3WIRE } I2sWire;$/;"	t	typeref:enum:__anon9
 IALR	MK64F12.h	/^  __IO uint32_t IALR;                              \/**< Descriptor Individual Lower Address Register, offset: 0x11C *\/$/;"	m	struct:__anon37
 IALR	MK66F18.h	/^  __IO uint32_t IALR;                              \/**< Descriptor Individual Lower Address Register, offset: 0x11C *\/$/;"	m	struct:__anon110
 IAUR	MK64F12.h	/^  __IO uint32_t IAUR;                              \/**< Descriptor Individual Upper Address Register, offset: 0x118 *\/$/;"	m	struct:__anon37
@@ -11976,6 +11970,8 @@ IRQSTAT	MK64F12.h	/^  __IO uint32_t IRQSTAT;                           \/**< Int
 IRQSTAT	MK66F18.h	/^  __IO uint32_t IRQSTAT;                           \/**< Interrupt Status register, offset: 0x30 *\/$/;"	m	struct:__anon145
 IRQSTATEN	MK64F12.h	/^  __IO uint32_t IRQSTATEN;                         \/**< Interrupt Status Enable register, offset: 0x34 *\/$/;"	m	struct:__anon70
 IRQSTATEN	MK66F18.h	/^  __IO uint32_t IRQSTATEN;                         \/**< Interrupt Status Enable register, offset: 0x34 *\/$/;"	m	struct:__anon145
+IRQ_RX	frdm_i2s_api.h	/^typedef enum _sai_irq { IRQ_RX = 0, IRQ_TX } SaiIrq;$/;"	e	enum:_sai_irq
+IRQ_TX	frdm_i2s_api.h	/^typedef enum _sai_irq { IRQ_RX = 0, IRQ_TX } SaiIrq;$/;"	e	enum:_sai_irq
 IRQn	MK64F12.h	/^typedef enum IRQn {$/;"	g
 IRQn	MK66F18.h	/^typedef enum IRQn {$/;"	g
 IRQn_Type	MK64F12.h	/^} IRQn_Type;$/;"	t	typeref:enum:IRQn
@@ -12947,8 +12943,7 @@ MA1	MK64F12.h	/^  __IO uint8_t MA1;                                \/**< UART Ma
 MA1	MK66F18.h	/^  __IO uint8_t MA1;                                \/**< UART Match Address Registers 1, offset: 0x8 *\/$/;"	m	struct:__anon156
 MA2	MK64F12.h	/^  __IO uint8_t MA2;                                \/**< UART Match Address Registers 2, offset: 0x9 *\/$/;"	m	struct:__anon76
 MA2	MK66F18.h	/^  __IO uint8_t MA2;                                \/**< UART Match Address Registers 2, offset: 0x9 *\/$/;"	m	struct:__anon156
-MASTER	FrdmI2s.h	/^typedef enum { MASTER = 0, SLAVE } I2sRole;$/;"	e	enum:__anon6
-MASTER	frdm_i2s_api.h	/^typedef enum _sai_role { MASTER = 0, SLAVE } SaiRole;$/;"	e	enum:_sai_role
+MASTER	FrdmI2s.h	/^    enum { MASTER = 0, SLAVE };$/;"	e	enum:FrdmI2s::__anon6
 MATCH	MK66F18.h	/^  __IO uint32_t MATCH;                             \/**< LPUART Match Address Register, offset: 0x10 *\/$/;"	m	struct:__anon126
 MB	MK64F12.h	/^  } MB[16];$/;"	m	struct:__anon15	typeref:struct:__anon15::__anon16
 MB	MK66F18.h	/^  } MB[16];$/;"	m	struct:__anon88	typeref:struct:__anon88::__anon89
@@ -12956,6 +12951,7 @@ MBED_OBJECTS_H	references/objects.h	17;"	d
 MBED_SERIALBASE_H	references/SerialBase.h	17;"	d
 MBED_SERIAL_API_H	references/serial_api.h	20;"	d
 MBED_SPI_API_H	references/spi_api.h	20;"	d
+MBED_SPI_H	references/SPI.h	17;"	d
 MCG	MK64F12.h	8109;"	d
 MCG	MK66F18.h	9591;"	d
 MCG_ATCVH_ATCVH	MK64F12.h	8073;"	d
@@ -13606,7 +13602,7 @@ MODE	MK66F18.h	/^  __IO uint32_t MODE;                              \/**< Featur
 MODEM	MK64F12.h	/^  __IO uint8_t MODEM;                              \/**< UART Modem Register, offset: 0xD *\/$/;"	m	struct:__anon76
 MODEM	MK66F18.h	/^  __IO uint8_t MODEM;                              \/**< UART Modem Register, offset: 0xD *\/$/;"	m	struct:__anon156
 MODIR	MK66F18.h	/^  __IO uint32_t MODIR;                             \/**< LPUART Modem IrDA Register, offset: 0x14 *\/$/;"	m	struct:__anon126
-MONO	FrdmI2s.h	/^typedef enum { STEREO = 0, MONO } I2sChannel;$/;"	e	enum:__anon7
+MONO	FrdmI2s.h	/^    enum { STEREO = 0, MONO };$/;"	e	enum:FrdmI2s::__anon7
 MPRA	MK64F12.h	/^  __IO uint32_t MPRA;                              \/**< Master Privilege Register A, offset: 0x0 *\/$/;"	m	struct:__anon12
 MPRA	MK66F18.h	/^  __IO uint32_t MPRA;                              \/**< Master Privilege Register A, offset: 0x0 *\/$/;"	m	struct:__anon85
 MPU	MK64F12.h	8513;"	d
@@ -13973,7 +13969,7 @@ MSC	MK64F12.h	/^  __IO uint8_t MSC;                                \/**< CMT Mod
 MSC	MK66F18.h	/^  __IO uint8_t MSC;                                \/**< CMT Modulator Status and Control Register, offset: 0x5 *\/$/;"	m	struct:__anon92
 MSCR	MK64F12.h	/^  __IO uint32_t MSCR;                              \/**< MII Speed Control Register, offset: 0x44 *\/$/;"	m	struct:__anon37
 MSCR	MK66F18.h	/^  __IO uint32_t MSCR;                              \/**< MII Speed Control Register, offset: 0x44 *\/$/;"	m	struct:__anon110
-MUTED	FrdmI2s.h	/^typedef enum { MUTED = 1, UNMUTED } I2sMute;$/;"	e	enum:__anon8
+MUTED	FrdmI2s.h	/^    enum { MUTED = 1, UNMUTED };$/;"	e	enum:FrdmI2s::__anon8
 MUXCR	MK64F12.h	/^  __IO uint8_t MUXCR;                              \/**< MUX Control Register, offset: 0x5 *\/$/;"	m	struct:__anon18
 MUXCR	MK66F18.h	/^  __IO uint8_t MUXCR;                              \/**< MUX Control Register, offset: 0x5 *\/$/;"	m	struct:__anon91
 MasterClk_d	FrdmI2s.h	/^    bool WordSelect_d, BitClk_d, MasterClk_d;$/;"	m	class:FrdmI2s
@@ -15079,7 +15075,7 @@ RDR	MK64F12.h	/^  __I  uint32_t RDR[2];                            \/**< SAI Rec
 RDR	MK66F18.h	/^  __I  uint32_t RDR[2];                            \/**< SAI Receive Data Register, array offset: 0xA0, array step: 0x4 *\/$/;"	m	struct:__anon122
 RDSR	MK64F12.h	/^  __IO uint32_t RDSR;                              \/**< Receive Descriptor Ring Start Register, offset: 0x180 *\/$/;"	m	struct:__anon37
 RDSR	MK66F18.h	/^  __IO uint32_t RDSR;                              \/**< Receive Descriptor Ring Start Register, offset: 0x180 *\/$/;"	m	struct:__anon110
-RECEIVE	FrdmI2s.h	/^typedef enum { TRANSMIT = 0, RECEIVE } I2sFunc;$/;"	e	enum:__anon5
+RECEIVE	FrdmI2s.h	/^    enum { TRANSMIT = 0, RECEIVE };$/;"	e	enum:FrdmI2s::__anon5
 RECEIVE	frdm_i2s_api.h	/^typedef enum _sai_func { TRANSMIT = 0, RECEIVE } SaiFunc;$/;"	e	enum:_sai_func
 REFRESH	MK64F12.h	/^  __IO uint16_t REFRESH;                           \/**< Watchdog Refresh register, offset: 0xC *\/$/;"	m	struct:__anon83
 REFRESH	MK66F18.h	/^  __IO uint16_t REFRESH;                           \/**< Watchdog Refresh register, offset: 0xC *\/$/;"	m	struct:__anon171
@@ -15987,7 +15983,7 @@ RTC_WAR_TTSW_MASK	MK66F18.h	11420;"	d
 RTC_WAR_TTSW_SHIFT	MK66F18.h	11421;"	d
 RTS	references/SerialBase.h	/^    enum Flow { Disabled = 0, RTS, CTS, RTSCTS };$/;"	e	enum:mbed::SerialBase::Flow
 RTSCTS	references/SerialBase.h	/^    enum Flow { Disabled = 0, RTS, CTS, RTSCTS };$/;"	e	enum:mbed::SerialBase::Flow
-RUN	FrdmI2s.h	/^typedef enum { RUN = 0, STOP = 1 } I2sStatus;$/;"	e	enum:__anon10
+RUN	FrdmI2s.h	/^    enum { RUN = 0, STOP = 1 };$/;"	e	enum:FrdmI2s::__anon10
 RWFIFO	MK64F12.h	/^  __IO uint8_t RWFIFO;                             \/**< UART FIFO Receive Watermark, offset: 0x15 *\/$/;"	m	struct:__anon76
 RWFIFO	MK66F18.h	/^  __IO uint8_t RWFIFO;                             \/**< UART FIFO Receive Watermark, offset: 0x15 *\/$/;"	m	struct:__anon156
 RX	MK66F18.h	/^  __IO uint32_t RX;                                \/**< USB PHY Receiver Control Register, offset: 0x20 *\/$/;"	m	struct:__anon169
@@ -16022,7 +16018,6 @@ Reserved71_IRQn	MK66F18.h	/^  Reserved71_IRQn              = 55,               \
 Reserved84_IRQn	MK66F18.h	/^  Reserved84_IRQn              = 68,               \/**< Reserved interrupt 84 *\/$/;"	e	enum:IRQn
 Reserved85_IRQn	MK66F18.h	/^  Reserved85_IRQn              = 69,               \/**< Reserved interrupt 85 *\/$/;"	e	enum:IRQn
 RxIrq	FrdmI2s.h	/^        RxIrq = 0,$/;"	e	enum:FrdmI2s::IrqType
-RxIrq	frdm_i2s_api.h	/^typedef enum _sai_irq { RxIrq = 0, TxIrq } SaiIrq;$/;"	e	enum:_sai_irq
 RxIrq	references/SerialBase.h	/^        RxIrq = 0,$/;"	e	enum:mbed::SerialBase::IrqType
 RxIrq	references/serial_api.h	/^typedef enum { RxIrq, TxIrq } SerialIrq;$/;"	e	enum:__anon2
 S	MK64F12.h	/^    __IO uint32_t S;                                 \/**< Channel n Status register, array offset: 0x14, array step: 0x28 *\/$/;"	m	struct:__anon58::__anon59
@@ -16049,19 +16044,19 @@ SADDR	MK66F18.h	/^    __IO uint32_t SADDR;                             \/**< TCD
 SAI_Deinit	references/fsl_sai.c	/^void SAI_Deinit(I2S_Type *base)$/;"	f
 SAI_GetInstance	references/fsl_sai.c	/^uint32_t SAI_GetInstance(I2S_Type *base)$/;"	f
 SAI_ReadBlocking	references/fsl_sai.c	/^void SAI_ReadBlocking(I2S_Type *base, uint32_t channel, uint32_t bitWidth, uint8_t *buffer, uint32_t size)$/;"	f
-SAI_ReadData	references/fsl_sai.h	/^static inline uint32_t SAI_ReadData(I2S_Type *base, uint32_t channel)$/;"	f
+SAI_ReadData	references/fsl_sai.h	/^static inline uint32_t SAI_ReadData(I2S_Type *base, uint32_t channel) { return base->RDR[channel]; }$/;"	f
 SAI_ReadNonBlocking	references/fsl_sai.c	/^static void SAI_ReadNonBlocking(I2S_Type *base, uint32_t channel, uint32_t bitWidth, uint8_t *buffer, uint32_t size)$/;"	f	file:
-SAI_RxClearStatusFlags	references/fsl_sai.h	/^static inline void SAI_RxClearStatusFlags(I2S_Type *base, uint32_t mask)$/;"	f
-SAI_RxDisableInterrupts	references/fsl_sai.h	/^static inline void SAI_RxDisableInterrupts(I2S_Type *base, uint32_t mask)$/;"	f
+SAI_RxClearStatusFlags	references/fsl_sai.h	/^static inline void SAI_RxClearStatusFlags(I2S_Type *base, uint32_t mask) {$/;"	f
+SAI_RxDisableInterrupts	references/fsl_sai.h	/^static inline void SAI_RxDisableInterrupts(I2S_Type *base, uint32_t mask) {$/;"	f
 SAI_RxEnable	references/fsl_sai.c	/^void SAI_RxEnable(I2S_Type *base, bool enable)$/;"	f
-SAI_RxEnableDMA	references/fsl_sai.h	/^static inline void SAI_RxEnableDMA(I2S_Type *base, uint32_t mask, bool enable)$/;"	f
-SAI_RxEnableInterrupts	references/fsl_sai.h	/^static inline void SAI_RxEnableInterrupts(I2S_Type *base, uint32_t mask)$/;"	f
-SAI_RxGetDataRegisterAddress	references/fsl_sai.h	/^static inline uint32_t SAI_RxGetDataRegisterAddress(I2S_Type *base, uint32_t channel)$/;"	f
+SAI_RxEnableDMA	references/fsl_sai.h	/^static inline void SAI_RxEnableDMA(I2S_Type *base, uint32_t mask, bool enable) {$/;"	f
+SAI_RxEnableInterrupts	references/fsl_sai.h	/^static inline void SAI_RxEnableInterrupts(I2S_Type *base, uint32_t mask) {$/;"	f
+SAI_RxGetDataRegisterAddress	references/fsl_sai.h	/^static inline uint32_t SAI_RxGetDataRegisterAddress(I2S_Type *base, uint32_t channel) {$/;"	f
 SAI_RxGetDefaultConfig	references/fsl_sai.c	/^void SAI_RxGetDefaultConfig(sai_config_t *config)$/;"	f
-SAI_RxGetStatusFlag	references/fsl_sai.h	/^static inline uint32_t SAI_RxGetStatusFlag(I2S_Type *base)$/;"	f
+SAI_RxGetStatusFlag	references/fsl_sai.h	/^static inline uint32_t SAI_RxGetStatusFlag(I2S_Type *base) { return base->RCSR; }$/;"	f
 SAI_RxInit	references/fsl_sai.c	/^void SAI_RxInit(I2S_Type *base, const sai_config_t *config)$/;"	f
 SAI_RxReset	references/fsl_sai.c	/^void SAI_RxReset(I2S_Type *base)$/;"	f
-SAI_RxSetFormat	references/fsl_sai.c	/^void SAI_RxSetFormat(I2S_Type *base,$/;"	f
+SAI_RxSetFormat	references/fsl_sai.c	/^void SAI_RxSetFormat(I2S_Type *base, sai_transfer_format_t *format, uint32_t mclkSourceClockHz,$/;"	f
 SAI_SetMasterClockDivider	references/fsl_sai.c	/^static void SAI_SetMasterClockDivider(I2S_Type *base, uint32_t mclk_Hz, uint32_t mclkSrcClock_Hz)$/;"	f	file:
 SAI_TransferAbortReceive	references/fsl_sai.c	/^void SAI_TransferAbortReceive(I2S_Type *base, sai_handle_t *handle)$/;"	f
 SAI_TransferAbortSend	references/fsl_sai.c	/^void SAI_TransferAbortSend(I2S_Type *base, sai_handle_t *handle)$/;"	f
@@ -16075,21 +16070,21 @@ SAI_TransferSendNonBlocking	references/fsl_sai.c	/^status_t SAI_TransferSendNonB
 SAI_TransferTxCreateHandle	references/fsl_sai.c	/^void SAI_TransferTxCreateHandle(I2S_Type *base, sai_handle_t *handle, sai_transfer_callback_t callback, void *userData)$/;"	f
 SAI_TransferTxHandleIRQ	references/fsl_sai.c	/^void SAI_TransferTxHandleIRQ(I2S_Type *base, sai_handle_t *handle)$/;"	f
 SAI_TransferTxSetFormat	references/fsl_sai.c	/^status_t SAI_TransferTxSetFormat(I2S_Type *base,$/;"	f
-SAI_TxClearStatusFlags	references/fsl_sai.h	/^static inline void SAI_TxClearStatusFlags(I2S_Type *base, uint32_t mask)$/;"	f
-SAI_TxDisableInterrupts	references/fsl_sai.h	/^static inline void SAI_TxDisableInterrupts(I2S_Type *base, uint32_t mask)$/;"	f
+SAI_TxClearStatusFlags	references/fsl_sai.h	/^static inline void SAI_TxClearStatusFlags(I2S_Type *base, uint32_t mask) {$/;"	f
+SAI_TxDisableInterrupts	references/fsl_sai.h	/^static inline void SAI_TxDisableInterrupts(I2S_Type *base, uint32_t mask) {$/;"	f
 SAI_TxEnable	references/fsl_sai.c	/^void SAI_TxEnable(I2S_Type *base, bool enable)$/;"	f
-SAI_TxEnableDMA	references/fsl_sai.h	/^static inline void SAI_TxEnableDMA(I2S_Type *base, uint32_t mask, bool enable)$/;"	f
-SAI_TxEnableInterrupts	references/fsl_sai.h	/^static inline void SAI_TxEnableInterrupts(I2S_Type *base, uint32_t mask)$/;"	f
-SAI_TxGetDataRegisterAddress	references/fsl_sai.h	/^static inline uint32_t SAI_TxGetDataRegisterAddress(I2S_Type *base, uint32_t channel)$/;"	f
+SAI_TxEnableDMA	references/fsl_sai.h	/^static inline void SAI_TxEnableDMA(I2S_Type *base, uint32_t mask, bool enable) {$/;"	f
+SAI_TxEnableInterrupts	references/fsl_sai.h	/^static inline void SAI_TxEnableInterrupts(I2S_Type *base, uint32_t mask) {$/;"	f
+SAI_TxGetDataRegisterAddress	references/fsl_sai.h	/^static inline uint32_t SAI_TxGetDataRegisterAddress(I2S_Type *base, uint32_t channel) {$/;"	f
 SAI_TxGetDefaultConfig	references/fsl_sai.c	/^void SAI_TxGetDefaultConfig(sai_config_t *config)$/;"	f
-SAI_TxGetStatusFlag	references/fsl_sai.h	/^static inline uint32_t SAI_TxGetStatusFlag(I2S_Type *base)$/;"	f
+SAI_TxGetStatusFlag	references/fsl_sai.h	/^static inline uint32_t SAI_TxGetStatusFlag(I2S_Type *base) { return base->TCSR; }$/;"	f
 SAI_TxInit	references/fsl_sai.c	/^void SAI_TxInit(I2S_Type *base, const sai_config_t *config)$/;"	f
 SAI_TxReset	references/fsl_sai.c	/^void SAI_TxReset(I2S_Type *base)$/;"	f
 SAI_TxSetFormat	references/fsl_sai.c	/^void SAI_TxSetFormat(I2S_Type *base,$/;"	f
 SAI_WriteBlocking	references/fsl_sai.c	/^void SAI_WriteBlocking(I2S_Type *base, uint32_t channel, uint32_t bitWidth, uint8_t *buffer, uint32_t size)$/;"	f
-SAI_WriteData	references/fsl_sai.h	/^static inline void SAI_WriteData(I2S_Type *base, uint32_t channel, uint32_t data)$/;"	f
+SAI_WriteData	references/fsl_sai.h	/^static inline void SAI_WriteData(I2S_Type *base, uint32_t channel, uint32_t data) { base->TDR[channel] = data; }$/;"	f
 SAI_WriteNonBlocking	references/fsl_sai.c	/^static void SAI_WriteNonBlocking(I2S_Type *base, uint32_t channel, uint32_t bitWidth, uint8_t *buffer, uint32_t size)$/;"	f	file:
-SAI_XFER_QUEUE_SIZE	references/fsl_sai.h	184;"	d
+SAI_XFER_QUEUE_SIZE	references/fsl_sai.h	170;"	d
 SC	MK64F12.h	/^  __IO uint32_t SC;                                \/**< Status And Control, offset: 0x0 *\/$/;"	m	struct:__anon45
 SC	MK64F12.h	/^  __IO uint32_t SC;                                \/**< Status and Control register, offset: 0x0 *\/$/;"	m	struct:__anon58
 SC	MK64F12.h	/^  __IO uint8_t SC;                                 \/**< MCG Status and Control Register, offset: 0x8 *\/$/;"	m	struct:__anon52
@@ -18042,10 +18037,9 @@ SIM_USBPHYCTL_USBVREGSEL_MASK	MK66F18.h	12265;"	d
 SIM_USBPHYCTL_USBVREGSEL_SHIFT	MK66F18.h	12266;"	d
 SLAST	MK64F12.h	/^    __IO uint32_t SLAST;                             \/**< TCD Last Source Address Adjustment, array offset: 0x100C, array step: 0x20 *\/$/;"	m	struct:__anon31::__anon32
 SLAST	MK66F18.h	/^    __IO uint32_t SLAST;                             \/**< TCD Last Source Address Adjustment, array offset: 0x100C, array step: 0x20 *\/$/;"	m	struct:__anon104::__anon105
-SLAVE	FrdmI2s.h	/^typedef enum { MASTER = 0, SLAVE } I2sRole;$/;"	e	enum:__anon6
+SLAVE	FrdmI2s.h	/^    enum { MASTER = 0, SLAVE };$/;"	e	enum:FrdmI2s::__anon6
 SLAVE	MK64F12.h	/^  } SLAVE[5];$/;"	m	struct:__anon13	typeref:struct:__anon13::__anon14
 SLAVE	MK66F18.h	/^  } SLAVE[5];$/;"	m	struct:__anon86	typeref:struct:__anon86::__anon87
-SLAVE	frdm_i2s_api.h	/^typedef enum _sai_role { MASTER = 0, SLAVE } SaiRole;$/;"	e	enum:_sai_role
 SLTH	MK64F12.h	/^  __IO uint8_t SLTH;                               \/**< I2C SCL Low Timeout Register High, offset: 0xA *\/$/;"	m	struct:__anon48
 SLTH	MK66F18.h	/^  __IO uint8_t SLTH;                               \/**< I2C SCL Low Timeout Register High, offset: 0xA *\/$/;"	m	struct:__anon121
 SLTL	MK64F12.h	/^  __IO uint8_t SLTL;                               \/**< I2C SCL Low Timeout Register Low, offset: 0xB *\/$/;"	m	struct:__anon48
@@ -18150,6 +18144,8 @@ SOPT8	MK66F18.h	/^  __IO uint32_t SOPT8;                             \/**< Syste
 SOPT9	MK66F18.h	/^  __IO uint32_t SOPT9;                             \/**< System Options Register 9, offset: 0x1020 *\/$/;"	m	struct:__anon148
 SP	MK64F12.h	/^  } SP[5];$/;"	m	struct:__anon54	typeref:struct:__anon54::__anon55
 SP	MK66F18.h	/^  } SP[5];$/;"	m	struct:__anon129	typeref:struct:__anon129::__anon130
+SPI	references/SPI.cpp	/^SPI::SPI(PinName mosi, PinName miso, PinName sclk, PinName ssel) : _spi(), _bits(8), _mode(0), _hz(1000000) {$/;"	f	class:mbed::SPI
+SPI	references/SPI.h	/^class SPI {$/;"	c	namespace:mbed
 SPI0	MK64F12.h	11267;"	d
 SPI0	MK66F18.h	13218;"	d
 SPI0_BASE	MK64F12.h	11265;"	d
@@ -18648,8 +18644,8 @@ STCTRLH	MK64F12.h	/^  __IO uint16_t STCTRLH;                           \/**< Wat
 STCTRLH	MK66F18.h	/^  __IO uint16_t STCTRLH;                           \/**< Watchdog Status and Control Register High, offset: 0x0 *\/$/;"	m	struct:__anon171
 STCTRLL	MK64F12.h	/^  __IO uint16_t STCTRLL;                           \/**< Watchdog Status and Control Register Low, offset: 0x2 *\/$/;"	m	struct:__anon83
 STCTRLL	MK66F18.h	/^  __IO uint16_t STCTRLL;                           \/**< Watchdog Status and Control Register Low, offset: 0x2 *\/$/;"	m	struct:__anon171
-STEREO	FrdmI2s.h	/^typedef enum { STEREO = 0, MONO } I2sChannel;$/;"	e	enum:__anon7
-STOP	FrdmI2s.h	/^typedef enum { RUN = 0, STOP = 1 } I2sStatus;$/;"	e	enum:__anon10
+STEREO	FrdmI2s.h	/^    enum { STEREO = 0, MONO };$/;"	e	enum:FrdmI2s::__anon7
+STOP	FrdmI2s.h	/^    enum { RUN = 0, STOP = 1 };$/;"	e	enum:FrdmI2s::__anon10
 STOPCTRL	MK66F18.h	/^  __IO uint8_t STOPCTRL;                           \/**< Stop Control Register, offset: 0x2 *\/$/;"	m	struct:__anon149
 STR_CA	MK64F12.h	/^  __I  uint32_t STR_CA[9];                         \/**< General Purpose Register 0 - Store Register command..General Purpose Register 8 - Store Register command, array offset: 0x888, array step: 0x4 *\/$/;"	m	struct:__anon17
 STR_CA	MK66F18.h	/^  __I  uint32_t STR_CA[9];                         \/**< General Purpose Register 0 - Store Register command..General Purpose Register 8 - Store Register command, array offset: 0x888, array step: 0x4 *\/$/;"	m	struct:__anon90
@@ -18670,8 +18666,7 @@ SYNCONF	MK66F18.h	/^  __IO uint32_t SYNCONF;                           \/**< Syn
 SYSCTL	MK64F12.h	/^  __IO uint32_t SYSCTL;                            \/**< System Control register, offset: 0x2C *\/$/;"	m	struct:__anon70
 SYSCTL	MK66F18.h	/^  __IO uint32_t SYSCTL;                            \/**< System Control register, offset: 0x2C *\/$/;"	m	struct:__anon145
 SaiFunc	frdm_i2s_api.h	/^typedef enum _sai_func { TRANSMIT = 0, RECEIVE } SaiFunc;$/;"	t	typeref:enum:_sai_func
-SaiIrq	frdm_i2s_api.h	/^typedef enum _sai_irq { RxIrq = 0, TxIrq } SaiIrq;$/;"	t	typeref:enum:_sai_irq
-SaiRole	frdm_i2s_api.h	/^typedef enum _sai_role { MASTER = 0, SLAVE } SaiRole;$/;"	t	typeref:enum:_sai_role
+SaiIrq	frdm_i2s_api.h	/^typedef enum _sai_irq { IRQ_RX = 0, IRQ_TX } SaiIrq;$/;"	t	typeref:enum:_sai_irq
 SerialBase	references/SerialBase.cpp	/^SerialBase::SerialBase(PinName tx, PinName rx, int baud) : _serial(), _baud(baud) {$/;"	f	class:mbed::SerialBase
 SerialBase	references/SerialBase.h	/^class SerialBase {$/;"	c	namespace:mbed
 SerialIrq	references/serial_api.h	/^typedef enum { RxIrq, TxIrq } SerialIrq;$/;"	t	typeref:enum:__anon2
@@ -18694,7 +18689,6 @@ TAGVDW3S	MK64F12.h	/^  __IO uint32_t TAGVDW3S[4];                       \/**< Ca
 TAGVDW3S	MK66F18.h	/^  __IO uint32_t TAGVDW3S[4];                       \/**< Cache Tag Storage, array offset: 0x130, array step: 0x4 *\/$/;"	m	struct:__anon115
 TAR	MK64F12.h	/^  __IO uint32_t TAR;                               \/**< RTC Time Alarm Register, offset: 0x8 *\/$/;"	m	struct:__anon69
 TAR	MK66F18.h	/^  __IO uint32_t TAR;                               \/**< RTC Time Alarm Register, offset: 0x8 *\/$/;"	m	struct:__anon144
-TARGET_K66F	FrdmI2s.h	36;"	d
 TCCR	MK64F12.h	/^    __IO uint32_t TCCR;                              \/**< Timer Compare Capture Register, array offset: 0x60C, array step: 0x8 *\/$/;"	m	struct:__anon37::__anon38
 TCCR	MK66F18.h	/^    __IO uint32_t TCCR;                              \/**< Timer Compare Capture Register, array offset: 0x60C, array step: 0x8 *\/$/;"	m	struct:__anon110::__anon111
 TCD	MK64F12.h	/^  } TCD[16];$/;"	m	struct:__anon31	typeref:struct:__anon31::__anon32
@@ -18901,7 +18895,7 @@ TPM_STATUS_TOF_SHIFT	MK66F18.h	13351;"	d
 TPM_Type	MK66F18.h	/^} TPM_Type;$/;"	t	typeref:struct:__anon153
 TPR	MK64F12.h	/^  __IO uint32_t TPR;                               \/**< RTC Time Prescaler Register, offset: 0x4 *\/$/;"	m	struct:__anon69
 TPR	MK66F18.h	/^  __IO uint32_t TPR;                               \/**< RTC Time Prescaler Register, offset: 0x4 *\/$/;"	m	struct:__anon144
-TRANSMIT	FrdmI2s.h	/^typedef enum { TRANSMIT = 0, RECEIVE } I2sFunc;$/;"	e	enum:__anon5
+TRANSMIT	FrdmI2s.h	/^    enum { TRANSMIT = 0, RECEIVE };$/;"	e	enum:FrdmI2s::__anon5
 TRANSMIT	frdm_i2s_api.h	/^typedef enum _sai_func { TRANSMIT = 0, RECEIVE } SaiFunc;$/;"	e	enum:_sai_func
 TRIM_OVERRIDE_EN	MK66F18.h	/^  __IO uint32_t TRIM_OVERRIDE_EN;                  \/**< USB PHY Trim Override Enable Register, offset: 0x130 *\/$/;"	m	struct:__anon169
 TRIM_OVERRIDE_EN_CLR	MK66F18.h	/^  __IO uint32_t TRIM_OVERRIDE_EN_CLR;              \/**< USB PHY Trim Override Enable Register, offset: 0x138 *\/$/;"	m	struct:__anon169
@@ -19007,7 +19001,6 @@ TX_TOG	MK66F18.h	/^  __IO uint32_t TX_TOG;                            \/**< USB 
 TYPE0	MK66F18.h	/^    } TYPE0;$/;"	m	union:__anon156::__anon157	typeref:struct:__anon156::__anon157::__anon158
 TYPE1	MK66F18.h	/^    } TYPE1;$/;"	m	union:__anon156::__anon157	typeref:struct:__anon156::__anon157::__anon159
 TxIrq	FrdmI2s.h	/^        TxIrq,$/;"	e	enum:FrdmI2s::IrqType
-TxIrq	frdm_i2s_api.h	/^typedef enum _sai_irq { RxIrq = 0, TxIrq } SaiIrq;$/;"	e	enum:_sai_irq
 TxIrq	references/SerialBase.h	/^        TxIrq,$/;"	e	enum:mbed::SerialBase::IrqType
 TxIrq	references/serial_api.h	/^typedef enum { RxIrq, TxIrq } SerialIrq;$/;"	e	enum:__anon2
 UART0	MK64F12.h	11747;"	d
@@ -19942,7 +19935,7 @@ UIDML	MK64F12.h	/^  __I  uint32_t UIDML;                             \/**< Uniqu
 UIDML	MK66F18.h	/^  __I  uint32_t UIDML;                             \/**< Unique Identification Register Mid Low, offset: 0x105C *\/$/;"	m	struct:__anon148
 UNLOCK	MK64F12.h	/^  __IO uint16_t UNLOCK;                            \/**< Watchdog Unlock register, offset: 0xE *\/$/;"	m	struct:__anon83
 UNLOCK	MK66F18.h	/^  __IO uint16_t UNLOCK;                            \/**< Watchdog Unlock register, offset: 0xE *\/$/;"	m	struct:__anon171
-UNMUTED	FrdmI2s.h	/^typedef enum { MUTED = 1, UNMUTED } I2sMute;$/;"	e	enum:__anon8
+UNMUTED	FrdmI2s.h	/^    enum { MUTED = 1, UNMUTED };$/;"	e	enum:FrdmI2s::__anon8
 USB0	MK64F12.h	12251;"	d
 USB0	MK66F18.h	14580;"	d
 USB0_BASE	MK64F12.h	12249;"	d
@@ -22863,8 +22856,8 @@ XOR_CAA	MK64F12.h	/^  __O  uint32_t XOR_CAA;                           \/**< Acc
 XOR_CAA	MK66F18.h	/^  __O  uint32_t XOR_CAA;                           \/**< Accumulator register - Exclusive Or command, offset: 0x984 *\/$/;"	m	struct:__anon90
 XOR_CASR	MK64F12.h	/^  __O  uint32_t XOR_CASR;                          \/**< Status register - Exclusive Or command, offset: 0x980 *\/$/;"	m	struct:__anon17
 XOR_CASR	MK66F18.h	/^  __O  uint32_t XOR_CASR;                          \/**< Status register - Exclusive Or command, offset: 0x980 *\/$/;"	m	struct:__anon90
-_3WIRE	FrdmI2s.h	/^typedef enum { _4WIRE = 1, _3WIRE } I2sWire;$/;"	e	enum:__anon9
-_4WIRE	FrdmI2s.h	/^typedef enum { _4WIRE = 1, _3WIRE } I2sWire;$/;"	e	enum:__anon9
+_3WIRE	FrdmI2s.h	/^    enum { _4WIRE = 1, _3WIRE };$/;"	e	enum:FrdmI2s::__anon9
+_4WIRE	FrdmI2s.h	/^    enum { _4WIRE = 1, _3WIRE };$/;"	e	enum:FrdmI2s::__anon9
 _FSL_PORT_H_	references/fsl_port.h	31;"	d
 _FSL_SAI_H_	references/fsl_sai.h	32;"	d
 _FSL_UART_H_	references/fsl_uart.h	31;"	d
@@ -22881,8 +22874,12 @@ __Vendor_SysTickConfig	MK66F18.h	277;"	d
 _base_getc	references/SerialBase.cpp	/^int SerialBase::_base_getc() {$/;"	f	class:mbed::SerialBase
 _base_putc	references/SerialBase.cpp	/^int SerialBase::_base_putc(int c) {$/;"	f	class:mbed::SerialBase
 _baud	references/SerialBase.h	/^    int _baud;$/;"	m	class:mbed::SerialBase
+_bit	FrdmI2s.h	/^    int _bit;$/;"	m	class:FrdmI2s
+_bits	references/SPI.h	/^    int _bits;$/;"	m	class:mbed::SPI
 _dma_request_source	MK64F12.h	/^typedef enum _dma_request_source$/;"	g
 _dma_request_source	MK66F18.h	/^typedef enum _dma_request_source$/;"	g
+_freq	FrdmI2s.h	/^    int _freq;$/;"	m	class:FrdmI2s
+_hz	references/SPI.h	/^    int _hz;$/;"	m	class:mbed::SPI
 _i2s	FrdmI2s.h	/^    i2s_t _i2s;$/;"	m	class:FrdmI2s
 _i2s_init	k64f.cpp	/^void FrdmI2s::_i2s_init(void) {$/;"	f	class:FrdmI2s
 _i2s_init	k66f.cpp	/^void FrdmI2s::_i2s_init(void) {$/;"	f	class:FrdmI2s
@@ -22893,7 +22890,12 @@ _i2sisr	k66f.cpp	/^void FrdmI2s::_i2sisr(void) {$/;"	f	class:FrdmI2s
 _irq	FrdmI2s.h	/^    Callback<void()> _irq[IrqCnt];$/;"	m	class:FrdmI2s
 _irq	references/SerialBase.h	/^    Callback<void()> _irq[IrqCnt];$/;"	m	class:mbed::SerialBase
 _irq_handler	references/SerialBase.cpp	/^void SerialBase::_irq_handler(uint32_t id, SerialIrq irq_type) {$/;"	f	class:mbed::SerialBase
-_mute	FrdmI2s.h	/^    I2sMute _mute;$/;"	m	class:FrdmI2s
+_mclk	FrdmI2s.h	/^    int _mclk;$/;"	m	class:FrdmI2s
+_mode	references/SPI.h	/^    int _mode;$/;"	m	class:mbed::SPI
+_mutex	references/SPI.cpp	/^SingletonPtr<PlatformMutex> SPI::_mutex;$/;"	m	class:mbed::SPI	file:
+_mutex	references/SPI.h	/^    static SingletonPtr<PlatformMutex> _mutex;$/;"	m	class:mbed::SPI
+_owner	references/SPI.cpp	/^SPI *SPI::_owner = NULL;$/;"	m	class:mbed::SPI	file:
+_owner	references/SPI.h	/^    static SPI *_owner;$/;"	m	class:mbed::SPI
 _port_digital_filter_clock_source	references/fsl_port.h	/^typedef enum _port_digital_filter_clock_source$/;"	g
 _port_digital_filter_config	references/fsl_port.h	/^typedef struct _port_digital_filter_config$/;"	s
 _port_drive_strength	references/fsl_port.h	/^enum _port_drive_strength$/;"	g
@@ -22905,37 +22907,36 @@ _port_passive_filter_enable	references/fsl_port.h	/^enum _port_passive_filter_en
 _port_pin_config	references/fsl_port.h	/^typedef struct _port_pin_config$/;"	s
 _port_pull	references/fsl_port.h	/^enum _port_pull$/;"	g
 _port_slew_rate	references/fsl_port.h	/^enum _port_slew_rate$/;"	g
-_role	FrdmI2s.h	/^    I2sRole _role;$/;"	m	class:FrdmI2s
-_rxtx	FrdmI2s.h	/^    I2sFunc _rxtx;$/;"	m	class:FrdmI2s
-_sai_bclk_source	references/fsl_sai.h	/^typedef enum _sai_bclk_source$/;"	g
-_sai_config	references/fsl_sai.h	/^typedef struct _sai_config$/;"	s
-_sai_dma_enable_t	references/fsl_sai.h	/^enum _sai_dma_enable_t$/;"	g
-_sai_fifo_packing	references/fsl_sai.h	/^typedef enum _sai_fifo_packing$/;"	g
-_sai_flags	references/fsl_sai.h	/^enum _sai_flags$/;"	g
+_role	FrdmI2s.h	/^    int _role;$/;"	m	class:FrdmI2s
+_rxtx	FrdmI2s.h	/^    int _rxtx;$/;"	m	class:FrdmI2s
+_sai_bclk_source	references/fsl_sai.h	/^typedef enum _sai_bclk_source {$/;"	g
+_sai_config	references/fsl_sai.h	/^typedef struct _sai_config {$/;"	s
+_sai_dma_enable_t	references/fsl_sai.h	/^enum _sai_dma_enable_t {$/;"	g
+_sai_fifo_packing	references/fsl_sai.h	/^typedef enum _sai_fifo_packing {$/;"	g
+_sai_flags	references/fsl_sai.h	/^enum _sai_flags {$/;"	g
 _sai_func	frdm_i2s_api.h	/^typedef enum _sai_func { TRANSMIT = 0, RECEIVE } SaiFunc;$/;"	g
-_sai_handle	references/fsl_sai.h	/^struct _sai_handle$/;"	s
-_sai_interrupt_enable_t	references/fsl_sai.h	/^enum _sai_interrupt_enable_t$/;"	g
-_sai_irq	frdm_i2s_api.h	/^typedef enum _sai_irq { RxIrq = 0, TxIrq } SaiIrq;$/;"	g
-_sai_master_slave	references/fsl_sai.h	/^typedef enum _sai_master_slave$/;"	g
-_sai_mclk_source	references/fsl_sai.h	/^typedef enum _sai_mclk_source$/;"	g
-_sai_mono_stereo	references/fsl_sai.h	/^typedef enum _sai_mono_stereo$/;"	g
-_sai_protocol	references/fsl_sai.h	/^typedef enum _sai_protocol$/;"	g
-_sai_reset_type	references/fsl_sai.h	/^typedef enum _sai_reset_type$/;"	g
-_sai_role	frdm_i2s_api.h	/^typedef enum _sai_role { MASTER = 0, SLAVE } SaiRole;$/;"	g
-_sai_sample_rate	references/fsl_sai.h	/^typedef enum _sai_sample_rate$/;"	g
-_sai_status_t	references/fsl_sai.h	/^enum _sai_status_t$/;"	g
-_sai_sync_mode	references/fsl_sai.h	/^typedef enum _sai_sync_mode$/;"	g
-_sai_transfer	references/fsl_sai.h	/^typedef struct _sai_transfer$/;"	s
-_sai_transfer_format	references/fsl_sai.h	/^typedef struct _sai_transfer_format$/;"	s
+_sai_handle	references/fsl_sai.h	/^struct _sai_handle {$/;"	s
+_sai_interrupt_enable_t	references/fsl_sai.h	/^enum _sai_interrupt_enable_t {$/;"	g
+_sai_irq	frdm_i2s_api.h	/^typedef enum _sai_irq { IRQ_RX = 0, IRQ_TX } SaiIrq;$/;"	g
+_sai_master_slave	references/fsl_sai.h	/^typedef enum _sai_master_slave {$/;"	g
+_sai_mclk_source	references/fsl_sai.h	/^typedef enum _sai_mclk_source {$/;"	g
+_sai_mono_stereo	references/fsl_sai.h	/^typedef enum _sai_mono_stereo {$/;"	g
+_sai_protocol	references/fsl_sai.h	/^typedef enum _sai_protocol {$/;"	g
+_sai_reset_type	references/fsl_sai.h	/^typedef enum _sai_reset_type {$/;"	g
+_sai_sample_rate	references/fsl_sai.h	/^typedef enum _sai_sample_rate {$/;"	g
+_sai_status_t	references/fsl_sai.h	/^enum _sai_status_t {$/;"	g
+_sai_sync_mode	references/fsl_sai.h	/^typedef enum _sai_sync_mode {$/;"	g
+_sai_transfer	references/fsl_sai.h	/^typedef struct _sai_transfer {$/;"	s
+_sai_transfer_format	references/fsl_sai.h	/^typedef struct _sai_transfer_format {$/;"	s
 _sai_transfer_state	references/fsl_sai.c	/^enum _sai_transfer_state$/;"	g	file:
-_sai_word_width	references/fsl_sai.h	/^typedef enum _sai_word_width$/;"	g
+_sai_word_width	references/fsl_sai.h	/^typedef enum _sai_word_width {$/;"	g
 _serial	references/SerialBase.h	/^    serial_t _serial;$/;"	m	class:mbed::SerialBase
 _set_clock_112896	k64f.cpp	/^void FrdmI2s::_set_clock_112896(void) {$/;"	f	class:FrdmI2s
 _set_clock_112896	k66f.cpp	/^void FrdmI2s::_set_clock_112896(void) {$/;"	f	class:FrdmI2s
 _set_clock_122800	k64f.cpp	/^void FrdmI2s::_set_clock_122800(void) {$/;"	f	class:FrdmI2s
 _set_clock_122800	k66f.cpp	/^void FrdmI2s::_set_clock_122800(void) {$/;"	f	class:FrdmI2s
-_stat	FrdmI2s.h	/^    I2sStatus _stat;$/;"	m	class:FrdmI2s
-_stereo	FrdmI2s.h	/^    I2sChannel _stereo;$/;"	m	class:FrdmI2s
+_spi	references/SPI.h	/^    spi_t _spi;$/;"	m	class:mbed::SPI
+_stereo	FrdmI2s.h	/^    int _stereo;$/;"	m	class:FrdmI2s
 _uart_config	references/fsl_uart.h	/^typedef struct _uart_config$/;"	s
 _uart_flags	references/fsl_uart.h	/^enum _uart_flags$/;"	g
 _uart_handle	references/fsl_uart.h	/^struct _uart_handle$/;"	s
@@ -22947,6 +22948,7 @@ _uart_tansfer_states	references/fsl_uart.c	/^enum _uart_tansfer_states$/;"	g	fil
 _uart_transfer	references/fsl_uart.h	/^typedef struct _uart_transfer$/;"	s
 adc	references/objects.h	/^    ADCName adc;$/;"	m	struct:analogin_s
 analogin_s	references/objects.h	/^struct analogin_s {$/;"	s
+aquire	references/SPI.cpp	/^void SPI::aquire() {$/;"	f	class:mbed::SPI
 attach	FrdmI2s.h	/^    void attach(T *tptr, void (T::*mptr)(void)) {$/;"	f	class:FrdmI2s
 attach	FrdmI2s.h	/^    void attach(void (*fptr)(void)) {$/;"	f	class:FrdmI2s
 attach	references/SerialBase.cpp	/^void SerialBase::attach(Callback<void()> func, IrqType type) {$/;"	f	class:mbed::SerialBase
@@ -22985,27 +22987,34 @@ fifo_level	k64f.cpp	/^int FrdmI2s::fifo_level() {$/;"	f	class:FrdmI2s
 fifo_level	k66f.cpp	/^int FrdmI2s::fifo_level() {$/;"	f	class:FrdmI2s
 fifo_points	k64f.cpp	/^int FrdmI2s::fifo_points() {$/;"	f	class:FrdmI2s
 fifo_points	k66f.cpp	/^int FrdmI2s::fifo_points() {$/;"	f	class:FrdmI2s
-format	k66f.cpp	/^void FrdmI2s::format(I2sRole _role, int mclk, int sample, int bit) {$/;"	f	class:FrdmI2s
+format	FrdmI2s.cpp	/^void FrdmI2s::format(int sample = 32000, int bit = 16, int stereo = FrdmI2s::STEREO) {$/;"	f	class:FrdmI2s
+format	k66f.cpp	/^void FrdmI2s::format(int _role, int mclk, int sample, int bit) {$/;"	f	class:FrdmI2s
+format	references/SPI.cpp	/^void SPI::format(int bits, int mode) {$/;"	f	class:mbed::SPI
 format	references/SerialBase.cpp	/^void SerialBase::format(int bits, Parity parity, int stop_bits) {$/;"	f	class:mbed::SerialBase
 fourwire	FrdmI2s.h	/^    bool fourwire;$/;"	m	class:FrdmI2s
-freq	FrdmI2s.h	/^    int freq;$/;"	m	class:FrdmI2s
 frequency	k64f.cpp	/^void FrdmI2s::frequency(int desired_freq) {$/;"	f	class:FrdmI2s
 frequency	k66f.cpp	/^void FrdmI2s::frequency(int wclk) {$/;"	f	class:FrdmI2s
+frequency	references/SPI.cpp	/^void SPI::frequency(int hz) {$/;"	f	class:mbed::SPI
 get_fifo_limit	k66f.cpp	/^int FrdmI2s::get_fifo_limit() {$/;"	f	class:FrdmI2s
 gpio_irq_s	references/objects.h	/^struct gpio_irq_s {$/;"	s
 i2c_s	references/objects.h	/^struct i2c_s {$/;"	s
 i2s_addrs	frdm_i2s_api.c	/^static I2S_Type *const i2s_addrs[] = I2S_BASE_PTRS;$/;"	v	file:
-i2s_clocks	frdm_i2s_api.c	/^static clock_name_t const i2s_clocks[] = BUS_CLK;$/;"	v	file:
+i2s_clocks	frdm_i2s_api.c	/^static clock_name_t const i2s_clocks[] = SAI_CLOCKS;$/;"	v	file:
+i2s_default_format	frdm_i2s_api.c	/^void i2s_default_format(sai_transfer_format_t *format) {$/;"	f
+i2s_format	frdm_i2s_api.c	/^void i2s_format(i2s_t *obj, int _rxtx, int samplerate, int data_bits, int channel) {$/;"	f
 i2s_free	frdm_i2s_api.c	/^void i2s_free(i2s_t *obj) { SAI_Deinit(i2s_addrs[obj->instance]); }$/;"	f
-i2s_init	frdm_i2s_api.c	/^void i2s_init(i2s_t *obj, PinName mclk, PinName tx_wclk, PinName tx_bclk, PinName tx, PinName rx_wclk, PinName rx_bclk,$/;"	f
+i2s_init	frdm_i2s_api.c	/^void i2s_init(i2s_t *obj, PinName mclk, PinName wclk, PinName bclk, PinName io, int _rxtx) {$/;"	f
+i2s_irq_handler	frdm_i2s_api.c	/^void i2s_irq_handler(i2s_t *obj, sai_irq_handler handler, uint32_t id) {}$/;"	f
+i2s_irq_set	frdm_i2s_api.c	/^void i2s_irq_set(i2s_t *obj, SaiIrq irq, uint32_t enable) {}$/;"	f
 i2s_s	k66f.h	/^struct i2s_s {$/;"	s
+i2s_samplerate	frdm_i2s_api.c	/^void i2s_samplerate(i2s_t *obj, int samplerate) {}$/;"	f
 i2s_t	frdm_i2s_api.h	/^typedef struct i2s_s i2s_t;$/;"	t	typeref:struct:i2s_s
 index	references/objects.h	/^    int index;$/;"	m	struct:serial_s
 instance	k66f.h	/^    uint32_t instance;$/;"	m	struct:i2s_s
 instance	references/objects.h	/^    uint32_t instance;$/;"	m	struct:i2c_s
 instance	references/objects.h	/^    uint32_t instance;$/;"	m	struct:spi_s
 interrupt_fifo_level	FrdmI2s.h	/^    int interrupt_fifo_level;$/;"	m	class:FrdmI2s
-irq_handler	frdm_i2s_api.c	/^static i2s_irq_handler irq_handler;$/;"	v	file:
+irq_handler	frdm_i2s_api.c	/^static sai_irq_handler irq_handler;$/;"	v	file:
 irq_handler	references/serial_api.c	/^static uart_irq_handler irq_handler;$/;"	v	file:
 kDmaRequestMux0ADC0	MK64F12.h	/^    kDmaRequestMux0ADC0             = 40|0x100U,   \/**< ADC0. *\/$/;"	e	enum:_dma_request_source
 kDmaRequestMux0ADC0	MK66F18.h	/^    kDmaRequestMux0ADC0             = 40|0x100U,   \/**< ADC0. *\/$/;"	e	enum:_dma_request_source
@@ -23313,6 +23322,7 @@ kUART_TxFifoEmptyFlag	references/fsl_uart.h	/^    kUART_TxFifoEmptyFlag = (UART_
 kUART_TxFifoOverflowFlag	references/fsl_uart.h	/^    kUART_TxFifoOverflowFlag = (UART_SFIFO_TXOF_MASK << 24),  \/*!< TXOF bit, sets if TX buffer overflow occurred *\/$/;"	e	enum:_uart_flags
 kUART_TxFifoOverflowInterruptEnable	references/fsl_uart.h	/^    kUART_TxFifoOverflowInterruptEnable = (UART_CFIFO_RXUFE_MASK << 24),  \/*!< RX FIFO underflow interrupt. *\/$/;"	e	enum:_uart_interrupt_enable
 kUART_TxIdle	references/fsl_uart.c	/^    kUART_TxIdle, \/* TX idle. *\/$/;"	e	enum:_uart_tansfer_states	file:
+lock	references/SPI.cpp	/^void SPI::lock() { _mutex->lock(); }$/;"	f	class:mbed::SPI
 lock	references/SerialBase.cpp	/^void SerialBase::lock() {$/;"	f	class:mbed::SerialBase
 lockRegister	references/fsl_port.h	/^    uint16_t lockRegister : 1; \/*!< lock\/unlock the pcr field[15:0] *\/$/;"	m	struct:_port_pin_config
 mask	references/objects.h	/^    uint32_t mask;$/;"	m	struct:port_s
@@ -23320,18 +23330,18 @@ masterClockHz	references/fsl_sai.h	/^    uint32_t masterClockHz;   \/*!< Master 
 masterSlave	references/fsl_sai.h	/^    sai_master_slave_t masterSlave; \/*!< Master or slave *\/$/;"	m	struct:_sai_config
 masterslave	k64f.cpp	/^void FrdmI2s::masterslave(bool mastermode) {$/;"	f	class:FrdmI2s
 max_fifo_points	k64f.cpp	/^int FrdmI2s::max_fifo_points() {$/;"	f	class:FrdmI2s
+mbed	references/SPI.cpp	/^namespace mbed {$/;"	n	file:
+mbed	references/SPI.h	/^namespace mbed {$/;"	n
 mbed	references/SerialBase.cpp	/^namespace mbed {$/;"	n	file:
 mbed	references/SerialBase.h	/^namespace mbed {$/;"	n
 mclkOutputEnable	references/fsl_sai.h	/^    bool mclkOutputEnable;          \/*!< Master clock output enable, true means master clock divider enabled *\/$/;"	m	struct:_sai_config
 mclkSource	references/fsl_sai.h	/^    sai_mclk_source_t mclkSource;   \/*!< Master Clock source *\/$/;"	m	struct:_sai_config
-mclk_en	FrdmI2s.h	/^    bool mclk_en;$/;"	m	class:FrdmI2s
 mclk_freq	k64f.cpp	/^void FrdmI2s::mclk_freq(int freq) {$/;"	f	class:FrdmI2s
 mclk_freq	k66f.cpp	/^void FrdmI2s::mclk_freq(int mclk) {$/;"	f	class:FrdmI2s
-mclk_frequency	FrdmI2s.h	/^    int mclk_frequency;$/;"	m	class:FrdmI2s
 mute	k64f.cpp	/^void FrdmI2s::mute() {$/;"	f	class:FrdmI2s
 mute	k64f.cpp	/^void FrdmI2s::mute(bool mute_en) {$/;"	f	class:FrdmI2s
 mute	k66f.cpp	/^void FrdmI2s::mute() { _mute = MUTED; }$/;"	f	class:FrdmI2s
-mute	k66f.cpp	/^void FrdmI2s::mute(I2sMute mute_en) { _mute = mute_en; }$/;"	f	class:FrdmI2s
+mute	k66f.cpp	/^void FrdmI2s::mute(int mute_en) { _mute = mute_en; }$/;"	f	class:FrdmI2s
 mux	references/fsl_port.h	/^    uint16_t mux : 3; \/*!< pin mux Configure *\/$/;"	m	struct:_port_pin_config
 next_repeated_start	references/objects.h	/^    uint8_t next_repeated_start;$/;"	m	struct:i2c_s
 openDrainEnable	references/fsl_port.h	/^    uint16_t openDrainEnable : 1; \/*!< open drain enable\/disable *\/$/;"	m	struct:_port_pin_config
@@ -23369,7 +23379,7 @@ read	k66f.cpp	/^void FrdmI2s::read(int buf[], int len) {$/;"	f	class:FrdmI2s
 read	k66f.cpp	/^void FrdmI2s::read(int bufr[], int bufl[], int len) {$/;"	f	class:FrdmI2s
 readable	references/SerialBase.cpp	/^int SerialBase::readable() {$/;"	f	class:mbed::SerialBase
 reg_write_err	FrdmI2s.h	/^    int reg_write_err;$/;"	m	class:FrdmI2s
-role	k66f.cpp	/^void FrdmI2s::role(I2sRole mastermode) { _role = mastermode; }$/;"	f	class:FrdmI2s
+role	k66f.cpp	/^void FrdmI2s::role(int mastermode) { _role = mastermode; }$/;"	f	class:FrdmI2s
 rxData	references/fsl_uart.h	/^    uint8_t *volatile rxData;   \/*!< Address of remaining data to receive. *\/$/;"	m	struct:_uart_handle
 rxDataSize	references/fsl_uart.h	/^    volatile size_t rxDataSize; \/*!< Size of the remaining data to receive. *\/$/;"	m	struct:_uart_handle
 rxDataSizeAll	references/fsl_uart.h	/^    size_t rxDataSizeAll;       \/*!< Size of the data to receive. *\/$/;"	m	struct:_uart_handle
@@ -23415,24 +23425,24 @@ sai_tx_isr_t	references/fsl_sai.c	/^typedef void (*sai_tx_isr_t)(I2S_Type *base,
 sai_word_width_t	references/fsl_sai.h	/^} sai_word_width_t;$/;"	t	typeref:enum:_sai_word_width
 sampleRate_Hz	references/fsl_sai.h	/^    uint32_t sampleRate_Hz;   \/*!< Sample rate of audio data *\/$/;"	m	struct:_sai_transfer_format
 send_break	references/SerialBase.cpp	/^void SerialBase::send_break() {$/;"	f	class:mbed::SerialBase
-serial_baud	references/serial_api.c	/^void serial_baud(serial_t *obj, int baudrate)$/;"	f
-serial_break_clear	references/serial_api.c	/^void serial_break_clear(serial_t *obj)$/;"	f
-serial_break_set	references/serial_api.c	/^void serial_break_set(serial_t *obj)$/;"	f
-serial_clear	references/serial_api.c	/^void serial_clear(serial_t *obj)$/;"	f
-serial_format	references/serial_api.c	/^void serial_format(serial_t *obj, int data_bits, SerialParity parity, int stop_bits)$/;"	f
-serial_free	references/serial_api.c	/^void serial_free(serial_t *obj)$/;"	f
-serial_getc	references/serial_api.c	/^int serial_getc(serial_t *obj)$/;"	f
-serial_init	references/serial_api.c	/^void serial_init(serial_t *obj, PinName tx, PinName rx)$/;"	f
-serial_irq_handler	references/serial_api.c	/^void serial_irq_handler(serial_t *obj, uart_irq_handler handler, uint32_t id)$/;"	f
+serial_baud	references/serial_api.c	/^void serial_baud(serial_t *obj, int baudrate) {$/;"	f
+serial_break_clear	references/serial_api.c	/^void serial_break_clear(serial_t *obj) { uart_addrs[obj->index]->C2 &= ~UART_C2_SBK_MASK; }$/;"	f
+serial_break_set	references/serial_api.c	/^void serial_break_set(serial_t *obj) { uart_addrs[obj->index]->C2 |= UART_C2_SBK_MASK; }$/;"	f
+serial_clear	references/serial_api.c	/^void serial_clear(serial_t *obj) {}$/;"	f
+serial_format	references/serial_api.c	/^void serial_format(serial_t *obj, int data_bits, SerialParity parity, int stop_bits) {$/;"	f
+serial_free	references/serial_api.c	/^void serial_free(serial_t *obj) {$/;"	f
+serial_getc	references/serial_api.c	/^int serial_getc(serial_t *obj) {$/;"	f
+serial_init	references/serial_api.c	/^void serial_init(serial_t *obj, PinName tx, PinName rx) {$/;"	f
+serial_irq_handler	references/serial_api.c	/^void serial_irq_handler(serial_t *obj, uart_irq_handler handler, uint32_t id) {$/;"	f
 serial_irq_ids	references/serial_api.c	/^static uint32_t serial_irq_ids[FSL_FEATURE_SOC_UART_COUNT] = {0};$/;"	v	file:
-serial_irq_set	references/serial_api.c	/^void serial_irq_set(serial_t *obj, SerialIrq irq, uint32_t enable)$/;"	f
-serial_pinout_tx	references/serial_api.c	/^void serial_pinout_tx(PinName tx)$/;"	f
-serial_putc	references/serial_api.c	/^void serial_putc(serial_t *obj, int c)$/;"	f
-serial_readable	references/serial_api.c	/^int serial_readable(serial_t *obj)$/;"	f
+serial_irq_set	references/serial_api.c	/^void serial_irq_set(serial_t *obj, SerialIrq irq, uint32_t enable) {$/;"	f
+serial_pinout_tx	references/serial_api.c	/^void serial_pinout_tx(PinName tx) { pinmap_pinout(tx, PinMap_UART_TX); }$/;"	f
+serial_putc	references/serial_api.c	/^void serial_putc(serial_t *obj, int c) {$/;"	f
+serial_readable	references/serial_api.c	/^int serial_readable(serial_t *obj) {$/;"	f
 serial_s	references/objects.h	/^struct serial_s {$/;"	s
-serial_set_flow_control	references/serial_api.c	/^void serial_set_flow_control(serial_t *obj, FlowControl type, PinName rxflow, PinName txflow)$/;"	f
+serial_set_flow_control	references/serial_api.c	/^void serial_set_flow_control(serial_t *obj, FlowControl type, PinName rxflow, PinName txflow) {$/;"	f
 serial_t	references/serial_api.h	/^typedef struct serial_s serial_t;$/;"	t	typeref:struct:serial_s
-serial_writable	references/serial_api.c	/^int serial_writable(serial_t *obj)$/;"	f
+serial_writable	references/serial_api.c	/^int serial_writable(serial_t *obj) {$/;"	f
 set_flow_control	references/SerialBase.cpp	/^void SerialBase::set_flow_control(Flow type, PinName flow1, PinName flow2) {$/;"	f	class:mbed::SerialBase
 set_interrupt_fifo_level	k64f.cpp	/^void FrdmI2s::set_interrupt_fifo_level(int level) {$/;"	f	class:FrdmI2s
 set_interrupt_fifo_level	k66f.cpp	/^void FrdmI2s::set_interrupt_fifo_level(int level) { interrupt_fifo_level = 4; }$/;"	f	class:FrdmI2s
@@ -23459,7 +23469,7 @@ stdio_uart	references/serial_api.c	/^serial_t stdio_uart;$/;"	v
 stdio_uart_inited	references/serial_api.c	/^int stdio_uart_inited = 0;$/;"	v
 stereo	references/fsl_sai.h	/^    sai_mono_stereo_t stereo; \/*!< Mono or stereo *\/$/;"	m	struct:_sai_transfer_format
 stereomono	k64f.cpp	/^void FrdmI2s::stereomono(bool stereomode) {$/;"	f	class:FrdmI2s
-stereomono	k66f.cpp	/^void FrdmI2s::stereomono(I2sChannel stereomode) { _stereo = stereomode; }$/;"	f	class:FrdmI2s
+stereomono	k66f.cpp	/^void FrdmI2s::stereomono(int stereomode) { _stereo = stereomode; }$/;"	f	class:FrdmI2s
 stop	k64f.cpp	/^void FrdmI2s::stop() {$/;"	f	class:FrdmI2s
 stop	k66f.cpp	/^void FrdmI2s::stop() {$/;"	f	class:FrdmI2s
 stopBitCount	references/fsl_uart.h	/^    uart_stop_bit_count_t stopBitCount; \/*!< Number of stop bits, 1 stop bit (default) or 2 stop bits  *\/$/;"	m	struct:_uart_config
@@ -23474,16 +23484,16 @@ txState	references/fsl_uart.h	/^    volatile uint8_t txState; \/*!< TX transfer 
 txisr	FrdmI2s.h	/^    static bool txisr;$/;"	m	class:FrdmI2s
 txisr	k64f.cpp	/^bool FrdmI2s::txisr;$/;"	m	class:FrdmI2s	file:
 txisr	k66f.cpp	/^bool FrdmI2s::txisr;$/;"	m	class:FrdmI2s	file:
-uart0_irq	references/serial_api.c	/^void uart0_irq()$/;"	f
-uart1_irq	references/serial_api.c	/^void uart1_irq()$/;"	f
-uart2_irq	references/serial_api.c	/^void uart2_irq()$/;"	f
-uart3_irq	references/serial_api.c	/^void uart3_irq()$/;"	f
-uart4_irq	references/serial_api.c	/^void uart4_irq()$/;"	f
+uart0_irq	references/serial_api.c	/^void uart0_irq() {$/;"	f
+uart1_irq	references/serial_api.c	/^void uart1_irq() {$/;"	f
+uart2_irq	references/serial_api.c	/^void uart2_irq() {$/;"	f
+uart3_irq	references/serial_api.c	/^void uart3_irq() {$/;"	f
+uart4_irq	references/serial_api.c	/^void uart4_irq() {$/;"	f
 uart_addrs	references/serial_api.c	/^static UART_Type *const uart_addrs[] = UART_BASE_PTRS;$/;"	v	file:
 uart_clocks	references/serial_api.c	/^static clock_name_t const uart_clocks[] = UART_CLOCK_FREQS;$/;"	v	file:
 uart_config_t	references/fsl_uart.h	/^} uart_config_t;$/;"	t	typeref:struct:_uart_config
 uart_handle_t	references/fsl_uart.h	/^typedef struct _uart_handle uart_handle_t;$/;"	t	typeref:struct:_uart_handle
-uart_irq	references/serial_api.c	/^static inline void uart_irq(uint32_t transmit_empty, uint32_t receive_full, uint32_t index)$/;"	f	file:
+uart_irq	references/serial_api.c	/^static inline void uart_irq(uint32_t transmit_empty, uint32_t receive_full, uint32_t index) {$/;"	f	file:
 uart_irq_handler	references/serial_api.h	/^typedef void (*uart_irq_handler)(uint32_t id, SerialIrq event);$/;"	t
 uart_isr_t	references/fsl_uart.c	/^typedef void (*uart_isr_t)(UART_Type *base, uart_handle_t *handle);$/;"	t	file:
 uart_parity_mode_t	references/fsl_uart.h	/^} uart_parity_mode_t;$/;"	t	typeref:enum:_uart_parity_mode
@@ -23492,6 +23502,7 @@ uart_transfer_callback_t	references/fsl_uart.h	/^typedef void (*uart_transfer_ca
 uart_transfer_t	references/fsl_uart.h	/^} uart_transfer_t;$/;"	t	typeref:struct:_uart_transfer
 uint16_t	references/fsl_port.h	/^    uint16_t : 1;$/;"	m	struct:_port_pin_config
 uint16_t	references/fsl_port.h	/^    uint16_t : 4;$/;"	m	struct:_port_pin_config
+unlock	references/SPI.cpp	/^void SPI::unlock() { _mutex->unlock(); }$/;"	f	class:mbed::SPI
 unlock	references/SerialBase.cpp	/^void SerialBase::unlock() {$/;"	f	class:mbed::SerialBase
 update_config	k64f.cpp	/^void FrdmI2s::update_config() {$/;"	f	class:FrdmI2s
 update_config	k66f.cpp	/^void FrdmI2s::update_config() {$/;"	f	class:FrdmI2s
@@ -23501,15 +23512,15 @@ watermark	references/fsl_sai.h	/^    uint8_t watermark;       \/*!< Watermark va
 watermark	references/fsl_sai.h	/^    uint8_t watermark; \/*!< Watermark value *\/$/;"	m	struct:_sai_handle
 wordsize	k64f.cpp	/^void FrdmI2s::wordsize(int words) {$/;"	f	class:FrdmI2s
 wordsize	k66f.cpp	/^void FrdmI2s::wordsize(int words) {$/;"	f	class:FrdmI2s
-wordwidth	FrdmI2s.h	/^    int wordwidth;$/;"	m	class:FrdmI2s
-wordwidth_code	FrdmI2s.h	/^    char wordwidth_code;$/;"	m	class:FrdmI2s
 write	k64f.cpp	/^void FrdmI2s::write(char buf[], int len) {$/;"	f	class:FrdmI2s
 write	k64f.cpp	/^void FrdmI2s::write(int buf[], int len) {$/;"	f	class:FrdmI2s
 write	k64f.cpp	/^void FrdmI2s::write(int bufr[], int bufl[], int len) {$/;"	f	class:FrdmI2s
 write	k66f.cpp	/^void FrdmI2s::write(char buf[], int len) {$/;"	f	class:FrdmI2s
 write	k66f.cpp	/^void FrdmI2s::write(int buf[], int len) {$/;"	f	class:FrdmI2s
 write	k66f.cpp	/^void FrdmI2s::write(int bufr[], int bufl[], int len) {$/;"	f	class:FrdmI2s
+write	references/SPI.cpp	/^int SPI::write(int value) {$/;"	f	class:mbed::SPI
 writeable	references/SerialBase.cpp	/^int SerialBase::writeable() {$/;"	f	class:mbed::SerialBase
 ~FrdmI2s	k64f.cpp	/^FrdmI2s::~FrdmI2s() {$/;"	f	class:FrdmI2s
 ~FrdmI2s	k66f.cpp	/^FrdmI2s::~FrdmI2s() {$/;"	f	class:FrdmI2s
+~SPI	references/SPI.h	/^    virtual ~SPI() {}$/;"	f	class:mbed::SPI
 ~SerialBase	references/SerialBase.h	/^    virtual ~SerialBase() {}$/;"	f	class:mbed::SerialBase

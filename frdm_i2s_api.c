@@ -24,7 +24,7 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 #include "fsl_clock.h"
 //! #include "PeripheralPins.h" replace by "frdm_i2s_api.h"->"k66f.h"
 
-// static uint32_t i2s_irq_ids[FSL_FEATURE_SOC_UART_COUNT] = {0};
+static uint32_t i2s_irq_ids[FSL_FEATURE_SOC_UART_COUNT] = {0};
 static sai_irq_handler irq_handler;
 /* Array of UART peripheral base address. */
 static I2S_Type *const i2s_addrs[] = I2S_BASE_PTRS;
@@ -35,14 +35,17 @@ void i2s_default_format(sai_transfer_format_t *format);
 
 void i2s_init(i2s_t *obj, PinName mclk, PinName wclk, PinName bclk, PinName io, int _rxtx) {
     uint32_t i2s_tx_mclk = pinmap_peripheral(mclk, PinMap_I2S_MCLK);
+    uint32_t i2s_wclk;
+    uint32_t i2s_bclk;
+    uint32_t i2s_io;
     if (_rxtx == TRANSMIT) {
-        uint32_t i2s_wclk = pinmap_peripheral(wclk, PinMap_I2S_TX_WCLK);
-        uint32_t i2s_bclk = pinmap_peripheral(bclk, PinMap_I2S_TX_BCLK);
-        uint32_t i2s_io = pinmap_peripheral(io, PinMap_I2S_TXD0);
+        i2s_wclk = pinmap_peripheral(wclk, PinMap_I2S_TX_WCLK);
+        i2s_bclk = pinmap_peripheral(bclk, PinMap_I2S_TX_BCLK);
+        i2s_io = pinmap_peripheral(io, PinMap_I2S_TXD0);
     } else {
-        uint32_t i2s_wclk = pinmap_peripheral(wclk, PinMap_I2S_RX_WCLK);
-        uint32_t i2s_bclk = pinmap_peripheral(bclk, PinMap_I2S_RX_BCLK);
-        uint32_t i2s_io = pinmap_peripheral(io, PinMap_I2S_RXD0);
+        i2s_wclk = pinmap_peripheral(wclk, PinMap_I2S_RX_WCLK);
+        i2s_bclk = pinmap_peripheral(bclk, PinMap_I2S_RX_BCLK);
+        i2s_io = pinmap_peripheral(io, PinMap_I2S_RXD0);
     }
 
     obj->instance = pinmap_merge(i2s_io, i2s_bclk);
@@ -139,9 +142,9 @@ void i2s_default_format(sai_transfer_format_t *format) {
 void i2s_format(i2s_t *obj, int _rxtx, int samplerate, int data_bits, int channel) {
     sai_transfer_format_t format;
     i2s_default_format(&format);
-    format->sampleRate_Hz = samplerate;
-    format->bitWidth = data_bits;
-    format->stereo = channel;
+    format.sampleRate_Hz = samplerate;
+    format.bitWidth = data_bits;
+    format.stereo = channel;
 
     if (_rxtx == TRANSMIT) {
         SAI_TxSetFormat(i2s_addrs[obj->instance], &format, i2s_clocks[obj->instance], format.masterClockHz);
@@ -152,5 +155,9 @@ void i2s_format(i2s_t *obj, int _rxtx, int samplerate, int data_bits, int channe
     i2s_samplerate(obj->instance, samplerate);
 }
 void i2s_samplerate(i2s_t *obj, int samplerate) {}
-void i2s_irq_handler(i2s_t *obj, sai_irq_handler handler, uint32_t id) {}
-void i2s_irq_set(i2s_t *obj, SaiIrq irq, uint32_t enable) {}
+void i2s_irq_handler(i2s_t *obj, sai_irq_handler handler, uint32_t id) {
+    irq_handler = handler;
+    serial_irq_ids[obj->instance] = id;
+}
+
+void i2s_irq_set(i2s_t *obj, SaiIrq irq, uint32_t enable) { IRQn_Type uart_irqs[] = I2S_TX_IRQS; }

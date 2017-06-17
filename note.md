@@ -1,19 +1,21 @@
 ---
 output:
   custom_document:
-    path: output.html
     pandoc_args: [
     "--self-contained",
     # "--number-sections", # if you like it numbered
     # "--reference-docx=C:/Path/To/Reference.docx",
+    "--filter=/usr/local/bin/pantable",
     "-M","css=~/.pandoc/pandoc_misc/github_css/github.css", # this does not work
     "--read=markdown+east_asian_line_breaks+emoji",
     "--toc",
-    "-t","html"
+    "-t","html5"
     ]
+    path: output.html
 ---
 
 # FRDM-K64F
+
 - [platform page on mbed.org](https://developer.mbed.org/platforms/FRDM-K64F/)
 
 ## Board overview
@@ -54,7 +56,7 @@ output:
 | A4 \*    | PTC11   | --- | PTB20                 | PTB20   |
 | A5 \*    | PTC10   | --- | DAC_OUT               | ?       |
 
-- Pins with * has PWM capability
+- Pins with \* has PWM capability
 
 ## pins on right headers
 ### [Headers #3]
@@ -72,7 +74,7 @@ output:
 | GND                   | NA      | --- | D9  \*   | PTC4    |
 | PTE26                 | PTE26   | --- | D8  \*   | PTC12   |
 
-- Pins with * has PWM capability
+- Pins with \* has PWM capability
 
 ### [Headers #4]
 
@@ -87,7 +89,7 @@ output:
 | I2S_TX_F~rame~S~elect~ | PTB19   | --- | D1       | PTC17   |
 | I2S_TX_B~it~CL~oc~K    | PTB18   | --- | D0       | PTC16   |
 
-- Pins with * has PWM capability
+- Pins with \* has PWM capability
 
 ## pins on other headers
 ### [Wifi Module Headers]
@@ -146,9 +148,10 @@ output:
 | SW3      | PTA3    |
 
 ## MCU Features
+
 - Kinetis MK64FN1M0VLL12 in 100LQFP
 - Performance
-    - ARM® Cortex™-M4 32-bit core with DSP instructions and Floating Point Unit (FPU)
+    - ARM(R)Cortex(TM)-M4 32-bit core with DSP instructions and Floating Point Unit (FPU)
     - 120 MHz max CPU frequency
 - Memories and memory interfaces
     - 1024 KB program flash memory
@@ -218,7 +221,7 @@ output:
     - Several industry standard Debug interfaces (PEmicro, CMSIS-DAP, JLink)
     - Drag-n-drop MSD Flash-programming
     - Virtual USB to Serial Port
-- Form factor: 3.2” x 2.1” / 81mm x 53mm
+- Form factor: 3.2inch x 2.1inch / 81mm x 53mm
 - Software Development Tools
     - mbed HDK & SDK enabled
     - Online development tools
@@ -395,8 +398,9 @@ output:
 | SW3      | PTA13   |
 
 ## MCU Features
+
 - Kinetis MK66FN2M0VMD18 in 144BGA package
-- ARM® Cortex™-M4 32-bit core, with DSP instructions
+- ARM(R) Cortex(TM)-M4 32-bit core, with DSP instructions
 - 180 MHz max CPU frequency
 - 2 MB program flash memory
 - 256 KB RAM
@@ -420,6 +424,7 @@ output:
 
 
 ## Board Features
+
 - Onboard Components
     - FXOS8700CQ - Accelerometer and Magnetometer
         - [link to driver page](https://developer.mbed.org/users/AswinSivakumar/code/FXOS8700/)
@@ -457,7 +462,7 @@ output:
     - Several industry standard Debug interfaces (PEmicro, CMSIS-DAP, JLink)
     - Drag-n-drop MSD Flash-programming
     - Virtual USB to Serial Port
-- Form factor: 3.2” x 2.1” / 81mm x 53mm
+- Form factor: 3.2inch x 2.1inch / 81mm x 53mm
 - Software Development Tools
     - mbed HDK & SDK enabled
     - Online development tools
@@ -466,7 +471,7 @@ output:
     - Alternate Offline options NXP free KDS (compiler toolchain) and KSDK library/examples
 - Supplier website: http://www.nxp.com/frdm-k66f
 
-# K66F pin config from datasheet P184~; Picking up I2S related pins
+# K66F pin config from datasheet P184; Picking up I2S related pins
 
 | 144 LQFP | **144 MAP BGA** | Pin Name          | Default             | ~ | **ALT4**          | ALT5              | **ALT6**      |
 |----------|-----------------|-------------------|---------------------|---|-------------------|-------------------|---------------|
@@ -540,9 +545,9 @@ This section provides a complete functional description of the block.
 ### 54.4.1 SAI clocking
 The SAI clocks include:
 
-* The audio master clock
-* The bit clock
-* The bus clock
+- The audio master clock
+- The bit clock
+- The bus clock
 
 #### 54.4.1.1 Audio master clock
 The audio master clock is used to generate the bit clock when the receiver or transmitter
@@ -686,10 +691,12 @@ The transmitter and receiver frame sync can be configured independently with any
 These configuration options cannot be changed after the SAI transmitter or receiver is enabled.
 
 ### 54.4.5 Data FIFO
-Each transmit and receive channel includes a FIFO of size 8 × 32-bit. The FIFO data is
+
+Each transmit and receive channel includes a FIFO of size 8 x 32-bit. The FIFO data is
 accessed using the SAI Transmit/Receive Data Registers.
 
 #### 54.4.5.1 Data alignment
+
 Data in the FIFO can be aligned anywhere within the 32-bit wide register through the use
 of the First Bit Shifted configuration field, which selects the bit index (between 31 and 0)
 of the first bit shifted.
@@ -698,8 +705,8 @@ Examples of supported data alignment and the required First Bit Shifted configur
 illustrated in Figure 54-59 for LSB First configurations and Figure 54-60 for MSB First
 configurations.
 
-Figure 54-59. SAI first bit shifted, LSB first
-Figure 54-60. SAI first bit shifted, MSB first
+- Figure 54-59. SAI first bit shifted, LSB first
+- Figure 54-60. SAI first bit shifted, MSB first
 
 #### 54.4.5.2 FIFO pointers
 When writing to a TDR, the WFP of the corresponding TFR increments after each valid
@@ -796,6 +803,35 @@ The word start flag is set at the start of the second bit clock for the selected
 configured by the Word Flag register field.
 
 The word start flag can generate an interrupt only.
+
+# list of reference files
+
+```table
+---
+# yaml front matter
+caption: 'Reference files'
+# alignment:
+# table-width:
+markdown: True
+# include: "data/table.csv"
+---
+filename, filetype, language, library, provider
+SerialBase.h, header, C++, mbed, ARM/mbed
+SerialBase.cpp, source, C++, mbed, ARM/mbed
+SPI.h, header, C++, mbed, ARM/mbed
+SPI.cpp, source, C++, mbed, ARM/mbed
+objects.h, header, C, mbed, ARM/mbed
+serial_api.h, header, C, mbed, ARM/mbed
+serial_api.c, source, C, mbed, ARM/mbed
+spi.api.h, header, C, mbed, ARM/mbed
+spi.api.c, source, C, mbed, ARM/mbed
+fsl_uart.h, header, C, HAL, NXP/Freescale
+fsl_uart.c, source, C, HAL, NXP/Freescale
+fsl_dspi.h, header, C, HAL, NXP/Freescale
+fsl_dspi.c, source, C, HAL, NXP/Freescale
+fsl_sai.h, header, C, HAL, NXP/Freescale
+fsl_sai.c, source, C, HAL, NXP/Freescale
+```
 
 ```cpp
 /* ----------------------------------------------------------------------------

@@ -112,19 +112,19 @@ void FrdmI2s::write(char buf[], int len) {
 }
 
 void FrdmI2s::write(int buf[], int len) {
-    if (_rxtx == TRANSMIT && wordwidth > 0) {
+    if (_rxtx == TRANSMIT && _bit > 0) {
         if (len > get_fifo_limit()) {
             len = get_fifo_limit();
             printf("Trying to write too much data!\n\r");
         }
         if (len <= 0) return;
         uint32_t temp = 0;
-        int increment = 32 / wordwidth;
+        int increment = 32 / _bit;
         unsigned char recast[] = {0, 0, 0, 0};
         for (int i = 0; i < len; i += increment) {
             temp = 0;
 
-            switch (wordwidth) {
+            switch (_bit) {
                 case 8:
 
                     recast[0] = (int8_t)buf[i + 0];
@@ -166,7 +166,7 @@ void FrdmI2s::read(char buf[], int len) {
     if (len >= fifo_points()) len = fifo_points();
     int temp[8];
     int counter = 0;
-    int increment = 4;  // 32/wordwidth;
+    int increment = 4;  // 32/_bit;
     int fifo_levl = fifo_level();
     while (counter < fifo_levl && len_valid) {
         temp[counter] = I2S0->RDR[0];
@@ -187,7 +187,7 @@ void FrdmI2s::read(int buf[], int len) {
     if (len >= fifo_points()) len = fifo_points();
     int temp[8];
     int counter = 0;
-    int increment = 32 / wordwidth;
+    int increment = 32 / _bit;
     int fifo_levl = fifo_level();
     while (counter < fifo_levl && len_valid) {
         temp[counter] = I2S0->RDR[0];
@@ -196,7 +196,7 @@ void FrdmI2s::read(int buf[], int len) {
                 len_valid = false;
                 break;
             }
-            buf[counter + j] = temp[counter] >> (j * wordwidth);
+            buf[counter + j] = temp[counter] >> (j * _bit);
         }
         counter++;
     }
@@ -207,7 +207,7 @@ void FrdmI2s::read(int bufr[], int bufl[], int len) {
 }
 
 int FrdmI2s::get_fifo_limit() {
-    switch (wordwidth) {
+    switch (_bit) {
         case 8:
             return (4 * 8);
         case 16:
@@ -220,7 +220,7 @@ int FrdmI2s::get_fifo_limit() {
 }
 
 int FrdmI2s::fifo_points() {
-    switch (wordwidth) {
+    switch (_bit) {
         case 8:
             return (4 * fifo_level());
         case 16:
@@ -235,12 +235,11 @@ int FrdmI2s::fifo_points() {
 void FrdmI2s::role(int mastermode) { _role = mastermode; }
 
 void FrdmI2s::wordsize(int words) {
-    wordwidth = 16;
+    _bit = 16;
     //    update_config();
 }
 
 void FrdmI2s::mclk_freq(int mclk) {
-    SAI_SetMasterClockDivider(I2S0, mclk, 48000000);
     mclk_frequency = 12288000;
     //    update_config();
 }
@@ -454,7 +453,7 @@ void FrdmI2s::update_config() {
     // } else {
     // }
     //
-    // switch (wordwidth) {
+    // switch (_bit) {
     //     case 8:
     //         wordwidth_code = 0;
     //         break;

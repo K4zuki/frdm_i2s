@@ -19,8 +19,7 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 #ifdef DEBUG
 namespace mbed {
 
-FrdmI2s::FrdmI2s(PinName SerialData, PinName WordSelect, PinName BitClk, I2sFunc rxtx)
-    : _i2s(), _rxtx(rxtx), IoPin(SerialData), WclkPin(WordSelect), BclkPin(BitClk) {
+FrdmI2s::FrdmI2s(PinName SerialData, PinName WordSelect, PinName BitClk, I2sFunc rxtx) : _i2s() {
     i2s_init(&_i2s, MasterClk, WordSelect, BitClk, SerialData, (SaiFunc)rxtx);
 }
 }  // namespace mbed

@@ -110,19 +110,17 @@ void i2s_init(i2s_t *obj, PinName mclk, PinName wclk, PinName bclk, PinName io, 
     //     sai_protocol_t protocol; /*!< Which audio protocol used */
     // } sai_transfer_format_t;
 
-    format.sampleRate_Hz = samplerate;
-    format.bitWidth = data_bits;
-    format.masterClockHz = mclk_Hz;
     if (_rxtx == TRANSMIT) {
-        SAI_TxSetFormat(i2s_addrs[obj->instance], &format, i2s_clocks[obj->instance], mclk_Hz);
+        SAI_TxSetFormat(i2s_addrs[obj->instance], &format, i2s_clocks[obj->instance], format.masterClockHz);
     } else {
-        SAI_RxSetFormat(i2s_addrs[obj->instance], &format, i2s_clocks[obj->instance], mclk_Hz);
+        SAI_RxSetFormat(i2s_addrs[obj->instance], &format, i2s_clocks[obj->instance], format.masterClockHz);
     }
     // void SAI_TxSetFormat(I2S_Type *base,
     //                      sai_transfer_format_t *format,
     //                      uint32_t mclkSourceClockHz,
     //                      uint32_t bclkSourceClockHz)
 }
+
 void i2s_free(i2s_t *obj) { SAI_Deinit(i2s_addrs[obj->instance]); }
 
 void i2s_default_format(sai_transfer_format_t *format) {

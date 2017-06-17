@@ -74,6 +74,7 @@ class FrdmI2s {
      * @param BitClk    The clock pin
      */
     FrdmI2s(PinName SerialData, PinName WordSelect, PinName BitClk, int rxtx = FrdmI2s::TRANSMIT);
+    // FrdmI2s(PinName MasterClk, PinName SerialData, PinName WordSelect, PinName BitClk, int rxtx = FrdmI2s::TRANSMIT);
 
     /** Destroy the I2S instance
      */
@@ -108,6 +109,7 @@ class FrdmI2s {
     * @param bit The number of bits per word: 8,16,32
     */
     void format(int role = MASTER, int mclk = 12288000, int sample = 32000, int bit = 16);
+    // void format(int sample = 32000, int bit = 16,int stereo=FrdmI2s::STEREO);
 
     /** Write to the FIFO
      *
@@ -287,17 +289,15 @@ class FrdmI2s {
 
     PinName IoPin, WclkPin, BclkPin, MclkPin;
     bool WordSelect_d, BitClk_d, MasterClk_d;
+
     int _rxtx;
+    int _mclk;
     int _role;
-    int _mute;
     int _stereo;
-    int _stat;
+    int _bit;
+    int _freq;
+
     bool pwr;
-    int wordwidth;
-    char wordwidth_code;
-    bool mclk_en;
-    int mclk_frequency;
-    int freq;
     int interrupt_fifo_level;
     int pin_setup_err;
     int reg_write_err;

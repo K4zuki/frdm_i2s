@@ -33,7 +33,7 @@ static clock_name_t const i2s_clocks[] = SAI_CLOCKS;
 
 void i2s_default_format(sai_transfer_format_t *format);
 
-void i2s_init(i2s_t *obj, PinName mclk, PinName wclk, PinName bclk, PinName io, SaiFunc _rxtx) {
+void i2s_init(i2s_t *obj, PinName mclk, PinName wclk, PinName bclk, PinName io, int _rxtx) {
     uint32_t i2s_tx_mclk = pinmap_peripheral(mclk, PinMap_I2S_MCLK);
     if (_rxtx == TRANSMIT) {
         uint32_t i2s_wclk = pinmap_peripheral(wclk, PinMap_I2S_TX_WCLK);
@@ -44,6 +44,9 @@ void i2s_init(i2s_t *obj, PinName mclk, PinName wclk, PinName bclk, PinName io, 
         uint32_t i2s_bclk = pinmap_peripheral(bclk, PinMap_I2S_RX_BCLK);
         uint32_t i2s_io = pinmap_peripheral(io, PinMap_I2S_RXD0);
     }
+
+    obj->instance = pinmap_merge(i2s_io, i2s_bclk);
+    MBED_ASSERT((int)obj->instance != NC);
 
     // pin out the spi pins
     pinmap_pinout(mclk, PinMap_I2S_MCLK);
@@ -133,7 +136,21 @@ void i2s_default_format(sai_transfer_format_t *format) {
     format->protocol = kSAI_BusI2S;
 }
 
-void i2s_samplerate(i2s_t *obj, int samplerate) {}
+void i2s_format(i2s_t *obj, int _rxtx, int samplerate, int data_bits, int channel) {
+    sai_transfer_format_t format;
+    i2s_default_format(&format);
+    format->sampleRate_Hz = samplerate;
+    format->bitWidth = data_bits;
+    format->stereo = channel;
 
+    if (_rxtx == TRANSMIT) {
+        SAI_TxSetFormat(i2s_addrs[obj->instance], &format, i2s_clocks[obj->instance], format.masterClockHz);
+    } else {
+        SAI_RxSetFormat(i2s_addrs[obj->instance], &format, i2s_clocks[obj->instance], format.masterClockHz);
+    }
+
+    i2s_samplerate(obj->instance, samplerate);
+}
+void i2s_samplerate(i2s_t *obj, int samplerate) {}
 void i2s_irq_handler(i2s_t *obj, sai_irq_handler handler, uint32_t id) {}
 void i2s_irq_set(i2s_t *obj, SaiIrq irq, uint32_t enable) {}

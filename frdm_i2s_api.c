@@ -159,7 +159,7 @@ void i2s_format(i2s_t *obj, int _rxtx, int samplerate, int data_bits, int channe
 
 void i2s_irq_handler(i2s_t *obj, sai_irq_handler handler, uint32_t id) {
     irq_handler = handler;
-    serial_irq_ids[obj->instance] = id;
+    i2s_irq_ids[obj->instance] = id;
 }
 
 static inline void i2s_irq(uint32_t tx_warn, uint32_t rx_warn, uint32_t instance) {

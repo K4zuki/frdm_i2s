@@ -75,8 +75,8 @@ class FrdmI2s {
      * @param WordSelect    The word select pin
      * @param BitClk    The clock pin
      */
-    FrdmI2s(PinName SerialData, PinName WordSelect, PinName BitClk, int rxtx = FrdmI2s::TRANSMIT);
-    // FrdmI2s(PinName MasterClk, PinName SerialData, PinName WordSelect, PinName BitClk, int rxtx = FrdmI2s::TRANSMIT);
+    // FrdmI2s(PinName SerialData, PinName WordSelect, PinName BitClk, int rxtx = FrdmI2s::TRANSMIT);
+    FrdmI2s(PinName MasterClk, PinName SerialData, PinName WordSelect, PinName BitClk, int rxtx = FrdmI2s::TRANSMIT);
 
     /** Destroy the I2S instance
      */

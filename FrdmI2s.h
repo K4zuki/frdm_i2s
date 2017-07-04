@@ -41,6 +41,8 @@
 #if defined(TARGET_K64F)
 #warning "K64F"
 #include "MK64F12.h"
+// #include "frdm_i2s_api.h"
+// #include "k64f.h"
 #elif defined(TARGET_K66F)
 #warning "K66F"
 #include "frdm_i2s_api.h"

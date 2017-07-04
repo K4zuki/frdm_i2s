@@ -25,7 +25,8 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //! #include "PeripheralPins.h" replace by "frdm_i2s_api.h"->"k66f.h"
 
 static uint32_t i2s_irq_ids[FSL_FEATURE_SOC_UART_COUNT] = {0};
-static sai_irq_handler irq_handler;
+static sai_irq_handler irq_handler;  // typedef void (*sai_irq_handler)(uint32_t id, SaiIrq event);
+
 /* Array of UART peripheral base address. */
 static I2S_Type *const i2s_addrs[] = I2S_BASE_PTRS;
 /* Array of UART bus clock frequencies */
@@ -139,6 +140,7 @@ void i2s_default_format(sai_transfer_format_t *format) {
     format->protocol = kSAI_BusI2S;
 }
 
+void i2s_samplerate(i2s_t *obj, int samplerate) {}
 void i2s_format(i2s_t *obj, int _rxtx, int samplerate, int data_bits, int channel) {
     sai_transfer_format_t format;
     i2s_default_format(&format);
@@ -154,10 +156,30 @@ void i2s_format(i2s_t *obj, int _rxtx, int samplerate, int data_bits, int channe
 
     i2s_samplerate(obj->instance, samplerate);
 }
-void i2s_samplerate(i2s_t *obj, int samplerate) {}
+
 void i2s_irq_handler(i2s_t *obj, sai_irq_handler handler, uint32_t id) {
     irq_handler = handler;
     serial_irq_ids[obj->instance] = id;
+}
+
+static inline void i2s_irq(uint32_t tx_warn, uint32_t rx_warn, uint32_t instance) {
+    I2S_Type *base = i2s_addrs[instance];
+
+    if (i2s_irq_ids[instance] != 0) {
+        if (tx_warn) {
+            irq_handler(i2s_irq_ids[instance], IRQ_TX);
+        }
+
+        if (rx_warn) {
+            irq_handler(i2s_irq_ids[instance], IRQ_RX);
+        }
+    }
+}
+
+void i2s0_irq() {
+    uint32_t tx_status = SAI_TxGetStatusFlag(I2S0);
+    uint32_t rx_status = SAI_RxGetStatusFlag(I2S0);
+    i2s_irq((tx_status & kSAI_FIFOWarningInterruptEnable), (rx_status & kSAI_FIFOWarningInterruptEnable), 0);
 }
 
 void i2s_irq_set(i2s_t *obj, SaiIrq irq, uint32_t enable) {
@@ -165,10 +187,9 @@ void i2s_irq_set(i2s_t *obj, SaiIrq irq, uint32_t enable) {
     uint32_t vector = 0;
     switch (obj->instance) {
         case 0:
-            vector = 0;
+            vector = &i2s0_irq;
             break;
         default:
-            vector = 0;
             break;
     }
     if (enable) {
@@ -182,8 +203,8 @@ void i2s_irq_set(i2s_t *obj, SaiIrq irq, uint32_t enable) {
             default:
                 break;
         }
-        // NVIC_SetVector(i2s_irqs[obj->index], vector);
-        // NVIC_EnableIRQ(i2s_irqs[obj->index]);
+        // NVIC_SetVector(i2s_irqs[obj->instance], vector);
+        // NVIC_EnableIRQ(i2s_irqs[obj->instance]);
     } else {
         bool all_disabled = false;
         SaiIrq other_irq = (irq == IRQ_RX) ? (IRQ_TX) : (IRQ_RX);
@@ -212,7 +233,7 @@ void i2s_irq_set(i2s_t *obj, SaiIrq irq, uint32_t enable) {
                 break;
         }
         if (all_disabled) {
-            NVIC_DisableIRQ(uart_irqs[obj->index]);
+            NVIC_DisableIRQ(i2s_irqs[obj->instance]);
         }
     }
 }

@@ -18,6 +18,8 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 #include "FrdmI2s.h"
 #ifdef DEBUG
 
+static void donothing() {}
+
 FrdmI2s::FrdmI2s(PinName MasterClk, PinName SerialData, PinName WordSelect, PinName BitClk,
                  int rxtx = FrdmI2s::TRANSMIT)
     : _i2s(), _mclk(1228000), _freq(32000), _bit(16), _stereo(0), _rxtx(rxtx) {
@@ -46,10 +48,10 @@ void FrdmI2s::attach(Callback<void()> func, IrqType type) {
     core_util_critical_section_enter();
     if (func) {
         _irq[type] = func;
-        i2s_irq_set(&_i2s, (IrqType)type, 1);
+        i2s_irq_set(&_i2s, (SaiIrq)type, 1);
     } else {
         _irq[type] = donothing;
-        i2s_irq_set(&_i2s, (IrqType)type, 0);
+        i2s_irq_set(&_i2s, (SaiIrq)type, 0);
     }
     core_util_critical_section_exit();
     unlock();

@@ -238,36 +238,6 @@ class FrdmI2s {
      */
     // void attach(Callback<void()> func, IrqType type = TxIrq);
 
-    /** Attach a function to be called when the FIFO triggers
-     *
-     * @param fptr A pointer to the function to be called
-     */
-    void attach(void (*fptr)(void)) {
-        if (_rxtx == TRANSMIT) {
-            I2STXISR.attach(fptr);
-            txisr = true;
-        } else {
-            I2SRXISR.attach(fptr);
-            rxisr = true;
-        }
-    }
-
-    /** Attach a member function to be called when the FIFO triggers
-     *
-     * @param tptr A pointer to the instance of the class
-     * @param mptr A pointer to the member function
-     */
-    template <typename T>
-    void attach(T *tptr, void (T::*mptr)(void)) {
-        if (_rxtx == I2S_TRANSMIT) {
-            I2STXISR.attach(tptr, mptr);
-            txisr = true;
-        } else {
-            I2SRXISR.attach(tptr, mptr);
-            rxisr = true;
-        }
-    }
-
    private:
     void _set_clock_112896(void);
     void _set_clock_122800(void);
@@ -320,6 +290,14 @@ class FrdmI2s {
 
    protected:
     Callback<void()> _irq[IrqCnt];
+
+    /** Acquire exclusive access to this I2S port
+     */
+    virtual void lock(void);
+
+    /** Release exclusive access to this I2S port
+     */
+    virtual void unlock(void);
 };
 
 #endif  // FRDMI2S_H

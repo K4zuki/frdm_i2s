@@ -55,4 +55,12 @@ void FrdmI2s::attach(Callback<void()> func, IrqType type) {
     unlock();
 }
 
+void FrdmI2s::lock() {
+    // Stub
+}
+
+void FrdmI2s::unlock() {
+    // Stub
+}
+
 #endif

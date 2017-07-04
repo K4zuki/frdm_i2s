@@ -19,7 +19,7 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 //! #include "cmsis.h" replace by "frdm_i2s_api.h"->"MK66F18.h"
 //! #include "pinmap.h" replace by "frdm_i2s_api.h"->"k66f.h"
 #include "fsl_sai.h"
-#include "mbed_error.h"
+#include "mbed_assert.h"
 //! #include "peripheral_clock_defines.h" replace by "fsl_clock.h"
 #include "fsl_clock.h"
 //! #include "PeripheralPins.h" replace by "frdm_i2s_api.h"->"k66f.h"

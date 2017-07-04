@@ -110,8 +110,8 @@ class FrdmI2s {
     * @param sample The desired sample rate frequency
     * @param bit The number of bits per word: 8,16,32
     */
-    void format(int role = MASTER, int mclk = 12288000, int sample = 32000, int bit = 16);
-    // void format(int sample = 32000, int bit = 16,int stereo=FrdmI2s::STEREO);
+    // void format(int role = MASTER, int mclk = 12288000, int sample = 32000, int bit = 16);
+    void format(int sample = 32000, int bit = 16, int stereo = FrdmI2s::STEREO);
 
     /** Write to the FIFO
      *
@@ -238,7 +238,7 @@ class FrdmI2s {
      *  @param type Which serial interrupt to attach the member function to (Seriall::RxIrq for receive, TxIrq for
      * transmit buffer empty)
      */
-    // void attach(Callback<void()> func, IrqType type = TxIrq);
+    void attach(Callback<void()> func, IrqType type = TxIrq);
 
    private:
     // void _set_clock_112896(void);
@@ -268,6 +268,7 @@ class FrdmI2s {
     int _stereo;
     int _bit;
     int _freq;
+    int _stat;
 
     int _mute;
     bool pwr;

@@ -20,17 +20,14 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 
 static void donothing() {}
 
-FrdmI2s::FrdmI2s(PinName MasterClk, PinName SerialData, PinName WordSelect, PinName BitClk,
-                 int rxtx = FrdmI2s::TRANSMIT)
+FrdmI2s::FrdmI2s(PinName MasterClk, PinName SerialData, PinName WordSelect, PinName BitClk, int rxtx)
     : _i2s(), _mclk(1228000), _freq(32000), _bit(16), _stereo(0), _rxtx(rxtx) {
     i2s_init(&_i2s, MasterClk, WordSelect, BitClk, SerialData, rxtx);
 }
 
-void FrdmI2s::format(int sample = 32000, int bit = 16, int stereo = FrdmI2s::STEREO) {
-    i2s_format(&_i2s, _rxtx, sample, bit, stereo);
-}
+void FrdmI2s::format(int sample, int bit, int stereo) { i2s_format(&_i2s, _rxtx, sample, bit, stereo); }
 
-void FrdmI2s::frequency(int wclk = 32000) {}
+void FrdmI2s::frequency(int wclk) {}
 
 void FrdmI2s::stop() {
     _stat = STOP;
@@ -64,15 +61,15 @@ void FrdmI2s::read(char buf[], int len) {}
 void FrdmI2s::read(int buf[], int len) {}
 int FrdmI2s::get_fifo_limit() {}
 void FrdmI2s::power(bool pwr) {}
-void FrdmI2s::role(int mastermode = MASTER) {}
-void FrdmI2s::wordsize(int words = 16) {}
-void FrdmI2s::mclk_freq(int mclk = 12288000) {}
+void FrdmI2s::role(int mastermode) {}
+void FrdmI2s::wordsize(int words) {}
+void FrdmI2s::mclk_freq(int mclk) {}
 void FrdmI2s::set_interrupt_fifo_level(int level) {}
 int FrdmI2s::fifo_level() {}
 int FrdmI2s::fifo_points() {}
-void FrdmI2s::stereomono(int stereomode = STEREO) {}
+void FrdmI2s::stereomono(int stereomode) {}
 void FrdmI2s::mute() {}
-void FrdmI2s::mute(int mute_en = MUTED) {}
+void FrdmI2s::mute(int mute_en) {}
 
 void FrdmI2s::lock() {
     // Stub

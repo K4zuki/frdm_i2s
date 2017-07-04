@@ -146,7 +146,7 @@ void i2s_format(i2s_t *obj, int _rxtx, int samplerate, int data_bits, int channe
     i2s_default_format(&format);
     format.sampleRate_Hz = samplerate;
     format.bitWidth = data_bits;
-    format.stereo = channel;
+    format.stereo = (uint8_t)channel;
 
     if (_rxtx == TRANSMIT) {
         SAI_TxSetFormat(i2s_addrs[obj->instance], &format, i2s_clocks[obj->instance], format.masterClockHz);
@@ -163,7 +163,7 @@ void i2s_irq_handler(i2s_t *obj, sai_irq_handler handler, uint32_t id) {
 }
 
 static inline void i2s_irq(uint32_t tx_warn, uint32_t rx_warn, uint32_t instance) {
-    I2S_Type *base = i2s_addrs[instance];
+    // I2S_Type *base = i2s_addrs[instance];
 
     if (i2s_irq_ids[instance] != 0) {
         if (tx_warn) {
@@ -187,7 +187,7 @@ void i2s_irq_set(i2s_t *obj, SaiIrq irq, uint32_t enable) {
     uint32_t vector = 0;
     switch (obj->instance) {
         case 0:
-            vector = &i2s0_irq;
+            vector = (uint32_t)&i2s0_irq;
             break;
         default:
             break;

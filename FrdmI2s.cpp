@@ -58,14 +58,59 @@ void FrdmI2s::write(int buf[], int len) {}
 int FrdmI2s::read() {}
 void FrdmI2s::read(char buf[], int len) {}
 void FrdmI2s::read(int buf[], int len) {}
-int FrdmI2s::get_fifo_limit() {}
+
+int FrdmI2s::get_fifo_limit() {
+    switch (_bit) {
+        case 8:
+            return (4 * 8);
+        case 16:
+            return (2 * 8);
+        case 32:
+            return 8;
+        default:
+            return 0;
+    }
+}
+
 void FrdmI2s::power(bool pwr) {}
 void FrdmI2s::role(int mastermode) {}
 void FrdmI2s::wordsize(int words) {}
 void FrdmI2s::mclk_freq(int mclk) {}
 void FrdmI2s::set_interrupt_fifo_level(int level) {}
-int FrdmI2s::fifo_level() {}
-int FrdmI2s::fifo_points() {}
+
+int FrdmI2s::fifo_level() {
+    int tfr = 0;
+    int wfp = 0;
+    int rfp = 0;
+    int level = 0;
+
+    if (_rxtx == TRANSMIT) {
+        tfr = I2S0->TFR[0];
+        wfp = (tfr & I2S_TFR_WFP_MASK) >> I2S_TFR_WFP_SHIFT;
+        rfp = (tfr & I2S_TFR_RFP_MASK) >> I2S_TFR_RFP_SHIFT;
+    } else {
+        tfr = I2S0->RFR[0];
+        wfp = (tfr & I2S_RFR_WFP_MASK) >> I2S_RFR_WFP_SHIFT;
+        rfp = (tfr & I2S_RFR_RFP_MASK) >> I2S_RFR_RFP_SHIFT;
+    }
+    level = 0x0F & (rfp - wfp);
+
+    return level;
+}
+
+int FrdmI2s::fifo_points() {
+    switch (_bit) {
+        case 8:
+            return (4 * fifo_level());
+        case 16:
+            return (2 * fifo_level());
+        case 32:
+            return fifo_level();
+        default:
+            return 0;
+    }
+}
+
 void FrdmI2s::stereomono(int stereomode) {}
 void FrdmI2s::mute() {}
 void FrdmI2s::mute(int mute_en) {}

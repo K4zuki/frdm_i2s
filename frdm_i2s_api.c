@@ -160,4 +160,59 @@ void i2s_irq_handler(i2s_t *obj, sai_irq_handler handler, uint32_t id) {
     serial_irq_ids[obj->instance] = id;
 }
 
-void i2s_irq_set(i2s_t *obj, SaiIrq irq, uint32_t enable) { IRQn_Type uart_irqs[] = I2S_TX_IRQS; }
+void i2s_irq_set(i2s_t *obj, SaiIrq irq, uint32_t enable) {
+    IRQn_Type i2s_irqs[] = I2S_TX_IRQS;
+    uint32_t vector = 0;
+    switch (obj->instance) {
+        case 0:
+            vector = 0;
+            break;
+        default:
+            vector = 0;
+            break;
+    }
+    if (enable) {
+        switch (irq) {
+            case IRQ_RX:
+                SAI_RxEnableInterrupts(i2s_addrs[obj->instance], kSAI_FIFOWarningInterruptEnable);
+                break;
+            case IRQ_TX:
+                SAI_TxEnableInterrupts(i2s_addrs[obj->instance], kSAI_FIFOWarningInterruptEnable);
+                break;
+            default:
+                break;
+        }
+        // NVIC_SetVector(i2s_irqs[obj->index], vector);
+        // NVIC_EnableIRQ(i2s_irqs[obj->index]);
+    } else {
+        bool all_disabled = false;
+        SaiIrq other_irq = (irq == IRQ_RX) ? (IRQ_TX) : (IRQ_RX);
+        switch (irq) {
+            case IRQ_RX:
+                SAI_RxDisableInterrupts(i2s_addrs[obj->instance], kSAI_FIFOWarningInterruptEnable);
+                break;
+            case IRQ_TX:
+                SAI_TxDisableInterrupts(i2s_addrs[obj->instance], kSAI_FIFOWarningInterruptEnable);
+                break;
+            default:
+                break;
+        }
+        switch (other_irq) {
+            case IRQ_RX:
+                all_disabled = ((SAI_RxGetStatusFlag(i2s_addrs[obj->instance]) & kSAI_FIFOWarningInterruptEnable) == 0)
+                                   ? true
+                                   : false;
+                break;
+            case IRQ_TX:
+                all_disabled = ((SAI_TxGetStatusFlag(i2s_addrs[obj->instance]) & kSAI_FIFOWarningInterruptEnable) == 0)
+                                   ? true
+                                   : false;
+                break;
+            default:
+                break;
+        }
+        if (all_disabled) {
+            NVIC_DisableIRQ(uart_irqs[obj->index]);
+        }
+    }
+}

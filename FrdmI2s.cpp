@@ -57,6 +57,23 @@ void FrdmI2s::attach(Callback<void()> func, IrqType type) {
     unlock();
 }
 
+void FrdmI2s::write(char buf[], int len) {}
+void FrdmI2s::write(int buf[], int len) {}
+int FrdmI2s::read() {}
+void FrdmI2s::read(char buf[], int len) {}
+void FrdmI2s::read(int buf[], int len) {}
+int FrdmI2s::get_fifo_limit() {}
+void FrdmI2s::power(bool pwr) {}
+void FrdmI2s::role(int mastermode = MASTER) {}
+void FrdmI2s::wordsize(int words = 16) {}
+void FrdmI2s::mclk_freq(int mclk = 12288000) {}
+void FrdmI2s::set_interrupt_fifo_level(int level) {}
+int FrdmI2s::fifo_level() {}
+int FrdmI2s::fifo_points() {}
+void FrdmI2s::stereomono(int stereomode = STEREO) {}
+void FrdmI2s::mute() {}
+void FrdmI2s::mute(int mute_en = MUTED) {}
+
 void FrdmI2s::lock() {
     // Stub
 }

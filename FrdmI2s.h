@@ -228,7 +228,7 @@ class FrdmI2s {
      *
      * @return Setup okay?
      */
-    bool setup_ok();
+    // bool setup_ok();
 
     // static void _irq_handler(uint32_t id, SerialIrq irq_type);
 
@@ -241,26 +241,26 @@ class FrdmI2s {
     // void attach(Callback<void()> func, IrqType type = TxIrq);
 
    private:
-    void _set_clock_112896(void);
-    void _set_clock_122800(void);
-    void _i2s_init(void);
-    void _i2s_set_rate(int smprate);
+    // void _set_clock_112896(void);
+    // void _set_clock_122800(void);
+    // void _i2s_init(void);
+    // void _i2s_set_rate(int smprate);
 
-    void mclk_enable(bool mclk_en);
+    // void mclk_enable(bool mclk_en);
 
-    void update_config();
+    // void update_config();
 
-    void pin_setup();
+    // void pin_setup();
 
-    void fraction_estimator(float in, int *num, int *den);
+    // void fraction_estimator(float in, int *num, int *den);
 
-    float mod(float in);
+    // float mod(float in);
 
     // FrdmI2s_defaults defaults;
-    void defaulter();
+    // void defaulter();
 
     PinName IoPin, WclkPin, BclkPin, MclkPin;
-    bool WordSelect_d, BitClk_d, MasterClk_d;
+    // bool WordSelect_d, BitClk_d, MasterClk_d;
 
     int _rxtx;
     int _mclk;
@@ -275,18 +275,18 @@ class FrdmI2s {
     int pin_setup_err;
     int reg_write_err;
 
-    bool fourwire;
+    // bool fourwire;
 
-    static void _i2sisr(void);
+    // static void _i2sisr(void);
 
-    static FunctionPointer I2STXISR;
-    static FunctionPointer I2SRXISR;
+    // static FunctionPointer I2STXISR;
+    // static FunctionPointer I2SRXISR;
 
-    static bool txisr;
-    static bool rxisr;
+    // static bool txisr;
+    // static bool rxisr;
 
-    void write(int bufr[], int bufl[], int len);
-    void read(int bufr[], int bufl[], int len);
+    // void write(int bufr[], int bufl[], int len);
+    // void read(int bufr[], int bufl[], int len);
 
     i2s_t _i2s;
 

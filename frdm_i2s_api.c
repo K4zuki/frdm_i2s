@@ -93,6 +93,7 @@ void i2s_init(i2s_t *obj, PinName mclk, PinName wclk, PinName bclk, PinName io, 
         config.protocol = kSAI_BusI2S;
 
         SAI_TxInit(i2s_addrs[obj->instance], &config);
+        SAI_TxEnable(i2s_addrs[obj->instance], true);
         // void SAI_TxInit(I2S_Type *base, const sai_config_t *config);
 
     } else {
@@ -100,6 +101,7 @@ void i2s_init(i2s_t *obj, PinName mclk, PinName wclk, PinName bclk, PinName io, 
         config.protocol = kSAI_BusI2S;
         // void SAI_TxInit(I2S_Type *base, const sai_config_t *config);
         SAI_RxInit(i2s_addrs[obj->instance], &config);
+        SAI_RxEnable(i2s_addrs[obj->instance], true);
     }
 
     sai_transfer_format_t format;

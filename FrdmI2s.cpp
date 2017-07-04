@@ -16,7 +16,6 @@ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 */
 
 #include "FrdmI2s.h"
-#ifdef DEBUG
 
 static void donothing() {}
 
@@ -78,5 +77,3 @@ void FrdmI2s::lock() {
 void FrdmI2s::unlock() {
     // Stub
 }
-
-#endif

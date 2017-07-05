@@ -36,34 +36,34 @@ typedef enum {
 } I2SName;
 
 const PinMap PinMap_I2S_MCLK[] = {
-    {PTE6, I2S_0, 0}, {PTA17, I2S_0, 0}, {PTC6, I2S_0, 0}, {PTC8, I2S_0, 0},
+    {PTE6, I2S_0, 4}, {PTA17, I2S_0, 6}, {PTC6, I2S_0, 6}, {PTC8, I2S_0, 4},
 };
 
 const PinMap PinMap_I2S_TX_BCLK[] = {
-    {PTE12, I2S_0, 0}, {PTA5, I2S_0, 0}, {PTB18, I2S_0, 0}, {PTC3, I2S_0, 0},
+    {PTE12, I2S_0, 4}, {PTA5, I2S_0, 6}, {PTB18, I2S_0, 4}, {PTC3, I2S_0, 6},
 };
 const PinMap PinMap_I2S_TX_WCLK[] = {
-    {PTE11, I2S_0, 0}, {PTA13, I2S_0, 0}, {PTB19, I2S_0, 0}, {PTC2, I2S_0, 0},
+    {PTE11, I2S_0, 4}, {PTA13, I2S_0, 6}, {PTB19, I2S_0, 4}, {PTC2, I2S_0, 6},
 };
 const PinMap PinMap_I2S_TXD0[] = {
-    {PTE10, I2S_0, 0}, {PTA12, I2S_0, 0}, {PTC1, I2S_0, 0},
+    {PTE10, I2S_0, 4}, {PTA12, I2S_0, 6}, {PTC1, I2S_0, 6},
 };
 const PinMap PinMap_I2S_TXD1[] = {
-    {PTE9, I2S_0, 0}, {PTA14, I2S_0, 0}, {PTC0, I2S_0, 0},
+    {PTE9, I2S_0, 2}, {PTA14, I2S_0, 7}, {PTC0, I2S_0, 6},
 };
 
 const PinMap PinMap_I2S_RX_BCLK[] = {
-    {PTE9, I2S_0, 0}, {PTA14, I2S_0, 0}, {PTC6, I2S_0, 0}, {PTC9, I2S_0, 0},
+    {PTE9, I2S_0, 4}, {PTA14, I2S_0, 6}, {PTC6, I2S_0, 4}, {PTC9, I2S_0, 4},
 };
 const PinMap PinMap_I2S_RX_WCLK[] = {
-    {PTE8, I2S_0, 0}, {PTA16, I2S_0, 0}, {PTC7, I2S_0, 0}, {PTC10, I2S_0, 0},
+    {PTE8, I2S_0, 4}, {PTA16, I2S_0, 6}, {PTC7, I2S_0, 4}, {PTC10, I2S_0, 4},
 };
 const PinMap PinMap_I2S_RXD0[] = {
-    {PTE7, I2S_0, 0}, {PTA15, I2S_0, 0}, {PTC5, I2S_0, 0},
+    {PTE7, I2S_0, 4}, {PTA15, I2S_0, 6}, {PTC5, I2S_0, 4},
 };
 
 const PinMap PinMap_I2S_RXD1[] = {
-    {PTE8, I2S_0, 0}, {PTA16, I2S_0, 0}, {PTC11, I2S_0, 0},
+    {PTE8, I2S_0, 2}, {PTA16, I2S_0, 7}, {PTC11, I2S_0, 4},
 };
 
 #ifdef __cplusplus

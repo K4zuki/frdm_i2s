@@ -826,6 +826,7 @@ serial_api.c, source, C, mbed, ARM/mbed, /target/TARGET\_\*/TARGET_\*
 spi.api.h, header, C, mbed, ARM/mbed, /hal
 spi.api.c, source, C, mbed, ARM/mbed, /target/TARGET\_\*/TARGET_\*
 pinmap.h, header, C, HAL, ARM/mbed, /hal
+mbed_pinmap_common.c, source, C, HAL, ARM/mbed, /hal
 pinmap.c, source, C, HAL, NXP/Freescale, /target/TARGET\_\*\*/api
 fsl_uart.h, header, C, HAL, NXP/Freescale, /target/TARGET\_\*/TARGET_\*/drivers
 fsl_uart.c, source, C, HAL, NXP/Freescale, /target/TARGET\_\*/TARGET_\*/drivers

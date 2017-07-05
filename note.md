@@ -815,22 +815,24 @@ caption: 'Reference files'
 markdown: True
 # include: "data/table.csv"
 ---
-filename, filetype, language, library, provider
-SerialBase.h, header, C++, mbed, ARM/mbed
-SerialBase.cpp, source, C++, mbed, ARM/mbed
-SPI.h, header, C++, mbed, ARM/mbed
-SPI.cpp, source, C++, mbed, ARM/mbed
-objects.h, header, C, mbed, ARM/mbed
-serial_api.h, header, C, mbed, ARM/mbed
-serial_api.c, source, C, mbed, ARM/mbed
-spi.api.h, header, C, mbed, ARM/mbed
-spi.api.c, source, C, mbed, ARM/mbed
-fsl_uart.h, header, C, HAL, NXP/Freescale
-fsl_uart.c, source, C, HAL, NXP/Freescale
-fsl_dspi.h, header, C, HAL, NXP/Freescale
-fsl_dspi.c, source, C, HAL, NXP/Freescale
-fsl_sai.h, header, C, HAL, NXP/Freescale
-fsl_sai.c, source, C, HAL, NXP/Freescale
+filename, filetype, language, library, provider, directory
+SerialBase.h, header, C++, mbed, ARM/mbed, /drivers
+SerialBase.cpp, source, C++, mbed, ARM/mbed, /drivers
+SPI.h, header, C++, mbed, ARM/mbed, /drivers
+SPI.cpp, source, C++, mbed, ARM/mbed, /drivers
+objects.h, header, C, mbed, ARM/mbed, /target/TARGET\_\*\*/api
+serial_api.h, header, C, mbed, ARM/mbed, /hal
+serial_api.c, source, C, mbed, ARM/mbed, /target/TARGET\_\*/TARGET_\*
+spi.api.h, header, C, mbed, ARM/mbed, /hal
+spi.api.c, source, C, mbed, ARM/mbed, /target/TARGET\_\*/TARGET_\*
+pinmap.h, header, C, HAL, ARM/mbed, /hal
+pinmap.c, source, C, HAL, NXP/Freescale, /target/TARGET\_\*\*/api
+fsl_uart.h, header, C, HAL, NXP/Freescale, /target/TARGET\_\*/TARGET_\*/drivers
+fsl_uart.c, source, C, HAL, NXP/Freescale, /target/TARGET\_\*/TARGET_\*/drivers
+fsl_dspi.h, header, C, HAL, NXP/Freescale, /target/TARGET\_\*/TARGET_\*/drivers
+fsl_dspi.c, source, C, HAL, NXP/Freescale, /target/TARGET\_\*/TARGET_\*/drivers
+fsl_sai.h, header, C, HAL, NXP/Freescale, /target/TARGET\_\*/TARGET_\*/drivers
+fsl_sai.c, source, C, HAL, NXP/Freescale, /target/TARGET\_\*/TARGET_\*/drivers
 ```
 
 ```cpp

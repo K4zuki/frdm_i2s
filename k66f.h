@@ -35,31 +35,47 @@ typedef enum {
     I2S_0 = 0,
 } I2SName;
 
+/* reference
+typedef struct {
+    PinName pin;
+    int peripheral;
+    int function;
+} PinMap;
+
+PORT_SetPinMux(PORTC, 6, kPORT_MuxAlt6);  // PTC6 I2S0_MCLK
+PORT_SetPinMux(PORTC, 1, kPORT_MuxAlt6);  // PTC1 I2S0_TXD0
+PORT_SetPinMux(PORTE, 11, kPORT_MuxAlt4);  // PTE11 I2S0_TX_FS
+PORT_SetPinMux(PORTE, 12, kPORT_MuxAlt4);  // PTE12 I2S0_TX_BCLK
+PORT_SetPinMux(PORTE, 7, kPORT_MuxAlt4);  // PTE7 I2S0_RXD0
+PORT_SetPinMux(PORTE, 8, kPORT_MuxAlt4);  // PTE8 I2S0_RX_FS
+PORT_SetPinMux(PORTC, 9, kPORT_MuxAlt4);  // PTC9 I2S0_RX_BCLK
+*/
+
 const PinMap PinMap_I2S_MCLK[] = {
-    {PTE6, I2S_0, 0}, {PTA17, I2S_0, 0}, {PTC6, I2S_0, 0}, {PTC8, I2S_0, 0},
+    {PTE6, I2S_0, 0}, {PTA17, I2S_0, 0}, {PTC6, I2S_0, 6}, {PTC8, I2S_0, 0},
 };
 
 const PinMap PinMap_I2S_TX_BCLK[] = {
-    {PTE12, I2S_0, 0}, {PTA5, I2S_0, 0}, {PTB18, I2S_0, 0}, {PTC3, I2S_0, 0},
+    {PTE12, I2S_0, 4}, {PTA5, I2S_0, 0}, {PTB18, I2S_0, 0}, {PTC3, I2S_0, 0},
 };
 const PinMap PinMap_I2S_TX_WCLK[] = {
-    {PTE11, I2S_0, 0}, {PTA13, I2S_0, 0}, {PTB19, I2S_0, 0}, {PTC2, I2S_0, 0},
+    {PTE11, I2S_0, 4}, {PTA13, I2S_0, 0}, {PTB19, I2S_0, 0}, {PTC2, I2S_0, 0},
 };
 const PinMap PinMap_I2S_TXD0[] = {
-    {PTE10, I2S_0, 0}, {PTA12, I2S_0, 0}, {PTC1, I2S_0, 0},
+    {PTE10, I2S_0, 0}, {PTA12, I2S_0, 0}, {PTC1, I2S_0, 6},
 };
 const PinMap PinMap_I2S_TXD1[] = {
     {PTE9, I2S_0, 0}, {PTA14, I2S_0, 0}, {PTC0, I2S_0, 0},
 };
 
 const PinMap PinMap_I2S_RX_BCLK[] = {
-    {PTE9, I2S_0, 0}, {PTA14, I2S_0, 0}, {PTC6, I2S_0, 0}, {PTC9, I2S_0, 0},
+    {PTE9, I2S_0, 0}, {PTA14, I2S_0, 0}, {PTC6, I2S_0, 0}, {PTC9, I2S_0, 4},
 };
 const PinMap PinMap_I2S_RX_WCLK[] = {
-    {PTE8, I2S_0, 0}, {PTA16, I2S_0, 0}, {PTC7, I2S_0, 0}, {PTC10, I2S_0, 0},
+    {PTE8, I2S_0, 4}, {PTA16, I2S_0, 0}, {PTC7, I2S_0, 0}, {PTC10, I2S_0, 0},
 };
 const PinMap PinMap_I2S_RXD0[] = {
-    {PTE7, I2S_0, 0}, {PTA15, I2S_0, 0}, {PTC5, I2S_0, 0},
+    {PTE7, I2S_0, 4}, {PTA15, I2S_0, 0}, {PTC5, I2S_0, 0},
 };
 
 const PinMap PinMap_I2S_RXD1[] = {

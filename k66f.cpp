@@ -355,8 +355,8 @@ void FrdmI2s::_set_clock_112896(void) {
     //    SIM->SCGC6 |= SIM_SCGC6_I2S_MASK;
 }
 void FrdmI2s::_set_clock_122800(void) {
-    // output = input [(I2SFRAC+1) / (I2SDIV+1) ] = (48M* (32/125))
-    // SIM_CLKDIV2 |= SIM_CLKDIV2_I2SDIV(124) | SIM_CLKDIV2_I2SFRAC(31);
+    // output = input [(I2SFRAC+1) / (I2SDIV+1) ] = (120M* (64/625))
+    // SIM_CLKDIV2 |= SIM_CLKDIV2_I2SDIV(625) | SIM_CLKDIV2_I2SFRAC(63);
     I2S0->MDR = I2S_MDR_FRACT(63) | I2S_MDR_DIVIDE(624);
 }
 void FrdmI2s::_i2s_init(void) {

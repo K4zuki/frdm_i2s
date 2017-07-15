@@ -181,7 +181,7 @@ static inline void i2s_irq(uint32_t tx_warn, uint32_t rx_warn, uint32_t instance
 void i2s0_irq() {
     uint32_t tx_status = SAI_TxGetStatusFlag(I2S0);
     uint32_t rx_status = SAI_RxGetStatusFlag(I2S0);
-    i2s_irq((tx_status & kSAI_FIFOWarningInterruptEnable), (rx_status & kSAI_FIFOWarningInterruptEnable), 0);
+    i2s_irq((tx_status & kSAI_FIFORequestInterruptEnable), (rx_status & kSAI_FIFORequestInterruptEnable), 0);
 }
 
 void i2s_irq_set(i2s_t *obj, SaiIrq irq, uint32_t enable) {
@@ -197,10 +197,10 @@ void i2s_irq_set(i2s_t *obj, SaiIrq irq, uint32_t enable) {
     if (enable) {
         switch (irq) {
             case IRQ_RX:
-                SAI_RxEnableInterrupts(i2s_addrs[obj->instance], kSAI_FIFOWarningInterruptEnable);
+                SAI_RxEnableInterrupts(i2s_addrs[obj->instance], kSAI_FIFORequestInterruptEnable);
                 break;
             case IRQ_TX:
-                SAI_TxEnableInterrupts(i2s_addrs[obj->instance], kSAI_FIFOWarningInterruptEnable);
+                SAI_TxEnableInterrupts(i2s_addrs[obj->instance], kSAI_FIFORequestInterruptEnable);
                 break;
             default:
                 break;
@@ -212,22 +212,22 @@ void i2s_irq_set(i2s_t *obj, SaiIrq irq, uint32_t enable) {
         SaiIrq other_irq = (irq == IRQ_RX) ? (IRQ_TX) : (IRQ_RX);
         switch (irq) {
             case IRQ_RX:
-                SAI_RxDisableInterrupts(i2s_addrs[obj->instance], kSAI_FIFOWarningInterruptEnable);
+                SAI_RxDisableInterrupts(i2s_addrs[obj->instance], kSAI_FIFORequestInterruptEnable);
                 break;
             case IRQ_TX:
-                SAI_TxDisableInterrupts(i2s_addrs[obj->instance], kSAI_FIFOWarningInterruptEnable);
+                SAI_TxDisableInterrupts(i2s_addrs[obj->instance], kSAI_FIFORequestInterruptEnable);
                 break;
             default:
                 break;
         }
         switch (other_irq) {
             case IRQ_RX:
-                all_disabled = ((SAI_RxGetStatusFlag(i2s_addrs[obj->instance]) & kSAI_FIFOWarningInterruptEnable) == 0)
+                all_disabled = ((SAI_RxGetStatusFlag(i2s_addrs[obj->instance]) & kSAI_FIFORequestInterruptEnable) == 0)
                                    ? true
                                    : false;
                 break;
             case IRQ_TX:
-                all_disabled = ((SAI_TxGetStatusFlag(i2s_addrs[obj->instance]) & kSAI_FIFOWarningInterruptEnable) == 0)
+                all_disabled = ((SAI_TxGetStatusFlag(i2s_addrs[obj->instance]) & kSAI_FIFORequestInterruptEnable) == 0)
                                    ? true
                                    : false;
                 break;

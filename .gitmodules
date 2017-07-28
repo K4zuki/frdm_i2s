@@ -1,0 +1,3 @@
+[submodule "frdmi2s_references"]
+	path = frdmi2s_references
+	url = git@github.com:K4zuki/frdmi2s_references.git
